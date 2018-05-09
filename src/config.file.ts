@@ -8,7 +8,7 @@ export default {
     "scheme": "Bearer",
     "urlConfig": {
         "version": "v1",
-        "baseUrl": "fluyo.ngrok.io/api",
+        "baseUrl": "quiniela/api",
         "loginEndpoint": "auth/token",
         "logoutEndpoint": "auth/logout",
         "refreshTokenEndpoint": "auth/refresh"

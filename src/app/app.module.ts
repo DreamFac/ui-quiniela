@@ -12,6 +12,13 @@ import { TokenInterceptor } from 'src/services/token.interceptor';
 import { AuthService } from 'src/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
+// components
+import { APP_COMPONENTS } from 'src/components';
+import { LocationStrategy } from '@angular/common';
+import { HashLocationStrategy } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from 'src/routes';
+
 const APP_COMMON_MODULES = [
   BrowserModule,
   FormsModule,
@@ -20,8 +27,17 @@ const APP_COMMON_MODULES = [
 ]
 
 @NgModule( {
-  declarations: [AppComponent],
-  imports: [...APP_COMMON_MODULES],
+  declarations: [
+    AppComponent,
+    ...APP_COMPONENTS
+  ],
+  imports: [
+    ...APP_COMMON_MODULES,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: false, useHash: false }
+    )
+  ],
   providers: [
     LoginEpics,
     LoginActions,
@@ -31,6 +47,10 @@ const APP_COMMON_MODULES = [
       useClass: TokenInterceptor,
       multi: true
     },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
   ],
   bootstrap: [ AppComponent ]
 } )
