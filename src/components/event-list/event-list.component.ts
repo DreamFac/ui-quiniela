@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { EventListActions } from './event-list.actions';
+import { select, NgRedux } from '@angular-redux/store';
+import { Event } from '../../models/event.model';
 
 @Component({
     selector: 'app-event-list',
@@ -8,7 +11,12 @@ import { Component, OnInit } from '@angular/core';
 
 export class EventListComponent implements OnInit {
     title = 'Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.'
-    constructor() { }
+    constructor(private store: NgRedux<any>) { }
 
-    ngOnInit() { }
+    @select(['events'])
+    events: Array<Event>
+
+    ngOnInit() {
+        this.store.select('')
+    }
 }

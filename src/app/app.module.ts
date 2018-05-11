@@ -18,6 +18,9 @@ import { LocationStrategy } from '@angular/common';
 import { HashLocationStrategy } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from 'src/routes';
+import { EventListEpic } from '../components/event-list/event-list.epic';
+import { EventListActions } from '../components/event-list/event-list.actions';
+import { EventListService } from '../components/event-list/event-list.service';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -41,7 +44,10 @@ const APP_COMMON_MODULES = [
   providers: [
     LoginEpics,
     LoginActions,
+    EventListEpic,
+    EventListActions,
     AuthService,
+    EventListService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
