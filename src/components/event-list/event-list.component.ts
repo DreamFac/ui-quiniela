@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class EventListComponent implements OnInit {
+    title = 'Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.'
     constructor() { }
 
     ngOnInit() { }
