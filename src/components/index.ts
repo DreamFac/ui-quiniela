@@ -1,10 +1,14 @@
 // components barrel
 import {
     LoginComponent,
+    HeaderComponent,
     DashboardComponent,
+    EventListComponent
   } from '../components/barrel';
 
   export const APP_COMPONENTS = [
     LoginComponent,
-    DashboardComponent
+    HeaderComponent,
+    DashboardComponent,
+    EventListComponent
 ];
