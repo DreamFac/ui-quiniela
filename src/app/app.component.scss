@@ -1,5 +1,14 @@
 * {
     font: normal normal 20px/24px Pilcrow, sans-serif;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+  }
+
+  *:focus {
+    outline:0;
   }
 
   body {
@@ -18,6 +27,7 @@
 
   app-root {
     display: flex;
+    position: fixed;
     flex-direction: column;
     top: 0;
     bottom: 0;
@@ -70,37 +80,14 @@
 }
 
 .box {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,.1);
+    box-shadow: 4px 4px 8px 2px rgba(0,0,0,.1);
     transition: all 0.1s ease-in-out;
-}
-
-.box.pick {
-    cursor: pointer;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,.1);
-    transition: all 0.1s ease-in-out;
-}
-
-.box.pick::after {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.1s ease-in-out;
-}
-
-/* Scale up the box */
-.box.pick:active {
-    transform: scale(0.9, 0.9);
-}
-/* Fade in the pseudo-element with the bigger shadow */
-.box.pick:hover::after {
-    opacity: 1;
 }
 
 @media only screen and (max-width: 768px) {
+    app-root {
+        position: relative;
+    }
     .flex-grid {
         flex-direction: column !important;
     }
