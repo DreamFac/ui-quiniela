@@ -7,10 +7,15 @@ export default {
     "protocol": "https",
     "scheme": "Bearer",
     "urlConfig": {
-        "version": "v1",
-        "baseUrl": "quiniela/api",
-        "loginEndpoint": "auth/token",
-        "logoutEndpoint": "auth/logout",
-        "refreshTokenEndpoint": "auth/refresh"
+        "auth": {
+            "version": "v1",
+            "baseUrl": "quiniela/api",
+            "loginEndpoint": "auth/token",
+            "logoutEndpoint": "auth/logout",
+            "refreshTokenEndpoint": "auth/refresh"
+        },
+        "events": {
+            "getAllEndpoint": "quinela/events"
+        }
     }
 }

@@ -6,11 +6,16 @@ export const config = ( configFile: ConfigFile ): AuthConfig => {
         protocol: configFile.protocol ? configFile.protocol : DEFAULT_PROTOCOL,
         scheme: configFile.scheme ? configFile.scheme : DEFAULT_AUTH_SCHEME,
         urlConfig: {
-            baseUrl: configFile.urlConfig.baseUrl,
-            version: configFile.urlConfig.version,
-            loginEndpoint: configFile.urlConfig.loginEndpoint,
-            logoutEndpoint: configFile.urlConfig.logoutEndpoint,
-            refreshTokenEndpoint: configFile.urlConfig.refreshTokenEndpoint
+            auth: {
+                baseUrl: configFile.urlConfig.auth.baseUrl,
+            version: configFile.urlConfig.auth.version,
+            loginEndpoint: configFile.urlConfig.auth.loginEndpoint,
+            logoutEndpoint: configFile.urlConfig.auth.logoutEndpoint,
+            refreshTokenEndpoint: configFile.urlConfig.auth.refreshTokenEndpoint
+            },
+            events: {
+                getAllEndpoint: configFile.urlConfig.events.getAllEndpoint
+            }
         }
     }
 }
@@ -18,7 +23,11 @@ export const config = ( configFile: ConfigFile ): AuthConfig => {
 export interface ConfigFile {
     protocol: string,
     scheme: string,
-    urlConfig: AuthUrlConfig
+    urlConfig: UrlConfig
+}
+export interface UrlConfig {
+    auth: AuthUrlConfig
+    events: EventUrlConfig
 }
 export interface AuthUrlConfig {
     baseUrl: string,
@@ -30,5 +39,8 @@ export interface AuthUrlConfig {
 export interface AuthConfig {
     protocol: string,
     scheme: string,
-    urlConfig: AuthUrlConfig
+    urlConfig: UrlConfig
+}
+export interface EventUrlConfig {
+    getAllEndpoint: string
 }
