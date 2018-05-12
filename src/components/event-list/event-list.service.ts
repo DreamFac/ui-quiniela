@@ -18,49 +18,49 @@ export class EventListService {
     getAll (): Observable<Array<Event>> {
         const { protocol,  urlConfig: { baseUrl, version, loginEndpoint } } = config(configFile)
         const eventListUrl = `${protocol}://${baseUrl}/${version}/${loginEndpoint}`
-        return Observable.create((observer: Subscriber<{}>) => { 
+        return Observable.create((observer: Subscriber<{}>) => {
             const events: Array<Event> = [
                 {
                     teamA: {
                         name: 'Argentina',
-                        flagUrl: ''
+                        flagUrl: 'ar'
                     },
                     teamB: {
                         name: 'Brazil',
-                        flagUrl: ''
+                        flagUrl: 'br'
                     },
                     date: new Date()
                 },
                 {
                     teamA: {
                         name: 'Spain',
-                        flagUrl: ''
+                        flagUrl: 'sn'
                     },
                     teamB: {
                         name: 'Germany',
-                        flagUrl: ''
+                        flagUrl: 'gr'
                     },
                     date: new Date()
                 },
                 {
                     teamA: {
                         name: 'Uruguay',
-                        flagUrl: ''
+                        flagUrl: 'ug'
                     },
                     teamB: {
                         name: 'Chile',
-                        flagUrl: ''
+                        flagUrl: 'ch'
                     },
                     date: new Date()
                 },
                 {
                     teamA: {
                         name: 'Sweden',
-                        flagUrl: ''
+                        flagUrl: 'sn'
                     },
                     teamB: {
                         name: 'Japan',
-                        flagUrl: ''
+                        flagUrl: 'jp'
                     },
                     date: new Date()
                 }

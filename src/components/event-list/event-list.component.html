@@ -3,15 +3,15 @@
         {{ title }}
     </div>
     <div class="events">
-        <div class="pick-padd">
+        <div class="pick-padd" *ngFor="let event of events | async">
             <div class="flex-grid">
                 <div class="col center box pick">
                     <div class="flex-grid-row">
                         <div class="col">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/2000px-Flag_of_Argentina.svg.png">
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flagUrl"></span>
                         </div>
                         <div class="col-sm">
-                            ARG
+                            {{ event.teamA.name }}
                         </div>
                     </div>
                 </div>
@@ -29,10 +29,10 @@
                 <div class="col center box pick">
                     <div class="flex-grid-row">
                         <div class="col">
-                            <img src="http://nationalflagstore.com/wp-content/uploads/2014/07/brazil-flag1.jpg">
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flagUrl"></span>
                         </div>
                         <div class="col-sm">
-                            BRA
+                            {{ event.teamB.name }}
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             &nbsp;
                         </div>
                         <div class="col">
-                            16:00 EST.
+                            {{ event.date }}
                         </div>
                         <div class="col">
                             &nbsp;

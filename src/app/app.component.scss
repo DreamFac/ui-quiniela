@@ -27,7 +27,7 @@
 
   app-root {
     display: flex;
-    position: fixed;
+    position: relative;
     flex-direction: column;
     top: 0;
     bottom: 0;
@@ -84,10 +84,12 @@
     transition: all 0.1s ease-in-out;
 }
 
+span.flag-icon {
+    width: 80px;
+    height: 80px;
+}
+
 @media only screen and (max-width: 768px) {
-    app-root {
-        position: relative;
-    }
     .flex-grid {
         flex-direction: column !important;
     }

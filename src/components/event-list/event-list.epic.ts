@@ -32,8 +32,8 @@ export class EventListEpic {
       .concatMap((result: ReduxAction<EventModel>) => {
         const { payload } = result
         return this.eventListService.getAll()
-            .map((result) => {
-                return EventListActions.getAllSuccess(result)
+            .map((response) => {
+                return EventListActions.getAllSuccess(response)
             })
       })
   }

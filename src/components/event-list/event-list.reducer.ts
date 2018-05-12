@@ -2,10 +2,10 @@ import { Reducer, AnyAction } from 'redux'
 import { EventListActions } from './event-list.actions';
 
 export interface EventState {
-    events: Array<any>
+    eventList: Array<any>
 }
 export const EVENTS_INITIAL_STATE = {
-    events: []
+    eventList: []
 }
 export const eventListReducer: Reducer<EventState> = (
     state: EventState = { ...EVENTS_INITIAL_STATE },
@@ -13,7 +13,9 @@ export const eventListReducer: Reducer<EventState> = (
 ): EventState => {
     switch ( action.type ) {
         case EventListActions.GET_ALL:
-            return { ...state, events: action.payload }
+            return { ...state, eventList: action.payload }
+        case EventListActions.GET_ALL_SUCCESS:
+            return { ...state, eventList: action.payload }
         default:
             return state
     }
