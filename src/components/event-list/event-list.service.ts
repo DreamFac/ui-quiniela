@@ -36,18 +36,18 @@ export class EventListService {
                         flagUrl: 'ar'
                     },
                     teamB: {
-                        name: 'Brazil',
-                        flagUrl: 'br'
+                        name: 'Italia',
+                        flagUrl: 'it'
                     },
                     date: new Date()
                 } ),
                 new EventModel( {
                     teamA: {
-                        name: 'Spain',
+                        name: 'España',
                         flagUrl: 'sn'
                     },
                     teamB: {
-                        name: 'Germany',
+                        name: 'Alemania',
                         flagUrl: 'gr'
                     },
                     date: new Date()
@@ -65,11 +65,11 @@ export class EventListService {
                 } ),
                 new EventModel( {
                     teamA: {
-                        name: 'Sweden',
+                        name: 'Suecia',
                         flagUrl: 'sn'
                     },
                     teamB: {
-                        name: 'Japan',
+                        name: 'Japon',
                         flagUrl: 'jp'
                     },
                     date: new Date()

@@ -14,7 +14,17 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
     constructor ( private http: HttpClient ) { }
     login ( loginModel: LogInModel ): Observable<JwtInfo> {
-        const { protocol,  urlConfig: { baseUrl, version, loginEndpoint } } = config(configFile)
+        const { protocol, urlConfig: {
+            auth: {
+                baseUrl,
+                version,
+                loginEndpoint
+            },
+            events: {
+                getAllEndpoint
+            }
+        }
+    } = config( configFile )
         const loginUrl = `${protocol}://${baseUrl}/${version}/${loginEndpoint}`
         return this.http.post( loginUrl, loginModel )
             .catch( ( err ) => {

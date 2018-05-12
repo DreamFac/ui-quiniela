@@ -33,13 +33,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #424242;
+    background: url('https://wallpaperscute.com/wp-content/uploads/2018/03/Wallpaper-World-Cup-Russia-Desktop.jpg')
   }
 
 .app {
     height: 100%;
     padding: 15px;
-    background-color: snow;
+    background: none;
     margin: 0px 15px 15px 15px;
 }
 
@@ -63,15 +63,16 @@
 .flex-grid-row {
     height: 100%;
     display: flex;
-    padding: 5px;
     flex-direction: column !important;
 }
 
 .col {
+    margin: 5px;
     flex: 1;
 }
 
 .col-sm {
+    margin: 5px;
     flex: 0.5;
 }
 
@@ -80,6 +81,7 @@
 }
 
 .box {
+    background: snow;
     box-shadow: 4px 4px 8px 2px rgba(0,0,0,.1);
     transition: all 0.1s ease-in-out;
 }
@@ -95,5 +97,8 @@ span.flag-icon {
     }
     .flex-grid-row {
         flex-direction: column !important;
+    }
+    .vs {
+        line-height: 1 !important;
     }
 }
