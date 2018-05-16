@@ -5,7 +5,7 @@
     <div class="events">
         <div class="pick-padd" *ngFor="let event of events | async">
             <div class="flex-grid">
-                <div class="col center box pick">
+                <div class="col center box pick" [ngClass]="{'isPicked': event.teamA.isPicked}" (click)="pick(event.teamA)">
                     <div class="flex-grid-row">
                         <div class="col">
                             <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flagUrl"></span>
@@ -17,14 +17,14 @@
                 </div>
                 <div class="col-xs center">
                     <div class="flex-grid-row">
-                        <div class="col box pick">
+                        <div class="col box pick" [ngClass]="{'isPicked': event.tie.isPicked}" (click)="pickTie(event)">
                             <div class="vs">
                                 vs
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col center box pick">
+                <div class="col center box pick" [ngClass]="{'isPicked': event.teamB.isPicked}" (click)="pick(event.teamB)">
                     <div class="flex-grid-row">
                         <div class="col">
                             <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flagUrl"></span>
