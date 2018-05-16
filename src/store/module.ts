@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store'
+import { createLogger } from 'redux-logger'
 
 // The top-level reducers and epics that make up our app's logic.
 import { AppState, InitialState } from './model'
@@ -23,7 +24,7 @@ export class StoreModule {
         ngRedux.configureStore(
             persistedReducer,
             InitialState,
-            [ ...epics.createEpics() ]
+            [ createLogger() , ...epics.createEpics() ]
         )
         persistStore( ngRedux, () => ngRedux.getState() )
     }

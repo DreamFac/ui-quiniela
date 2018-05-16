@@ -27,13 +27,13 @@
 
   app-root {
     display: flex;
-    position: absolute;
+    position: inherit;
     flex-direction: column;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: url('https://wallpaperscute.com/wp-content/uploads/2018/03/Wallpaper-World-Cup-Russia-Desktop.jpg')
+    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/pineapplecut.png");
   }
 
 .app {
@@ -99,6 +99,7 @@ span.flag-icon {
         flex-direction: column !important;
     }
     .vs {
+        width: auto !important;
         line-height: 1 !important;
     }
 }
