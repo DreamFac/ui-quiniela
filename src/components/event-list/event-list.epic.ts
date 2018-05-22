@@ -13,7 +13,9 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/concat";
 import "rxjs/add/operator/concatMap";
+import "rxjs/add/operator/concatAll";
 import "rxjs/add/observable/fromPromise";
+import { flatMap } from 'rxjs/operators';
 
 // app
 import { ReduxAction } from "src/store/types";
@@ -61,7 +63,10 @@ export class EventListEpic {
       .map((result: ReduxAction<Team>) => {
         const { payload } = result;
         const { events: { eventList } } = store.getState()
-        const event = this.eventListService.selectTeam(eventList, payload)
+        return this.eventListService.selectTeam(eventList, payload)
+      })
+      .concatAll()
+      .map((event: EventModel) => {
         return EventListActions.selectTeamSuccess(event)
       })
   };

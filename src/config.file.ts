@@ -15,7 +15,8 @@ export default {
             "refreshTokenEndpoint": "auth/refresh"
         },
         "events": {
-            "getAllEndpoint": "quinela/events"
+            "getAllEndpoint": "quinela/events",
+            "selectTeamEndpoint": "quinela/select"
         }
     }
 }
