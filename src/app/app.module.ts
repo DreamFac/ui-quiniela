@@ -21,6 +21,7 @@ import { appRoutes } from 'src/routes';
 import { EventListEpic } from '../components/event-list/event-list.epic';
 import { EventListActions } from '../components/event-list/event-list.actions';
 import { EventListService } from '../components/event-list/event-list.service';
+import { HttpWrapper } from '../services/http-wrapper.service';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -48,6 +49,7 @@ const APP_COMMON_MODULES = [
     EventListActions,
     AuthService,
     EventListService,
+    HttpWrapper,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

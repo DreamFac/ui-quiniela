@@ -23,9 +23,9 @@ export class TokenInterceptor implements HttpInterceptor {
             const { token } = jwtInfo
             const authConfig = config( configFile )
             request = request.clone( {
-                setHeaders: {
-                    Authorization: `${ authConfig.scheme } ${ token }`
-                }
+                // setHeaders: {
+                //     Authorization: `${ authConfig.scheme } ${ token }`
+                // }
             } )
         } )
         return next.handle( request );

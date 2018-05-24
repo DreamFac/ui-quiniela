@@ -4,18 +4,18 @@
  * url configuration json object.
  */
 export default {
-    "protocol": "https",
+    "protocol": "http",
     "scheme": "Bearer",
     "urlConfig": {
         "auth": {
             "version": "v1",
-            "baseUrl": "quiniela/api",
+            "baseUrl": "oraculapp.ngrok.io/api",
             "loginEndpoint": "auth/token",
             "logoutEndpoint": "auth/logout",
             "refreshTokenEndpoint": "auth/refresh"
         },
         "events": {
-            "getAllEndpoint": "quinela/events",
+            "getAllEndpoint": "events/",
             "selectTeamEndpoint": "quinela/select"
         }
     }

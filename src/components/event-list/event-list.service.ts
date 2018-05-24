@@ -12,6 +12,7 @@ import { HttpClient } from "@angular/common/http";
 import { Subscriber } from "rxjs";
 import { Event, EventModel, Team, Tie } from "../../models/event.model";
 import { first } from 'lodash';
+import { HttpWrapper } from "../../services/http-wrapper.service";
 
 const {
   protocol,
@@ -23,79 +24,14 @@ const {
 
 @Injectable()
 export class EventListService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpWrapper) {}
   getAll(): Observable<Array<Event>> {
-    const eventListUrl = `${protocol}://${baseUrl}/${version}/${loginEndpoint}`;
-    return Observable.create((observer: Subscriber<{}>) => {
-      const events: Array<Event> = [
-        new EventModel({
-          teamA: {
-            id: "1",
-            name: "Argentina",
-            flagUrl: "ar"
-          },
-          teamB: {
-            id: "2",
-            name: "Italia",
-            flagUrl: "it"
-          },
-          tie: {
-            isPicked: false
-          },
-          date: new Date()
-        }),
-        new EventModel({
-          teamA: {
-            id: "3",
-            name: "España",
-            flagUrl: "sn"
-          },
-          teamB: {
-            id: "4",
-            name: "Alemania",
-            flagUrl: "gr"
-          },
-          tie: {
-            isPicked: false
-          },
-          date: new Date()
-        }),
-        new EventModel({
-          teamA: {
-            id: "5",
-            name: "Uruguay",
-            flagUrl: "ug"
-          },
-          teamB: {
-            id: "6",
-            name: "Chile",
-            flagUrl: "ch"
-          },
-          tie: {
-            isPicked: false
-          },
-          date: new Date()
-        }),
-        new EventModel({
-          teamA: {
-            id: "7",
-            name: "Suecia",
-            flagUrl: "sn"
-          },
-          teamB: {
-            id: "8",
-            name: "Japon",
-            flagUrl: "jp"
-          },
-          tie: {
-            isPicked: false
-          },
-          date: new Date()
-        })
-      ];
-      observer.next(events);
-      observer.complete();
-    });
+    const events: Array<Event> = []
+    const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
+    return this.http.get(eventListUrl)
+      .map((response) => {
+        return []
+      })
   }
 
   selectTie(eventList: Array<EventModel>, event: EventModel): EventModel {
