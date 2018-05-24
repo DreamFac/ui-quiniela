@@ -10,34 +10,34 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { HttpResponse } from 'selenium-webdriver/http';
 
 @Injectable()
-export class HttpWrapper {
+export class HttpWrapper<T> {
     isInRequest: boolean = false
     constructor(private http: HttpClient) { }
-    get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    get(url: string, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Get, url, null, options);
     }
 
-    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Post, url, body, options);
     }
 
-    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Put, url, body, options);
     }
 
-    delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    delete(url: string, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Delete, url, null, options);
     }
 
-    patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    patch(url: string, body: any, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Patch, url, body, options);
     }
 
-    head(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    head(url: string, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Head, url, null, options);
     }
 
-    private request(method: RequestMethod, url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
+    private request(method: RequestMethod, url: string, body?: any, options?: RequestOptionsArgs): Observable<T> {
         let requestOptions = new HttpRequest<any>(RequestMethod[method.toString()], url)
         return Observable.create((observer) => {
             this.isInRequest = true
@@ -45,7 +45,7 @@ export class HttpWrapper {
                 .subscribe((response: any | HttpResponse) => {
                     if (response.type) {
                         this.isInRequest = false;
-                        observer.next(response);
+                        observer.next(response.body);
                         observer.complete();
                     }
                 }, (error) => {

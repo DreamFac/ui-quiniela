@@ -24,13 +24,23 @@ const {
 
 @Injectable()
 export class EventListService {
-  constructor(private http: HttpWrapper) {}
+  constructor(private http: HttpWrapper<Array<Event>>) {}
   getAll(): Observable<Array<Event>> {
-    const events: Array<Event> = []
+    let events: Array<Event> = []
     const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
     return this.http.get(eventListUrl)
-      .map((response) => {
-        return []
+      .map((response: Array<any>) => {
+        events = response.map(event => {
+          return {
+            date: event.date,
+            teamA: event.team_event.shift().team,
+            teamB: event.team_event.pop().team,
+            tie: {
+              isPicked: false
+            }
+          }
+        })
+        return events
       })
   }
 
