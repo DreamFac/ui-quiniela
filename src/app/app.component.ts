@@ -8,8 +8,8 @@ import { HttpWrapper } from '../services/http-wrapper.service';
 } )
 export class AppComponent implements AfterContentInit {
   isLoading: boolean
-  constructor(private httpWrapper: HttpWrapper<any>) {
-    this.isLoading = this.httpWrapper.isInRequest
+  constructor(httpWrapper: HttpWrapper<any>) {
+    this.isLoading = httpWrapper.isInRequest
   }
   ngAfterContentInit () {
     //
