@@ -106,6 +106,9 @@ span.flag-icon {
 }
 
 @media only screen and (max-width: 768px) {
+    app-root {
+      height: fit-content;
+    }
     .flex-grid {
         flex-direction: column !important;
     }

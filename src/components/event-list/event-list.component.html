@@ -8,7 +8,7 @@
                 <div class="col center box pick" [ngClass]="{'isPicked': event.teamA.isPicked}" (click)="pick(event.teamA)">
                     <div class="flex-grid-row">
                         <div class="col">
-                            <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flagUrl"></span>
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
                         </div>
                         <div class="col-sm">
                             {{ event.teamA.name }}
@@ -27,7 +27,7 @@
                 <div class="col center box pick" [ngClass]="{'isPicked': event.teamB.isPicked}" (click)="pick(event.teamB)">
                     <div class="flex-grid-row">
                         <div class="col">
-                            <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flagUrl"></span>
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
                         </div>
                         <div class="col-sm">
                             {{ event.teamB.name }}
