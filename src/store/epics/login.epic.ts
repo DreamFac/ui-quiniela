@@ -1,4 +1,5 @@
 // angular
+import { Router } from '@angular/router'
 import { Injectable } from '@angular/core'
 
 // redux
@@ -23,9 +24,11 @@ import { AuthService } from 'src/services/auth.service';
 
 @Injectable()
 export class LoginEpics {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   createEpics() {
-    return [createEpicMiddleware(this.login)]
+    return [
+      createEpicMiddleware(this.login)
+    ]
   }
   login = (action$: any, store: any): Observable<Action> => {
     return action$.ofType(LoginActions.LOGIN)
@@ -36,8 +39,20 @@ export class LoginEpics {
                 if ( response.error ) {
                     return LoginActions.failed(response.error)
                 }
+                this.router.navigate(['/dashboard'])
                 return LoginActions.success(response)
             })
+      })
+  }
+
+  loginSuccess = (action$: any, store: any): Observable<Action> => {
+    return action$.ofType(LoginActions.LOGIN_SUCCESS)
+      .concatMap((result: ReduxAction<LogInModel>) => {
+        const { payload } = result
+        return {
+          type: LoginActions.LOGIN_SUCCESS,
+          payload: payload
+        }
       })
   }
 }

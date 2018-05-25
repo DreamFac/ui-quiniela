@@ -1,5 +1,5 @@
 export interface JwtInfo {
-    token: string
+    access: string
     username: string
     expired: () => boolean | null
     expires: number

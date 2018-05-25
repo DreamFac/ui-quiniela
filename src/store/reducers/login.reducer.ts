@@ -10,7 +10,7 @@ export const AUTH_INITIAL_STATE = {
     authenticated: false
 }
 export const JWT_INITIAL_STATE = {
-    token: '',
+    access: '',
     username: '',
     expired: null,
     expires: 0

@@ -26,7 +26,9 @@
   }
 
   app-root {
+    height: stretch;
     display: flex;
+    position: absolute;
     flex-direction: column;
     top: 0;
     bottom: 0;
@@ -90,11 +92,20 @@ span.flag-icon {
     height: 80px;
 }
 
+.oraculapp-btn {
+  padding: 20px;
+  width: 100%;
+  background: #97bf0d;
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
+  box-shadow: none;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
 @media only screen and (max-width: 768px) {
-    app-root {
-        height: auto !important;
-        position: relative;
-    }
     .flex-grid {
         flex-direction: column !important;
     }

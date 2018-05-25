@@ -1,10 +1,29 @@
-<div>Username</div>
-<input type="text" placeholder="username" [(ngModel)]="model.username" />
-<div>Password</div>
-<input type="password" placeholder="password" [(ngModel)]="model.password" />
-<div class="login">
-    <input class="btn" type="button" value="Login" (click)="login()" />
-</div>
-<div class="container">
-    <pre><code>{{ parseJwtInfo() | async }}</code></pre>
+<div class="login-container">
+    <div class="col half">
+        <article>
+            <h1>Ingresar</h1>
+            <div class="wpcf7" id="wpcf7-f2943-p13-o1" lang="en-US" dir="ltr">
+                <div class="screen-reader-response"></div>
+                <form name="" action="/contact/#wpcf7-f2943-p13-o1" method="post" class="wpcf7-form" novalidate="">
+                    <p>
+                        <label for="your-name">Username</label>
+                        <span class="wpcf7-form-control-wrap your-name">
+                            <input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                                id="your-name" aria-required="true" aria-invalid="false" [(ngModel)]="model.username">
+                        </span>
+                    </p>
+                    <p>
+                        <label for="company">Password</label>
+                        <span class="wpcf7-form-control-wrap company">
+                            <input type="password" name="password" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                                id="password" aria-required="true" aria-invalid="false" [(ngModel)]="model.password">
+                        </span>
+                    </p>
+                    <p class="btn-container">
+                        <input class="oraculapp-btn" type="button" value="Login" (click)="login()" />
+                    </p>
+                </form>
+            </div>
+        </article>
+    </div>
 </div>
