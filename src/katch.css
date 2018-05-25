@@ -1948,7 +1948,7 @@ div.wpcf7-validation-errors {
     margin-top: 0
 }
 
-.fancybox-inner .col {
+.fancybox-inner  {
     margin-bottom: 0
 }
 
@@ -2265,14 +2265,6 @@ only screen and (min-device-pixel-ratio:1.5) {
         clear: both;
         zoom: 1
     }
-    .col {
-        float: left;
-        margin: 0 0 25px;
-        padding: 0 20px;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box
-    }
     .fifth,
     .quarter {
         width: 50%
@@ -2313,10 +2305,10 @@ only screen and (min-device-pixel-ratio:1.5) {
     .product-integration p {
         text-align: center
     }
-    .product-analytics .col,
-    .product-bid-control .col,
-    .product-problem .col,
-    .product-workflow .col {
+    .product-analytics ,
+    .product-bid-control ,
+    .product-problem ,
+    .product-workflow  {
         margin-bottom: 0
     }
     .customization-caption {
