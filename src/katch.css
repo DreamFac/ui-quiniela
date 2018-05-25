@@ -99,7 +99,7 @@ body {
 
 h1 {
     font: 700 48px/55px Pilcrow-Bold, sans-serif;
-    color: #333;
+    color: white;
     margin: 40px 0 25px
 }
 
@@ -307,7 +307,7 @@ blockquote:before {
 }
 
 label {
-    color: #333;
+    color: white;
     margin: 0 0 5px;
     display: -moz-inline-stack;
     display: inline-block;
@@ -1399,7 +1399,7 @@ section {
 }
 
 article {
-    background: #fff;
+    background: dimgray;
     border: 1px solid #aaa;
     padding: 20px
 }

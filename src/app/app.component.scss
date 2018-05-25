@@ -25,6 +25,11 @@
     width: 100% !important;
   }
 
+  .main-container {
+    height: -webkit-fill-available;
+    overflow-y: scroll;
+  }
+
   app-root {
     height: stretch;
     display: flex;
@@ -38,10 +43,10 @@
   }
 
 .app {
-    height: 100%;
-    padding: 15px;
-    background: none;
-    margin: 0px 15px 15px 15px;
+  position: relative;
+  padding: 15px;
+  background: none;
+  margin: 0px 15px 15px 15px;
 }
 
 .left {
@@ -107,7 +112,7 @@ span.flag-icon {
 
 @media only screen and (max-width: 768px) {
     app-root {
-      height: fit-content;
+      height: auto !important;
     }
     .flex-grid {
         flex-direction: column !important;
