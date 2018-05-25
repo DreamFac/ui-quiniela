@@ -1,29 +1,37 @@
-<div class="login-container">
-    <div class="col half">
-        <article>
-            <h1>Ingresar</h1>
-            <div class="wpcf7" id="wpcf7-f2943-p13-o1" lang="en-US" dir="ltr">
-                <div class="screen-reader-response"></div>
-                <form name="" action="/contact/#wpcf7-f2943-p13-o1" method="post" class="wpcf7-form" novalidate="">
-                    <p>
-                        <label for="your-name">Username</label>
-                        <span class="wpcf7-form-control-wrap your-name">
-                            <input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                                id="your-name" aria-required="true" aria-invalid="false" [(ngModel)]="model.username">
-                        </span>
-                    </p>
-                    <p>
-                        <label for="company">Password</label>
-                        <span class="wpcf7-form-control-wrap company">
-                            <input type="password" name="password" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                                id="password" aria-required="true" aria-invalid="false" [(ngModel)]="model.password">
-                        </span>
-                    </p>
-                    <p class="btn-container">
-                        <input class="oraculapp-btn" type="button" value="Login" (click)="login()" />
-                    </p>
-                </form>
+<div class="flex-grid">
+    <div class="col-sm">
+    </div>
+    <div class="col">
+        <div class="login-container">
+            <div class="col">
+                <article>
+                    <h1>Ingresar</h1>
+                    <div class="wpcf7" id="wpcf7-f2943-p13-o1" lang="en-US" dir="ltr">
+                        <div class="screen-reader-response"></div>
+                        <form name="" action="/contact/#wpcf7-f2943-p13-o1" method="post" class="wpcf7-form" novalidate="">
+                            <p>
+                                <label for="your-name">Username</label>
+                                <span class="wpcf7-form-control-wrap your-name">
+                                    <input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                                        id="your-name" aria-required="true" aria-invalid="false" [(ngModel)]="model.username">
+                                </span>
+                            </p>
+                            <p>
+                                <label for="company">Password</label>
+                                <span class="wpcf7-form-control-wrap company">
+                                    <input type="password" name="password" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                                        id="password" aria-required="true" aria-invalid="false" [(ngModel)]="model.password">
+                                </span>
+                            </p>
+                            <p class="btn-container">
+                                <input class="oraculapp-btn" type="button" value="Login" (click)="login()" />
+                            </p>
+                        </form>
+                    </div>
+                </article>
             </div>
-        </article>
+        </div>
+    </div>
+    <div class="col-sm">
     </div>
 </div>
