@@ -115,6 +115,9 @@ span.flag-icon {
     .flex-grid-row {
         flex-direction: column !important;
     }
+    .box.pick {
+      height: auto !important;
+    }
     .vs {
         width: auto !important;
         line-height: 1 !important;
@@ -131,7 +134,6 @@ span.flag-icon {
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5);
-    z-index: 99999;
     opacity: 0.6;
 }
 
