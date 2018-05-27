@@ -38,7 +38,7 @@ export class HttpWrapper<T> {
     }
 
     private request(method: RequestMethod, url: string, body?: any, options?: RequestOptionsArgs): Observable<T> {
-        let requestOptions = new HttpRequest<any>(RequestMethod[method.toString()], url)
+        const requestOptions = new HttpRequest<any>(RequestMethod[method.toString()], url)
         return Observable.create((observer) => {
             this.isInRequest = true
             this.http.request(requestOptions)
@@ -47,6 +47,9 @@ export class HttpWrapper<T> {
                         this.isInRequest = false;
                         observer.next(response.body);
                         observer.complete();
+                    }
+                    if (response.error) {
+                        observer.error()
                     }
                 }, (error) => {
                     observer.error()

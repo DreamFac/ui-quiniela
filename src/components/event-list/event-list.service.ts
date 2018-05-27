@@ -53,7 +53,7 @@ export class EventListService {
 
   selectTeam(eventList: Array<EventModel>, team: Team): Observable<EventModel> {
     let index: number;
-    const selectTeamUrl = `${protocol}://${baseUrl}/${version}/${selectTeamEndpoint}`;
+    const selectTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
     return this.http.post(selectTeamUrl, {})
       .catch((error) => {
         return Observable.of(error)
