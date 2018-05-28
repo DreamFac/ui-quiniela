@@ -60,12 +60,11 @@ export class EventListEpic {
   selectTeam = (action$: any, store: any): Observable<Action> => {
     return action$
       .ofType(EventListActions.SELECT_TEAM)
-      .map((result: ReduxAction<Team>) => {
+      .concatMap((result: ReduxAction<Team>) => {
         const { payload } = result;
         const { events: { eventList } } = store.getState()
         return this.eventListService.selectTeam(eventList, payload)
       })
-      .concatAll()
       .map((event: EventModel) => {
         return EventListActions.selectTeamSuccess(event)
       })
