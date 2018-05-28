@@ -1,5 +1,6 @@
 * {
     font: normal normal 20px/24px Pilcrow, sans-serif;
+    color: white;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: -moz-none;
@@ -39,7 +40,9 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: url("https://www.toptal.com/designers/subtlepatterns/patterns/pineapplecut.png");
+    background-image: -webkit-linear-gradient(30deg, #013A6B 50%, #004E95 50%);
+    // background-image: linear-gradient(to right bottom, #c41467, #c41467, #201d53, #201d53);
+    // background: url("https://wallpaperstock.net/wallpapers/thumbs1/34092hd.jpg");
   }
 
 .app {
