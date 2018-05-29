@@ -14,6 +14,7 @@ export const config = (configFile: ConfigFile): AuthConfig => {
                 refreshTokenEndpoint: configFile.urlConfig.auth.refreshTokenEndpoint
             },
             events: {
+                resultTypes: configFile.urlConfig.events.resultTypes,
                 getAllEndpoint: configFile.urlConfig.events.getAllEndpoint,
                 selectTeamEndpoint: configFile.urlConfig.events.selectTeamEndpoint
             }
@@ -43,6 +44,7 @@ export interface AuthConfig {
     urlConfig: UrlConfig
 }
 export interface EventUrlConfig {
+    resultTypes: string
     getAllEndpoint: string
     selectTeamEndpoint: string
 }

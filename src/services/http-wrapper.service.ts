@@ -49,10 +49,10 @@ export class HttpWrapper<T> {
                         observer.complete();
                     }
                     if (response.error) {
-                        observer.error()
+                        observer.error(response)
                     }
                 }, (error) => {
-                    observer.error()
+                    observer.error(error)
                     this.isInRequest = false
                 })
         })

@@ -1,5 +1,6 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { Headers } from "@angular/http";
+import { delay, tap, startWith } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import "rxjs/add/observable/from";
@@ -13,67 +14,80 @@ import { Subscriber } from "rxjs";
 import { Event, EventModel, Team, Tie } from "../../models/event.model";
 import { first } from 'lodash';
 import { HttpWrapper } from "../../services/http-wrapper.service";
+import { ResultType } from "src/types";
 
 const {
   protocol,
   urlConfig: {
     auth: { baseUrl, version, loginEndpoint },
-    events: { getAllEndpoint, selectTeamEndpoint }
+    events: { resultTypes, getAllEndpoint, selectTeamEndpoint }
   }
-} = config(configFile);
+} = config( configFile );
 
 @Injectable()
 export class EventListService {
-  constructor(private http: HttpWrapper<Array<Event>>) {}
-  getAll(): Observable<Array<Event>> {
+  resultTypes: ResultType[] = []
+  constructor ( private http: HttpWrapper<Array<any>> ) {
+    Observable.of()
+      .pipe(
+      startWith( null ),
+      delay( 0 ),
+      tap( () => {
+        const resultTypesUrl = `${ protocol }://${ baseUrl }/${ version }/${ resultTypes }`;
+        this.http.get( resultTypesUrl )
+          .subscribe( ( response: ResultType[] ) => {
+            this.resultTypes = response
+          } )
+      } )
+      ).subscribe()
+  }
+  getAll (): Observable<Array<Event>> {
     let events: Array<Event> = []
-    const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
-    return this.http.get(eventListUrl)
-      .map((response: Array<any>) => {
-        events = response.map(event => {
+    const eventListUrl = `${ protocol }://${ baseUrl }/${ version }/${ getAllEndpoint }`;
+    return this.http.get( eventListUrl )
+      .map( ( response: Array<any> ) => {
+        events = response.map( event => {
           return {
             date: event.date,
+            place: event.place,
+            event_type: event.event_type,
             teamA: event.team_event.shift().team,
             teamB: event.team_event.pop().team,
             tie: {
               isPicked: false
             }
           }
-        })
+        } )
         return events
-      })
+      } )
   }
 
-  selectTie(eventList: Array<EventModel>, event: EventModel): EventModel {
+  selectTie ( eventList: Array<EventModel>, event: EventModel ): EventModel {
     event.tie.isPicked = !event.tie.isPicked
     event.teamA.isPicked = false
     event.teamB.isPicked = false
-    return first(eventList.filter(x => x.teamA.id === event.teamA.id))
+    return first( eventList.filter( x => x.teamA.id === event.teamA.id ) )
   }
 
-  selectTeam(eventList: Array<EventModel>, team: Team): Observable<EventModel> {
-    let index: number;
-    const selectTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
-    return this.http.post(selectTeamUrl, {})
-      .catch((error) => {
-        return Observable.of(error)
-      })
-      .map((response) => {
-        eventList.map((event: EventModel, i: number) => {
-          if (event.teamA.id === team.id) {
-            index = i;
-            event.tie.isPicked = false;
-            event.teamB.isPicked = false;
-            event.teamA.isPicked = !event.teamA.isPicked;
-          } else if (event.teamB.id === team.id) {
-            index = i;
-            event.tie.isPicked = false;
-            event.teamA.isPicked = false;
-            event.teamB.isPicked = !event.teamB.isPicked;
-          }
-          return event;
-        });
-        return eventList[index]
-      })
+  selectTeam ( event: Event, team: Team ): Observable<EventModel> {
+    const selectTeamUrl = `${ protocol }://${ baseUrl }/${ version }/predictions/`;
+    return this.http.post( selectTeamUrl, {} )
+      .catch( ( error ) => {
+        return Observable.of( error )
+      } )
+      .map( ( response ) => {
+        if ( !response.error ) {
+            if ( event.teamA.id === team.id ) {
+              event.tie.isPicked = false;
+              event.teamB.isPicked = false;
+              event.teamA.isPicked = !event.teamA.isPicked;
+            } else if ( event.teamB.id === team.id ) {
+              event.tie.isPicked = false;
+              event.teamA.isPicked = false;
+              event.teamB.isPicked = !event.teamB.isPicked;
+            }
+            return event;
+        }
+      } )
   }
 }

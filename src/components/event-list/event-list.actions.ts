@@ -33,10 +33,13 @@ export class EventListActions {
       }
   }
   @dispatch()
-  static selectTeam (team: Team): ReduxAction<Team> {
+  static selectTeam (event: Event, team: Team): ReduxAction<{event: Event, team: Team}> {
       return {
           type: EventListActions.SELECT_TEAM,
-          payload: team
+          payload: {
+              event,
+              team
+          }
       }
   }
   static selectTeamSuccess (event: EventModel): ReduxAction<EventModel> {
