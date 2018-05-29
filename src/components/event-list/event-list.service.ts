@@ -51,8 +51,8 @@ export class EventListService {
             date: event.date,
             place: event.place,
             event_type: event.event_type,
-            teamA: event.team_event.shift().team,
-            teamB: event.team_event.pop().team,
+            teamA: event.team_event.shift(),
+            teamB: event.team_event.pop(),
             tie: {
               isPicked: false
             }
