@@ -1,5 +1,7 @@
+// oracle app api types
+
 export interface Team {
-    id?: string
+    id?: number
     name: string
     flag: string
 }
@@ -45,4 +47,10 @@ export interface EventPrediction {
     prediction: PredictionEnum
 }
 
+export interface EventPredictionDto {
+    team_event: number
+    team: Team
+    result_type: ResultType
+    prediction: any
+}
 

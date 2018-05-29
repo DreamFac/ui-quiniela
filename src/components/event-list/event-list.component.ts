@@ -12,7 +12,7 @@ import { Observable } from "rxjs/Observable";
 })
 export class EventListComponent implements AfterContentInit {
   title = "Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
-  constructor(private store: NgRedux<any>) {}
+  constructor(private store: NgRedux<any>) { }
 
   @select(["events", "eventList"])
   events: Observable<Array<Event>>;
@@ -21,7 +21,7 @@ export class EventListComponent implements AfterContentInit {
     Observable.of()
       .pipe(
         startWith(null),
-        delay(0),
+        delay(100),
         tap(() => EventListActions.getAll())
       ).subscribe()
   }

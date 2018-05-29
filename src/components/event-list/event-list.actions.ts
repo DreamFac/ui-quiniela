@@ -19,7 +19,7 @@ export class EventListActions {
       payload: []
     }
   }
-  static getAllSuccess (events: Array<Event>): ReduxAction<Array<EventModel>> {
+  static getAllSuccess (events: Array<EventModel>): ReduxAction<Array<EventModel>> {
     return {
       type: EventListActions.GET_ALL_SUCCESS,
       payload: events
