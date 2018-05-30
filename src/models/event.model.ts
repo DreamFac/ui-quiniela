@@ -1,3 +1,5 @@
+import { EventType } from "../types";
+
 export interface Team {
   id: number;
   name: string;
@@ -11,7 +13,7 @@ export interface Event {
   id?: number;
   date: Date;
   place: string;
-  event_type: number;
+  event_type: EventType;
   teamA: Team;
   teamB: Team;
   tie: Tie;
@@ -28,7 +30,11 @@ export const TeamInitialState: Team = {
 export const InitalState: Event = {
   date: new Date(),
   place: "",
-  event_type: 1,
+  event_type: {
+    id: 1,
+    name: '',
+    description: ''
+  },
   teamA: TeamInitialState,
   teamB: TeamInitialState,
   tie: TieInitialState
@@ -37,7 +43,7 @@ export class EventModel {
   id?: number;
   date: Date;
   place: string;
-  event_type: number;
+  event_type: EventType;
   teamA: TeamModel;
   teamB: TeamModel;
   tie: Tie;

@@ -1,0 +1,53 @@
+<div class="container">
+        <div class="title center">
+            {{ title }}
+        </div>
+        <div class="events">
+            <div class="pick-padd" *ngFor="let prediction of predictionList | async">
+                <div class="flex-grid">
+                    <div class="col center box pick" [ngClass]="{'isPicked': prediction.teamA.isPicked}" (click)="pick(event, prediction.teamA)">
+                        <div class="flex-grid-row">
+                            <div class="col">
+                                <span [ngClass]="'flag-icon flag-icon-' + prediction.teamA.flag"></span>
+                            </div>
+                            <div class="col-sm">
+                                <label>{{ prediction.teamA.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs center">
+                        <div class="flex-grid-row">
+                            <div class="col box pick" [ngClass]="{'isPicked': prediction.tie.isPicked}" (click)="pickTie(event)">
+                                <div class="vs">
+                                    <label>vs</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col center box pick" [ngClass]="{'isPicked': prediction.teamB.isPicked}" (click)="pick(event, prediction.teamB)">
+                        <div class="flex-grid-row">
+                            <div class="col">
+                                <span [ngClass]="'flag-icon flag-icon-' + prediction.teamB.flag"></span>
+                            </div>
+                            <div class="col-sm">
+                                <label>{{ prediction.teamB.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm center">
+                        <div class="flex-grid-row">
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                            <div class="col">
+                                {{ prediction.date.toLocaleString() }}
+                            </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

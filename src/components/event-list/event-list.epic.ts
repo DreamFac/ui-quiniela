@@ -50,11 +50,12 @@ export class EventListEpic {
   selectTie = (action$: any, store: any): Observable<Action> => {
     return action$
       .ofType(EventListActions.SELECT_TIE)
-      .map((result: ReduxAction<EventModel>) => {
+      .map((result: ReduxAction<Event>) => {
         const { payload } = result;
-        const { events: { eventList } } = store.getState()
-        const event = this.eventListService.selectTie(eventList, payload)
-        return EventListActions.selectTeamSuccess(event)
+        return this.eventListService.selectTie(payload)
+          .map(result => {
+            return EventListActions.selectTeamSuccess(result)
+          })
       })
   };
   selectTeam = (action$: any, store: any): Observable<Action> => {

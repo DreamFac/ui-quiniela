@@ -15,8 +15,11 @@ export const config = (configFile: ConfigFile): AuthConfig => {
             },
             events: {
                 resultTypes: configFile.urlConfig.events.resultTypes,
-                getAllEndpoint: configFile.urlConfig.events.getAllEndpoint,
-                selectTeamEndpoint: configFile.urlConfig.events.selectTeamEndpoint
+                getAllEndpoint: configFile.urlConfig.events.getAllEndpoint
+            },
+            predictions: {
+                createPrediction: configFile.urlConfig.predictions.createPrediction,
+                getPredictions: configFile.urlConfig.predictions.getPredictions
             }
         }
     }
@@ -30,6 +33,7 @@ export interface ConfigFile {
 export interface UrlConfig {
     auth: AuthUrlConfig
     events: EventUrlConfig
+    predictions: PredictionUrlConfig
 }
 export interface AuthUrlConfig {
     baseUrl: string,
@@ -46,5 +50,9 @@ export interface AuthConfig {
 export interface EventUrlConfig {
     resultTypes: string
     getAllEndpoint: string
-    selectTeamEndpoint: string
+}
+
+export interface PredictionUrlConfig {
+    createPrediction: string
+    getPredictions: string
 }

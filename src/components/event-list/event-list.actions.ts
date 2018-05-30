@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { LogInModel } from 'src/models/login.model';
 import { ReduxAction } from 'src/store/types';
-import { EventModel, Event, Team, Tie } from 'src/models/event.model';
+import { EventModel, Event, Team, Tie, TeamModel } from 'src/models/event.model';
 import { dispatch } from '@angular-redux/store';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class EventListActions {
     }
   }
   @dispatch()
-  static selectTie (event: EventModel): ReduxAction<EventModel> {
+  static selectTie (event: EventModel): ReduxAction<Event> {
       return {
           type: EventListActions.SELECT_TIE,
           payload: event

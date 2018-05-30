@@ -16,8 +16,11 @@ export default {
         },
         "events": {
             "resultTypes": "result-types/",
-            "getAllEndpoint": "events/",
-            "selectTeamEndpoint": "quinela/select"
+            "getAllEndpoint": "events/"
+        },
+        "predictions": {
+            "createPrediction": "predictions/",
+            "getPredictions": "predictions/"
         }
     }
 }

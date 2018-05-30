@@ -20,7 +20,7 @@ const {
   protocol,
   urlConfig: {
     auth: { baseUrl, version, loginEndpoint },
-    events: { resultTypes, getAllEndpoint, selectTeamEndpoint }
+    events: { resultTypes, getAllEndpoint }
   }
 } = config(configFile);
 
@@ -63,11 +63,34 @@ export class EventListService {
       })
   }
 
-  selectTie(eventList: Array<EventModel>, event: EventModel): EventModel {
-    event.tie.isPicked = !event.tie.isPicked
-    event.teamA.isPicked = false
-    event.teamB.isPicked = false
-    return first(eventList.filter(x => x.teamA.id === event.teamA.id))
+  selectTie(event: EventModel): Observable<EventModel> {
+    const selectTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
+    const predictionDto: EventPredictionDto[] = [
+      {
+        team_event: event.id,
+        team: event.teamA.id,
+        result_type: first(this.resultTypes).id,
+        prediction: "-1"
+      },
+      {
+        team_event: event.id,
+        team: event.teamB.id,
+        result_type: first(this.resultTypes).id,
+        prediction: "-1"
+      }
+    ]
+    return this.http.post(selectTeamUrl, predictionDto)
+      .catch((error) => {
+        return Observable.of(error)
+      })
+      .map((response) => {
+        if (!response.error) { 
+          event.tie.isPicked = !event.tie.isPicked
+          event.teamA.isPicked = false
+          event.teamB.isPicked = false
+          return event
+        }
+      })
   }
 
   selectTeam(event: EventModel, team: TeamModel): Observable<EventModel> {
@@ -76,22 +99,14 @@ export class EventListService {
     const predictionDto: EventPredictionDto[] = [
       {
         team_event: event.id,
-        team: {
-          id: team.id,
-          name: team.name,
-          flag: team.flag
-        },
-        result_type: first(this.resultTypes),
+        team: team.id,
+        result_type: first(this.resultTypes).id,
         prediction: "1"
       },
       {
         team_event: event.id,
-        team: {
-          id: notSelectedTeam.id,
-          name: notSelectedTeam.name,
-          flag: notSelectedTeam.flag
-        },
-        result_type: first(this.resultTypes),
+        team: notSelectedTeam.id,
+        result_type: first(this.resultTypes).id,
         prediction: "0"
       }
     ]

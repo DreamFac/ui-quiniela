@@ -1,3 +1,5 @@
+import { TeamModel, Tie, EventModel } from "./models/event.model";
+
 // oracle app api types
 
 export interface Team {
@@ -39,7 +41,7 @@ export enum PredictionEnum {
     WIN
 }
 
-export interface EventPrediction {
+export interface Prediction {
     id?: number
     team_event: TeamEvent
     team: Team
@@ -49,8 +51,13 @@ export interface EventPrediction {
 
 export interface EventPredictionDto {
     team_event: number
-    team: Team
-    result_type: ResultType
+    team: number
+    result_type: number
     prediction: any
+}
+
+export interface EventPredictionModel {
+    event: EventModel,
+    prediction?: Prediction
 }
 

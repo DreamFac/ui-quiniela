@@ -27,7 +27,10 @@ export class EventListComponent implements AfterContentInit {
   }
 
   pick(event: Event, team: Team) {
-    EventListActions.selectTeam(event, team);
+    this.events.subscribe(events => {
+      console.log(console.log(events))
+      EventListActions.selectTeam(event, team);
+    })
   }
   pickTie(event: EventModel) {
     EventListActions.selectTie(event);

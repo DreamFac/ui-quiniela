@@ -22,6 +22,11 @@ import { EventListEpic } from '../components/event-list/event-list.epic';
 import { EventListActions } from '../components/event-list/event-list.actions';
 import { EventListService } from '../components/event-list/event-list.service';
 import { HttpWrapper } from '../services/http-wrapper.service';
+import { PredictionEpics } from '../store/epics/predictions.epic';
+import { PredictionActions } from '../store/actions/prediction.actions';
+import { PredictionService } from '../services/prediction.service';
+import { DashboardEpics } from '../components/dashboard/dashboard.epic';
+import { DashboardService } from '../components/dashboard/dashboard.service';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -49,6 +54,11 @@ const APP_COMMON_MODULES = [
     EventListActions,
     AuthService,
     EventListService,
+    PredictionEpics,
+    PredictionActions,
+    PredictionService,
+    DashboardEpics,
+    DashboardService,
     HttpWrapper,
     {
       provide: HTTP_INTERCEPTORS,
