@@ -15,19 +15,22 @@ import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/concat'
 import 'rxjs/add/operator/concatMap'
 import 'rxjs/add/observable/fromPromise'
+import { startWith, delay, tap } from 'rxjs/operators';
 
 // app
 import { LoginActions } from '../actions/login.actions'
 import { ReduxAction, JwtInfo } from 'src/store/types';
 import { LogInModel } from 'src/models/login.model';
 import { AuthService } from 'src/services/auth.service';
+import { DashboardActions } from '../../components/dashboard/dashboard.actions';
 
 @Injectable()
 export class LoginEpics {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
   createEpics() {
     return [
-      createEpicMiddleware(this.login)
+      createEpicMiddleware(this.login),
+      createEpicMiddleware(this.loginSuccess)
     ]
   }
   login = (action$: any, store: any): Observable<Action> => {
@@ -35,24 +38,22 @@ export class LoginEpics {
       .concatMap((result: ReduxAction<LogInModel>) => {
         const { payload } = result
         return this.authService.login(payload)
-            .map((response: any) => {
-                if ( response.error ) {
-                    return LoginActions.failed(response.error)
-                }
-                this.router.navigate(['/dashboard'])
-                return LoginActions.success(response)
-            })
+          .map((response: any) => {
+            if (response.error) {
+              return LoginActions.failed(response.error)
+            }
+            return LoginActions.success(response)
+          })
       })
   }
 
   loginSuccess = (action$: any, store: any): Observable<Action> => {
     return action$.ofType(LoginActions.LOGIN_SUCCESS)
-      .concatMap((result: ReduxAction<LogInModel>) => {
+      .concatMap((result: ReduxAction<JwtInfo>) => {
         const { payload } = result
-        return {
-          type: LoginActions.LOGIN_SUCCESS,
-          payload: payload
-        }
+        return Observable.fromPromise(
+          this.router.navigateByUrl('/dashboard'))
+          .map(result => LoginActions.done(payload))
       })
   }
 }

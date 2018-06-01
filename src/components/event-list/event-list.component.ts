@@ -1,9 +1,11 @@
-import { Component, OnInit, AfterContentInit } from "@angular/core";
+import { Component, OnInit, AfterContentInit, Input } from "@angular/core";
 import { EventListActions } from "./event-list.actions";
 import { select, NgRedux } from "@angular-redux/store";
 import { Event, Team, Tie, EventModel } from "../../models/event.model";
 import { delay, tap, startWith } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
+import { EventPredictionModel } from "../../models/event-prediction.model";
+import { DashboardActions } from "../dashboard/dashboard.actions";
 
 @Component({
   selector: "app-event-list",
@@ -14,23 +16,14 @@ export class EventListComponent implements AfterContentInit {
   title = "Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
   constructor(private store: NgRedux<any>) { }
 
-  @select(["events", "eventList"])
-  events: Observable<Array<Event>>;
+  @Input() eventPredictions: EventPredictionModel[] = []
 
   ngAfterContentInit() {
-    Observable.of()
-      .pipe(
-        startWith(null),
-        delay(100),
-        tap(() => EventListActions.getAll())
-      ).subscribe()
   }
 
   pick(event: Event, team: Team) {
-    this.events.subscribe(events => {
-      console.log(console.log(events))
-      EventListActions.selectTeam(event, team);
-    })
+    
+    EventListActions.selectTeam(event, team);
   }
   pickTie(event: EventModel) {
     EventListActions.selectTie(event);

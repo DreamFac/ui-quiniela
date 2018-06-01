@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core'
 import { JwtInfo, ReduxAction } from '../types';
 import { LogInModel } from 'src/models/login.model';
+import { dispatch } from '@angular-redux/store';
 
 @Injectable()
 export class LoginActions {
   static readonly LOGIN = 'LOGIN/LOGIN'
+  static readonly LOGIN_DONE = 'LOGIN/LOGIN_DONE'
   static readonly LOGIN_SUCCESS = 'LOGIN/LOGIN_SUCCESS'
   static readonly LOGIN_FAIL = 'LOGIN/LOGIN_FAIL'
   static readonly LOGOUT = 'LOGIN/LOGOUT'
@@ -25,6 +27,12 @@ export class LoginActions {
     return {
       type: LoginActions.LOGIN_FAIL,
       payload: new LogInModel()
+    }
+  }
+  static done ( jwtInfo: JwtInfo ): ReduxAction<JwtInfo> {
+    return {
+      type: LoginActions.LOGIN_DONE,
+      payload: jwtInfo
     }
   }
 }

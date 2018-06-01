@@ -20,7 +20,7 @@ import { flatMap } from 'rxjs/operators';
 // app
 import { ReduxAction } from "src/store/types";
 import { EventListActions } from "./event-list.actions";
-import { EventModel, Team, Tie, Event } from "../../models/event.model";
+import { EventModel, Team, Tie, Event, TeamModel } from "../../models/event.model";
 import { EventListService } from "./event-list.service";
 import { AppState } from "../../store/model";
 
@@ -50,7 +50,7 @@ export class EventListEpic {
   selectTie = (action$: any, store: any): Observable<Action> => {
     return action$
       .ofType(EventListActions.SELECT_TIE)
-      .map((result: ReduxAction<Event>) => {
+      .concatMap((result: ReduxAction<EventModel>) => {
         const { payload } = result;
         return this.eventListService.selectTie(payload)
           .map(result => {
@@ -61,7 +61,7 @@ export class EventListEpic {
   selectTeam = (action$: any, store: any): Observable<Action> => {
     return action$
       .ofType(EventListActions.SELECT_TEAM)
-      .concatMap((result: ReduxAction<{event: Event, team: Team}>) => {
+      .concatMap((result: ReduxAction<{event: EventModel, team: TeamModel}>) => {
         const { payload: { event, team } } = result;
         return this.eventListService.selectTeam(event, team)
       })

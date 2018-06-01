@@ -1,5 +1,8 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { HttpWrapper } from '../services/http-wrapper.service';
+import { startWith, delay, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { DashboardActions } from '../components/dashboard/dashboard.actions';
 
 @Component( {
   selector: 'app-root',

@@ -31,7 +31,7 @@ export class EventListService {
     Observable.of()
       .pipe(
         startWith(null),
-        delay(100),
+        delay(0),
         tap(() => {
           const resultTypesUrl = `${protocol}://${baseUrl}/${version}/${resultTypes}`;
           this.http.get(resultTypesUrl)
@@ -46,14 +46,13 @@ export class EventListService {
     const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
     return this.http.get(eventListUrl)
       .map((response: Array<any>) => {
-        events = response.map(event => {
+        events = response.map((event: Event) => {
           return new EventModel({
             id: event.id,
             date: event.date,
             place: event.place,
             event_type: event.event_type,
-            teamA: event.team_event.shift().team,
-            teamB: event.team_event.pop().team,
+            team_event: event.team_event,
             tie: {
               isPicked: false
             }
@@ -98,13 +97,13 @@ export class EventListService {
     const notSelectedTeam = team.id !== event.teamA.id ? event.teamA : event.teamB
     const predictionDto: EventPredictionDto[] = [
       {
-        team_event: event.id,
+        team_event: team.teamEventId,
         team: team.id,
         result_type: first(this.resultTypes).id,
         prediction: "1"
       },
       {
-        team_event: event.id,
+        team_event: notSelectedTeam.teamEventId,
         team: notSelectedTeam.id,
         result_type: first(this.resultTypes).id,
         prediction: "0"
@@ -125,7 +124,7 @@ export class EventListService {
             event.teamA.isPicked = false;
             event.teamB.isPicked = !event.teamB.isPicked;
           }
-          return event;
+          return event
         }
       })
   }

@@ -18,7 +18,7 @@ export interface Event {
 export interface TeamEvent {
     id?: number
     result_type: ResultType
-    event: Event
+    event: number
     team: Team
     result: string
 }
@@ -43,10 +43,12 @@ export enum PredictionEnum {
 
 export interface Prediction {
     id?: number
+    prediction: string
+    read: Boolean
+    result_type: number
+    team: number
     team_event: TeamEvent
-    team: Team
-    result_type: ResultType
-    prediction: PredictionEnum
+    user: number
 }
 
 export interface EventPredictionDto {
@@ -56,7 +58,7 @@ export interface EventPredictionDto {
     prediction: any
 }
 
-export interface EventPredictionModel {
+export interface EventPrediction {
     event: EventModel,
     prediction?: Prediction
 }

@@ -21,6 +21,8 @@ export const eventListReducer: Reducer<EventState> = (
             return { ...state, eventList: action.payload }
         case EventListActions.SELECT_TEAM:
             return { ...state, team: action.payload }
+        case EventListActions.SELECT_TIE:
+            return { ...state, team: action.payload }
         case EventListActions.SELECT_TEAM_OK:
             return { ...state, event: action.payload }
         default:

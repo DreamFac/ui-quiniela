@@ -16,11 +16,6 @@ export class PredictionListComponent implements AfterContentInit {
     constructor() { }
 
     ngAfterContentInit() {
-        Observable.of()
-            .pipe(
-                startWith(null),
-                delay(100),
-                tap(() => PredictionActions.getAll())
-            ).subscribe()
+        // Not Implemented
     }
 }

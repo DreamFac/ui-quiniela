@@ -8,11 +8,15 @@ import 'rxjs/add/observable/throw'
 
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { HttpResponse } from 'selenium-webdriver/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpWrapper<T> {
     isInRequest: boolean = false
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient, 
+        private router: Router
+    ) { }
     get(url: string, options?: RequestOptionsArgs): Observable<T> {
         return this.request(RequestMethod.Get, url, null, options);
     }
@@ -54,6 +58,9 @@ export class HttpWrapper<T> {
                     }
                     if (response.error) {
                         observer.error(response)
+                        if (response.status === 401) {
+                            this.router.navigateByUrl('/login')
+                        }
                     }
                 }, (error) => {
                     observer.error(error)
