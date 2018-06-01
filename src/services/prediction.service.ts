@@ -43,7 +43,7 @@ export class PredictionService {
                 return result
             })
     }
-    createPrediction(eventPrediction: EventPredictionModel, team: TeamModel): Observable<PredictionDto[]> {
+    createPrediction(eventPrediction: EventPredictionModel, team: TeamModel): Observable<Prediction[]> {
         const predictTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
         const { event: { teamA, teamB } } = eventPrediction
         const notSelectedTeam = team.id !== teamA.id ? teamA : teamB
@@ -66,7 +66,7 @@ export class PredictionService {
                 return response
             })
     }
-    updatePrediction(eventPrediction: EventPredictionModel, team: TeamModel): Observable<PredictionDto[]> {
+    updatePrediction(eventPrediction: EventPredictionModel, team: TeamModel): Observable<Prediction[]> {
         const predictTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
         const { event: { teamA, teamB } } = eventPrediction
         const notSelectedTeam = team.id !== teamA.id ? teamA : teamB
@@ -101,7 +101,7 @@ export class PredictionService {
                 return response
             })
     }
-    createTie(eventPrediction: EventPredictionModel): Observable<PredictionDto[]> {
+    createTie(eventPrediction: EventPredictionModel): Observable<Prediction[]> {
         const predictTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
         const { event: { teamA, teamB } } = eventPrediction
         const predictionDto: EventPredictionDto[] = [
@@ -123,7 +123,7 @@ export class PredictionService {
                 return response
             })
     }
-    updateTie(eventPrediction: EventPredictionModel): Observable<PredictionDto[]> {
+    updateTie(eventPrediction: EventPredictionModel): Observable<Prediction[]> {
         const predictTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
         const { event: { teamA, teamB } } = eventPrediction
         const predictionDto: EventPredictionDto[] = [

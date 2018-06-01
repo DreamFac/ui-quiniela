@@ -5,7 +5,7 @@ import configFile from "src/config.file";
 import { Event, EventModel, Team, Tie, TeamModel } from "../../models/event.model";
 import { first } from 'lodash';
 import { HttpWrapper } from "../../services/http-wrapper.service";
-import { ResultType, EventPredictionDto, PredictionDto } from "src/types";
+import { ResultType, EventPredictionDto, PredictionDto, Prediction } from "src/types";
 import { PredictionService } from "../../services/prediction.service";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 
@@ -68,9 +68,9 @@ export class EventListService {
    })
   }
 
-  markTieAsSelected(response: PredictionDto[], eventPrediction: EventPredictionModel) {
+  markTieAsSelected(response: Prediction[], eventPrediction: EventPredictionModel) {
     if (response){
-      eventPrediction.predictions = this.mapPredicton(response)
+      eventPrediction.predictions = response
     }
       eventPrediction.event.tie.isPicked = !eventPrediction.event.tie.isPicked
       eventPrediction.event.teamA.isPicked = false
@@ -78,9 +78,9 @@ export class EventListService {
       return eventPrediction
   }
 
-  markAsSelected(response: PredictionDto[], eventPrediction: EventPredictionModel, team: TeamModel) {
+  markAsSelected(response: Prediction[], eventPrediction: EventPredictionModel, team: TeamModel) {
     if (response){
-      eventPrediction.predictions = this.mapPredicton(response)
+      eventPrediction.predictions = response
     }
      if (eventPrediction.event.teamA.id === team.id) {
        eventPrediction.event.tie.isPicked = false;
