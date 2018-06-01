@@ -48,11 +48,9 @@ export class HttpWrapper<T> {
             body
         )
         return Observable.create((observer) => {
-            this.isInRequest = true
             this.http.request(requestOptions)
                 .subscribe((response: any | HttpResponse) => {
                     if (response.type) {
-                        this.isInRequest = false;
                         observer.next(response.body);
                         observer.complete();
                     }
@@ -64,7 +62,6 @@ export class HttpWrapper<T> {
                     }
                 }, (error) => {
                     observer.error(error)
-                    this.isInRequest = false
                 })
         })
     }

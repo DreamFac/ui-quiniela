@@ -21,11 +21,10 @@ export class EventListComponent implements AfterContentInit {
   ngAfterContentInit() {
   }
 
-  pick(event: Event, team: Team) {
-    
-    EventListActions.selectTeam(event, team);
+  pick(eventPredictionModel: EventPredictionModel, team: Team) {
+    EventListActions.selectTeam(eventPredictionModel, team)
   }
-  pickTie(event: EventModel) {
-    EventListActions.selectTie(event);
+  pickTie(eventPrediction: EventPredictionModel) {
+    EventListActions.selectTie(eventPrediction);
   }
 }

@@ -22,6 +22,9 @@ export class DashboardService {
         const predictions$ = this.predictionService.getAll();
         return forkJoin([events$, predictions$])
             .map(result => {
+                let predictionsMap = {
+                    predictions: []
+                }
                 let eventPredictionList: EventPredictionModel[] = [];
                 let eventPredictionMap: IMap<EventPredictionModel> = {};
                 const eventList: EventModel[] = result.shift() as EventModel[];
@@ -32,13 +35,19 @@ export class DashboardService {
                     }
                 });
                 predictionList.forEach(prediction => {
-                    if (prediction.prediction === "1") {
-                        eventPredictionMap[prediction.team_event.event] =
-                            new EventPredictionModel(
-                                eventPredictionMap[prediction.team_event.event].event,
-                                prediction
-                            );
+                    if (!predictionsMap[prediction.team_event.event]) {
+                        predictionsMap[prediction.team_event.event] = {
+                            predictions: [].concat(prediction)
+                        }
+                    } else {
+                        predictionsMap[prediction.team_event.event]
+                            .predictions.push(prediction)
                     }
+                    eventPredictionMap[prediction.team_event.event] =
+                        new EventPredictionModel(
+                            eventPredictionMap[prediction.team_event.event].event,
+                            predictionsMap[prediction.team_event.event].predictions
+                        )
                 });
                 keys(eventPredictionMap).forEach(key => {
                     eventPredictionList.push(eventPredictionMap[key]);

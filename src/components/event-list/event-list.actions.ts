@@ -3,6 +3,7 @@ import { LogInModel } from 'src/models/login.model';
 import { ReduxAction } from 'src/store/types';
 import { EventModel, Event, Team, Tie, TeamModel } from 'src/models/event.model';
 import { dispatch } from '@angular-redux/store';
+import { EventPredictionModel } from '../../models/event-prediction.model';
 
 @Injectable()
 export class EventListActions {
@@ -26,23 +27,23 @@ export class EventListActions {
     }
   }
   @dispatch()
-  static selectTie (event: EventModel): ReduxAction<Event> {
+  static selectTie (eventPrediction: EventPredictionModel): ReduxAction<EventPredictionModel> {
       return {
           type: EventListActions.SELECT_TIE,
-          payload: event
+          payload: eventPrediction
       }
   }
   @dispatch()
-  static selectTeam (event: Event, team: Team): ReduxAction<{event: Event, team: Team}> {
+  static selectTeam (eventPrediction: EventPredictionModel, team: Team): ReduxAction<{eventPrediction: EventPredictionModel, team: Team}> {
       return {
           type: EventListActions.SELECT_TEAM,
           payload: {
-              event,
+              eventPrediction,
               team
           }
       }
   }
-  static selectTeamSuccess (event: EventModel): ReduxAction<EventModel> {
+  static selectTeamSuccess (event: EventPredictionModel): ReduxAction<EventPredictionModel> {
     return {
         type: EventListActions.SELECT_TEAM_OK,
         payload: event

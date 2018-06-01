@@ -23,13 +23,14 @@ import { EventListActions } from "./event-list.actions";
 import { EventModel, Team, Tie, Event, TeamModel } from "../../models/event.model";
 import { EventListService } from "./event-list.service";
 import { AppState } from "../../store/model";
+import { EventPredictionModel } from "../../models/event-prediction.model";
 
 @Injectable()
 export class EventListEpic {
   constructor(
     private eventListService: EventListService,
     private store: NgRedux<AppState>
-  ) {}
+  ) { }
   createEpics() {
     return [
       createEpicMiddleware(this.getAll),
@@ -50,22 +51,47 @@ export class EventListEpic {
   selectTie = (action$: any, store: any): Observable<Action> => {
     return action$
       .ofType(EventListActions.SELECT_TIE)
-      .concatMap((result: ReduxAction<EventModel>) => {
-        const { payload } = result;
-        return this.eventListService.selectTie(payload)
-          .map(result => {
-            return EventListActions.selectTeamSuccess(result)
-          })
+      .concatMap((result: ReduxAction<EventPredictionModel>) => {
+        const { payload: { event } } = result;
+        const teamSelected = event.teamA.isPicked || event.teamB.isPicked
+        if (!event.tie.isPicked && teamSelected) {
+          return this.eventListService.selectTie(result.payload, 'update')
+            .map(result => {
+              return EventListActions.selectTeamSuccess(result)
+            })
+        } else if (!event.tie.isPicked && !teamSelected) {
+          return this.eventListService.selectTie(result.payload, 'create')
+            .map(result => {
+              return EventListActions.selectTeamSuccess(result)
+            })
+        } else if (event.tie.isPicked && !teamSelected) {
+          return this.eventListService.selectTie(result.payload, 'delete')
+            .map(result => {
+              return EventListActions.selectTeamSuccess(result)
+            })
+        }
       })
   };
   selectTeam = (action$: any, store: any): Observable<Action> => {
     return action$
       .ofType(EventListActions.SELECT_TEAM)
-      .concatMap((result: ReduxAction<{event: EventModel, team: TeamModel}>) => {
-        const { payload: { event, team } } = result;
-        return this.eventListService.selectTeam(event, team)
+      .concatMap((result: ReduxAction<{ eventPrediction: EventPredictionModel, team: TeamModel }>) => {
+        const { payload: { eventPrediction, team } } = result;
+        const { event: { teamA, teamB } } = eventPrediction
+        const predictedTeam = teamA.isPicked ? teamA : teamB.isPicked ? teamB : null
+
+        if (eventPrediction.event.tie.isPicked && !predictedTeam) {
+          return this.eventListService.selectTeam(eventPrediction, team, 'delete')
+        } else if (!eventPrediction.event.tie.isPicked && !predictedTeam) {
+          return this.eventListService.selectTeam(eventPrediction, team, 'create')
+        } else if (!eventPrediction.event.tie.isPicked && predictedTeam.id !== team.id) {
+          return this.eventListService.selectTeam(eventPrediction, team, 'update')
+        } else if (!eventPrediction.event.tie.isPicked && predictedTeam.id === team.id) {
+          return this.eventListService.selectTeam(eventPrediction, team, 'delete')
+        }
+
       })
-      .map((event: EventModel) => {
+      .map((event: EventPredictionModel) => {
         return EventListActions.selectTeamSuccess(event)
       })
   };

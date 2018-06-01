@@ -1,20 +1,13 @@
 import { Injectable, Inject } from "@angular/core";
-import { Headers } from "@angular/http";
-import { delay, tap, startWith } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import "rxjs/add/observable/from";
-import "rxjs/add/observable/throw";
-import { JwtInfo } from "src/store/types";
-import { LogInModel } from "src/models/login.model";
 import { config } from "src/config";
 import configFile from "src/config.file";
-import { HttpClient } from "@angular/common/http";
-import { Subscriber } from "rxjs";
 import { Event, EventModel, Team, Tie, TeamModel } from "../../models/event.model";
 import { first } from 'lodash';
 import { HttpWrapper } from "../../services/http-wrapper.service";
-import { ResultType, EventPredictionDto } from "src/types";
+import { ResultType, EventPredictionDto, PredictionDto } from "src/types";
+import { PredictionService } from "../../services/prediction.service";
+import { EventPredictionModel } from "../../models/event-prediction.model";
 
 const {
   protocol,
@@ -26,21 +19,10 @@ const {
 
 @Injectable()
 export class EventListService {
-  resultTypes: ResultType[] = []
-  constructor(private http: HttpWrapper<Array<any>>) {
-    Observable.of()
-      .pipe(
-        startWith(null),
-        delay(0),
-        tap(() => {
-          const resultTypesUrl = `${protocol}://${baseUrl}/${version}/${resultTypes}`;
-          this.http.get(resultTypesUrl)
-            .subscribe((response: ResultType[]) => {
-              this.resultTypes = response
-            })
-        })
-      ).subscribe()
-  }
+  constructor(
+    private http: HttpWrapper<Array<any>>,
+    private predictionService: PredictionService
+  ) { }
   getAll(): Observable<Array<EventModel>> {
     let events: Array<EventModel> = []
     const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
@@ -62,70 +44,91 @@ export class EventListService {
       })
   }
 
-  selectTie(event: EventModel): Observable<EventModel> {
-    const selectTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
-    const predictionDto: EventPredictionDto[] = [
-      {
-        team_event: event.id,
-        team: event.teamA.id,
-        result_type: first(this.resultTypes).id,
-        prediction: "-1"
-      },
-      {
-        team_event: event.id,
-        team: event.teamB.id,
-        result_type: first(this.resultTypes).id,
-        prediction: "-1"
+  mapPredicton (response) {
+    return response.map((prediction: PredictionDto) => {
+      return {
+       id: prediction.id,
+       prediction: prediction.prediction,
+       read: prediction.read,
+       result_type: prediction.result_type,
+       team: prediction.team,
+       team_event: {
+         id: prediction.team_event,
+         result_type: {
+           id: prediction.result_type
+         },
+         event: prediction.team_event,
+         team: {
+           id: prediction.team
+         },
+         result: ''
+       },
+       user: prediction.user
       }
-    ]
-    return this.http.post(selectTeamUrl, predictionDto)
-      .catch((error) => {
-        return Observable.of(error)
-      })
-      .map((response) => {
-        if (!response.error) { 
-          event.tie.isPicked = !event.tie.isPicked
-          event.teamA.isPicked = false
-          event.teamB.isPicked = false
-          return event
-        }
-      })
+   })
   }
 
-  selectTeam(event: EventModel, team: TeamModel): Observable<EventModel> {
-    const selectTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
-    const notSelectedTeam = team.id !== event.teamA.id ? event.teamA : event.teamB
-    const predictionDto: EventPredictionDto[] = [
-      {
-        team_event: team.teamEventId,
-        team: team.id,
-        result_type: first(this.resultTypes).id,
-        prediction: "1"
-      },
-      {
-        team_event: notSelectedTeam.teamEventId,
-        team: notSelectedTeam.id,
-        result_type: first(this.resultTypes).id,
-        prediction: "0"
-      }
-    ]
-    return this.http.post(selectTeamUrl, predictionDto)
-      .catch((error) => {
-        return Observable.of(error)
-      })
-      .map((response) => {
-        if (!response.error) {
-          if (event.teamA.id === team.id) {
-            event.tie.isPicked = false;
-            event.teamB.isPicked = false;
-            event.teamA.isPicked = !event.teamA.isPicked;
-          } else if (event.teamB.id === team.id) {
-            event.tie.isPicked = false;
-            event.teamA.isPicked = false;
-            event.teamB.isPicked = !event.teamB.isPicked;
-          }
-          return event
-        }
-      })
+  markTieAsSelected(response: PredictionDto[], eventPrediction: EventPredictionModel) {
+    if (response){
+      eventPrediction.predictions = this.mapPredicton(response)
+    }
+      eventPrediction.event.tie.isPicked = !eventPrediction.event.tie.isPicked
+      eventPrediction.event.teamA.isPicked = false
+      eventPrediction.event.teamB.isPicked = false
+      return eventPrediction
+  }
+
+  markAsSelected(response: PredictionDto[], eventPrediction: EventPredictionModel, team: TeamModel) {
+    if (response){
+      eventPrediction.predictions = this.mapPredicton(response)
+    }
+     if (eventPrediction.event.teamA.id === team.id) {
+       eventPrediction.event.tie.isPicked = false;
+       eventPrediction.event.teamB.isPicked = false;
+       eventPrediction.event.teamA.isPicked = !eventPrediction.event.teamA.isPicked;
+     } else if (eventPrediction.event.teamB.id === team.id) {
+       eventPrediction.event.tie.isPicked = false;
+       eventPrediction.event.teamA.isPicked = false;
+       eventPrediction.event.teamB.isPicked = !eventPrediction.event.teamB.isPicked;
+     }
+    return eventPrediction
+  }
+
+  selectTie(eventPrediction: EventPredictionModel, action: string): Observable<EventPredictionModel> {
+    if (action === 'create') {
+      return this.predictionService.createTie(eventPrediction)
+        .map((response) => {
+          return this.markTieAsSelected(response, eventPrediction)
+        })
+    } else if (action === 'update') {
+      return this.predictionService.updateTie(eventPrediction)
+        .map((response) => {
+          return this.markTieAsSelected(response, eventPrediction)
+        })
+    } else if (action === 'delete') {
+      return this.predictionService.deleteTie(eventPrediction)
+        .map((response) => {
+          return this.markTieAsSelected(response, eventPrediction)
+        })
+    }
+  }
+
+  selectTeam(eventPrediction: EventPredictionModel, team: TeamModel, action: string): Observable<EventPredictionModel> {
+    if (action === 'create') {
+      return this.predictionService.createPrediction(eventPrediction, team)
+        .map((response) => {
+          return this.markAsSelected(response, eventPrediction, team)
+        })
+    } else if (action === 'update') {
+      return this.predictionService.updatePrediction(eventPrediction, team)
+        .map((response) => {
+          return this.markAsSelected(response, eventPrediction, team)
+        })
+    } else if (action === 'delete') {
+      return this.predictionService.deletePrediction(eventPrediction, team)
+        .map((response) => {
+          return this.markAsSelected(response, eventPrediction, team)
+        })
+    }
   }
 }
