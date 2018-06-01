@@ -1,32 +1,19 @@
-import { Component } from '@angular/core';
-import { dispatch, select } from '@angular-redux/store';
-import { LoginActions } from '../store/actions/login.actions';
-import { Observable } from 'rxjs/internal/Observable';
-import { LogInModel } from '../models/login.model';
-import { JwtInfo } from 'src/store/types';
+import { Component, AfterContentInit } from '@angular/core';
+import { HttpWrapper } from '../services/http-wrapper.service';
+import { startWith, delay, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { DashboardActions } from '../components/dashboard/dashboard.actions';
 
 @Component( {
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ]
+  styleUrls: [ './app.component.scss' ]
 } )
-export class AppComponent {
-  title = 'Ng redux JWT Auth';
-  model = new LogInModel();
-
-  @select('login')
-  jwtInfo: Observable<JwtInfo>
-
-  parseJwtInfo (): Observable<any> {
-    return this.jwtInfo.map(result => JSON.stringify(result))
+export class AppComponent implements AfterContentInit {
+  isLoading: boolean
+  constructor(public httpWrapper: HttpWrapper<any>) {
   }
-
-  login () {
-    this.startLogin(this.model)
-  }
-
-  @dispatch()
-  startLogin(model: LogInModel) {
-    return LoginActions.login(model)
+  ngAfterContentInit () {
+    // something after content init
   }
 }

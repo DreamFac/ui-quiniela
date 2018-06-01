@@ -1,18 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}
-  </h1>
-</div>
-<div class="container">
-  <div>Username</div>
-  <input type="text" placeholder="username" [(ngModel)]="model.username" />
-  <div>Password</div>
-  <input type="password" placeholder="password" [(ngModel)]="model.password" />
-  <div class="login">
-    <input class="btn" type="button" value="Login" (click)="login()"/>
-  </div>
-  <div class="container">
-    <pre><code>{{ parseJwtInfo() | async }}</code></pre>
+<div class="loader" *ngIf="httpWrapper.isInRequest"></div>
+<div class="main-container" [ngClass]="{'is-loading': httpWrapper.isInRequest}">
+  <app-header></app-header>
+  <div class="app">
+    <router-outlet></router-outlet>
   </div>
 </div>

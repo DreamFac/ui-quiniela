@@ -1,0 +1,228 @@
+* {
+    font: normal normal 20px/24px Pilcrow, sans-serif;
+    color: white;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+  }
+
+  *:focus {
+    outline:0;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  img {
+    width: 80px;
+    height: 50px;
+  }
+
+  label {
+    color: #424242 !important;
+  }
+
+  .container {
+    margin: 0px !important;
+    width: 100% !important;
+  }
+
+  .main-container {
+    height: stretch;
+    overflow-y: scroll;
+  }
+
+  app-root {
+    height: stretch;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: -webkit-linear-gradient(30deg, #013A6B 50%, #004E95 50%);
+    // background-image: linear-gradient(to right bottom, #c41467, #c41467, #201d53, #201d53);
+    // background: url("https://wallpaperstock.net/wallpapers/thumbs1/34092hd.jpg");
+  }
+
+.app {
+  position: relative;
+  padding: 15px;
+  background: none;
+  margin: 0px 15px 15px 15px;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.flex-grid {
+    height: 100%;
+    display: flex;
+}
+
+.flex-grid-row {
+    height: 100%;
+    display: flex;
+    flex-direction: column !important;
+}
+
+.col {
+    margin: 5px;
+    flex: 1;
+}
+
+.col-sm {
+    margin: 5px;
+    flex: 0.5;
+}
+
+.col-xs {
+    flex: 0.025;
+}
+
+.box {
+    background: snow;
+    box-shadow: 4px 4px 8px 2px rgba(0,0,0,.1);
+    transition: all 0.1s ease-in-out;
+}
+
+span.flag-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.oraculapp-btn {
+  padding: 20px;
+  width: 100%;
+  background: #97bf0d;
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
+  box-shadow: none;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+@media only screen and (max-width: 768px) {
+    app-root {
+      height: auto !important;
+    }
+    .flex-grid {
+        flex-direction: column !important;
+    }
+    .flex-grid-row {
+        flex-direction: column !important;
+    }
+    .box.pick {
+      height: auto !important;
+    }
+    .vs {
+        width: auto !important;
+        line-height: 1 !important;
+    }
+    .loader {
+        top: 85% !important;
+    }
+}
+
+.is-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loader  {
+    animation: rotate 1s infinite;  
+    height: 75px;
+    width: 75px;
+    position: fixed;
+    top: 90%;
+    right: 5%;
+    z-index: 2000;
+  }
+  
+  .loader:before,
+  .loader:after {   
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 30px;  
+    width: 30px;
+  }
+  .loader:before {
+    animation: ball1 1s infinite;  
+    background-color: #cb2025;
+    box-shadow: 40px 0 0 #f8b334;
+    margin-bottom: 20px;
+  }
+  .loader:after {
+    animation: ball2 1s infinite; 
+    background-color: #00a096;
+    box-shadow: 40px 0 0 #97bf0d;
+  }
+  
+  @keyframes rotate {
+    0% { 
+      -webkit-transform: rotate(0deg) scale(0.8); 
+      -moz-transform: rotate(0deg) scale(0.8);
+    }
+    50% { 
+      -webkit-transform: rotate(360deg) scale(1.2); 
+      -moz-transform: rotate(360deg) scale(1.2);
+    }
+    100% { 
+      -webkit-transform: rotate(720deg) scale(0.8); 
+      -moz-transform: rotate(720deg) scale(0.8);
+    }
+  }
+  
+  @keyframes ball1 {
+    0% {
+      box-shadow: 40px 0 0 #f8b334;
+    }
+    50% {
+      box-shadow: 0 0 0 #f8b334;
+      margin-bottom: 0;
+      -webkit-transform: translate(25px,25px);
+      -moz-transform: translate(25px, 25px);
+    }
+    100% {
+      box-shadow: 40px 0 0 #f8b334;
+      margin-bottom: 20px;
+    }
+  }
+  
+  @keyframes ball2 {
+    0% {
+      box-shadow: 40px 0 0 #97bf0d;
+    }
+    50% {
+      box-shadow: 0 0 0 #97bf0d;
+      margin-top: -30px;
+      -webkit-transform: translate(25px,25px);
+      -moz-transform: translate(25px, 25px);
+    }
+    100% {
+      box-shadow: 40px 0 0 #97bf0d;
+      margin-top: 0;
+    }
+  }

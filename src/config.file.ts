@@ -7,10 +7,20 @@ export default {
     "protocol": "https",
     "scheme": "Bearer",
     "urlConfig": {
-        "version": "v1",
-        "baseUrl": "fluyo.ngrok.io/api",
-        "loginEndpoint": "auth/token",
-        "logoutEndpoint": "auth/logout",
-        "refreshTokenEndpoint": "auth/refresh"
+        "auth": {
+            "version": "v1",
+            "baseUrl": "oraculapp.ngrok.io/api",
+            "loginEndpoint": "auth/token",
+            "logoutEndpoint": "auth/logout",
+            "refreshTokenEndpoint": "auth/refresh"
+        },
+        "events": {
+            "resultTypes": "result-types/",
+            "getAllEndpoint": "events/"
+        },
+        "predictions": {
+            "createPrediction": "predictions/",
+            "getPredictions": "predictions/"
+        }
     }
 }
