@@ -55,8 +55,9 @@ export class EventListEpic {
       .concatMap((result: ReduxAction<EventPredictionModel>) => {
         const { payload: { event } } = result;
         const teamSelected = event.teamA.isPicked || event.teamB.isPicked
-        if (!event.tie.isPicked && teamSelected) {
-          return this.eventListService.selectTie(result.payload, 'update')
+
+        if (event.tie.isPicked) {
+          return this.eventListService.selectTie(result.payload, 'delete')
             .map(result => {
               return EventListActions.selectTeamSuccess(result)
             })
@@ -65,8 +66,8 @@ export class EventListEpic {
             .map(result => {
               return EventListActions.selectTeamSuccess(result)
             })
-        } else if (event.tie.isPicked && !teamSelected) {
-          return this.eventListService.selectTie(result.payload, 'delete')
+        } else {
+          return this.eventListService.selectTie(result.payload, 'update')
             .map(result => {
               return EventListActions.selectTeamSuccess(result)
             })
@@ -81,23 +82,23 @@ export class EventListEpic {
         const { event: { teamA, teamB } } = eventPrediction
         const predictedTeam = teamA.isPicked ? teamA : teamB.isPicked ? teamB : null
 
-        if (eventPrediction.event.tie.isPicked && !predictedTeam) {
-          return this.eventListService.selectTeam(eventPrediction, team, 'delete')
-            .catch(this.errorHandler)
-        } else if (!eventPrediction.event.tie.isPicked && !predictedTeam) {
-          return this.eventListService.selectTeam(eventPrediction, team, 'create')
-            .catch(this.errorHandler)
-        } else if (!eventPrediction.event.tie.isPicked && predictedTeam.id !== team.id) {
+        if ( eventPrediction.event.tie.isPicked ) {
           return this.eventListService.selectTeam(eventPrediction, team, 'update')
             .catch(this.errorHandler)
-        } else if (!eventPrediction.event.tie.isPicked && predictedTeam.id === team.id) {
+        } else if (!predictedTeam) {
+          return this.eventListService.selectTeam(eventPrediction, team, 'create')
+            .catch(this.errorHandler)
+        } else if ( team.id === predictedTeam.id ) {
           return this.eventListService.selectTeam(eventPrediction, team, 'delete')
+            .catch(this.errorHandler)
+        } else if ( team.id !== predictedTeam.id ) {
+          return this.eventListService.selectTeam(eventPrediction, team, 'update')
             .catch(this.errorHandler)
         }
 
       })
-      .map((event: EventPredictionModel) => {
-        return EventListActions.selectTeamSuccess(event)
+      .map((eventPrediction: EventPredictionModel) => {
+        return EventListActions.selectTeamSuccess(eventPrediction)
       })
   };
   selectTeamFail = (action$: any, store: any): Observable<Action> => {
@@ -105,7 +106,7 @@ export class EventListEpic {
       .ofType(EventListActions.SELECT_TEAM_FAIL)
       .concatMap(() => {
         document.location.reload()
-        return Observable.of()
+        return Observable.of([])
       })
   }
   errorHandler(err) {

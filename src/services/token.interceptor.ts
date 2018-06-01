@@ -19,13 +19,7 @@ import { HttpWrapper } from './http-wrapper.service';
 export class TokenInterceptor implements HttpInterceptor {
     @select( ['login', 'jwtInfo'] )
     loginStore: Observable<JwtInfo>
-    private readonly REQUEST_THRESHOLD = 750
     constructor(private httpWrapper: HttpWrapper<JwtInfo>) {}
-    requestThreshold () {
-        setTimeout(() => {
-            this.httpWrapper.isInRequest = false
-        }, this.REQUEST_THRESHOLD)
-    }
     intercept ( request: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
         this.httpWrapper.isInRequest = true
         this.loginStore.subscribe( ( response: any ) => {
@@ -39,12 +33,12 @@ export class TokenInterceptor implements HttpInterceptor {
         } )
         return next.handle( request )
             .catch(err => {
-                this.requestThreshold()
+                this.httpWrapper.isInRequest = false
                 return Observable.of(err)
             })
             .map(response => {
                 if (response.type){
-                    this.requestThreshold()
+                    this.httpWrapper.isInRequest = false
                 }
                 return response
             })

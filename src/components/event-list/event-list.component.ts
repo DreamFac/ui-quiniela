@@ -22,7 +22,6 @@ export class EventListComponent implements AfterContentInit {
   }
 
   pick(eventPredictionModel: EventPredictionModel, team: Team) {
-    console.log('PICK CLICK --------->', eventPredictionModel)
     EventListActions.selectTeam(eventPredictionModel, team)
   }
   pickTie(eventPrediction: EventPredictionModel) {

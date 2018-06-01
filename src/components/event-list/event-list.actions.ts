@@ -45,10 +45,10 @@ export class EventListActions {
             }
         }
     }
-    static selectTeamSuccess(event: EventPredictionModel): ReduxAction<EventPredictionModel> {
+    static selectTeamSuccess(eventPrediction: EventPredictionModel): ReduxAction<EventPredictionModel> {
         return {
             type: EventListActions.SELECT_TEAM_OK,
-            payload: event
+            payload: eventPrediction
         }
     }
     @dispatch()

@@ -45,28 +45,24 @@ export class EventListService {
   }
 
   markTieAsSelected(response: Prediction[], eventPrediction: EventPredictionModel) {
-    if (response){
-      eventPrediction.predictions = response
-    }
-      eventPrediction.event.tie.isPicked = !eventPrediction.event.tie.isPicked
-      eventPrediction.event.teamA.isPicked = false
-      eventPrediction.event.teamB.isPicked = false
-      return eventPrediction
+    eventPrediction.predictions = response ? response : []
+    eventPrediction.event.tie.isPicked = !eventPrediction.event.tie.isPicked
+    eventPrediction.event.teamA.isPicked = false
+    eventPrediction.event.teamB.isPicked = false
+    return eventPrediction
   }
 
   markAsSelected(response: Prediction[], eventPrediction: EventPredictionModel, team: TeamModel) {
-    if (response){
-      eventPrediction.predictions = response
+    eventPrediction.predictions = response ? response : []
+    if (eventPrediction.event.teamA.id === team.id) {
+      eventPrediction.event.tie.isPicked = false;
+      eventPrediction.event.teamB.isPicked = false;
+      eventPrediction.event.teamA.isPicked = !eventPrediction.event.teamA.isPicked;
+    } else if (eventPrediction.event.teamB.id === team.id) {
+      eventPrediction.event.tie.isPicked = false;
+      eventPrediction.event.teamA.isPicked = false;
+      eventPrediction.event.teamB.isPicked = !eventPrediction.event.teamB.isPicked;
     }
-     if (eventPrediction.event.teamA.id === team.id) {
-       eventPrediction.event.tie.isPicked = false;
-       eventPrediction.event.teamB.isPicked = false;
-       eventPrediction.event.teamA.isPicked = !eventPrediction.event.teamA.isPicked;
-     } else if (eventPrediction.event.teamB.id === team.id) {
-       eventPrediction.event.tie.isPicked = false;
-       eventPrediction.event.teamA.isPicked = false;
-       eventPrediction.event.teamB.isPicked = !eventPrediction.event.teamB.isPicked;
-     }
     return eventPrediction
   }
 
