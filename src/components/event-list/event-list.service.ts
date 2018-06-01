@@ -44,30 +44,6 @@ export class EventListService {
       })
   }
 
-  mapPredicton (response) {
-    return response.map((prediction: PredictionDto) => {
-      return {
-       id: prediction.id,
-       prediction: prediction.prediction,
-       read: prediction.read,
-       result_type: prediction.result_type,
-       team: prediction.team,
-       team_event: {
-         id: prediction.team_event,
-         result_type: {
-           id: prediction.result_type
-         },
-         event: prediction.team_event,
-         team: {
-           id: prediction.team
-         },
-         result: ''
-       },
-       user: prediction.user
-      }
-   })
-  }
-
   markTieAsSelected(response: Prediction[], eventPrediction: EventPredictionModel) {
     if (response){
       eventPrediction.predictions = response

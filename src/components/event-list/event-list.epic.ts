@@ -15,7 +15,7 @@ import "rxjs/add/operator/concat";
 import "rxjs/add/operator/concatMap";
 import "rxjs/add/operator/concatAll";
 import "rxjs/add/observable/fromPromise";
-import { flatMap } from 'rxjs/operators';
+import { startWith, delay, tap } from 'rxjs/operators';
 
 // app
 import { ReduxAction } from "src/store/types";
@@ -35,7 +35,8 @@ export class EventListEpic {
     return [
       createEpicMiddleware(this.getAll),
       createEpicMiddleware(this.selectTeam),
-      createEpicMiddleware(this.selectTie)
+      createEpicMiddleware(this.selectTie),
+      createEpicMiddleware(this.selectTeamFail)
     ];
   }
   getAll = (action$: any, store: any): Observable<Action> => {
@@ -82,12 +83,16 @@ export class EventListEpic {
 
         if (eventPrediction.event.tie.isPicked && !predictedTeam) {
           return this.eventListService.selectTeam(eventPrediction, team, 'delete')
+            .catch(this.errorHandler)
         } else if (!eventPrediction.event.tie.isPicked && !predictedTeam) {
           return this.eventListService.selectTeam(eventPrediction, team, 'create')
+            .catch(this.errorHandler)
         } else if (!eventPrediction.event.tie.isPicked && predictedTeam.id !== team.id) {
           return this.eventListService.selectTeam(eventPrediction, team, 'update')
+            .catch(this.errorHandler)
         } else if (!eventPrediction.event.tie.isPicked && predictedTeam.id === team.id) {
           return this.eventListService.selectTeam(eventPrediction, team, 'delete')
+            .catch(this.errorHandler)
         }
 
       })
@@ -95,4 +100,19 @@ export class EventListEpic {
         return EventListActions.selectTeamSuccess(event)
       })
   };
+  selectTeamFail = (action$: any, store: any): Observable<Action> => {
+    return action$
+      .ofType(EventListActions.SELECT_TEAM_FAIL)
+      .concatMap(() => {
+        document.location.reload()
+        return Observable.of()
+      })
+  }
+  errorHandler(err) {
+    return Observable.of()
+      .pipe(
+        startWith(null),
+        tap(() => EventListActions.selectTeamFail(err)),
+    )
+  }
 }

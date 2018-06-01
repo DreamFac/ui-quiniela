@@ -19,7 +19,7 @@ import { HttpWrapper } from './http-wrapper.service';
 export class TokenInterceptor implements HttpInterceptor {
     @select( ['login', 'jwtInfo'] )
     loginStore: Observable<JwtInfo>
-    private readonly REQUEST_THRESHOLD = 1500
+    private readonly REQUEST_THRESHOLD = 750
     constructor(private httpWrapper: HttpWrapper<JwtInfo>) {}
     requestThreshold () {
         setTimeout(() => {

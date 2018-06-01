@@ -95,6 +95,9 @@ export class PredictionService {
         const prediction = first(
             eventPrediction.predictions.filter(x => x.team_event.team.id === team.id)
         )
+        if ( !prediction ) {
+            return Observable.throw({})
+        }
         const predictTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/${prediction.id}`;
         return this.http.delete(predictTeamUrl)
             .map((response) => {

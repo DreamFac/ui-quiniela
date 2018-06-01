@@ -14,7 +14,7 @@ export const eventListReducer: Reducer<EventState> = (
     state: EventState = { ...EVENTS_INITIAL_STATE },
     action: AnyAction
 ): EventState => {
-    switch ( action.type ) {
+    switch (action.type) {
         case EventListActions.GET_ALL:
             return { ...state, eventList: action.payload }
         case EventListActions.GET_ALL_SUCCESS:
@@ -24,6 +24,8 @@ export const eventListReducer: Reducer<EventState> = (
         case EventListActions.SELECT_TIE:
             return { ...state, team: action.payload }
         case EventListActions.SELECT_TEAM_OK:
+            return { ...state, event: action.payload }
+        case EventListActions.SELECT_TEAM_FAIL:
             return { ...state, event: action.payload }
         default:
             return state
