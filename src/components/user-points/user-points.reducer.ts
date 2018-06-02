@@ -16,7 +16,7 @@ export const userPointsReducer: Reducer<UserPointsState> = (
 ): UserPointsState => {
     switch (action.type) {
         case UserPointsActions.GET:
-            return { ...state }
+            return { ...state, ...USER_POINTS_INITIAL_STATE }
         case UserPointsActions.GET_SUCCESS:
             return { ...state, points: action.payload }
         case UserPointsActions.GET_FAIL:
