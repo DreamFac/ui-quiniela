@@ -45,8 +45,6 @@
     left: 0;
     right: 0;
     background-image: -webkit-linear-gradient(30deg, #013A6B 50%, #004E95 50%);
-    // background-image: linear-gradient(to right bottom, #c41467, #c41467, #201d53, #201d53);
-    // background: url("https://wallpaperstock.net/wallpapers/thumbs1/34092hd.jpg");
   }
 
 .app {
@@ -136,6 +134,10 @@ span.flag-icon {
     }
     .loader {
         top: 85% !important;
+    }
+    span.flag-icon {
+      width: 50px;
+      height: 50px;
     }
 }
 

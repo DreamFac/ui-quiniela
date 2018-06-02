@@ -21,6 +21,7 @@ export interface TeamEvent {
     event?: number
     team?: Team
     result?: string
+    completed?: boolean
 }
 
 export interface ResultType {

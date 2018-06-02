@@ -50,6 +50,7 @@ export class EventModel {
   teamA: TeamModel;
   teamB: TeamModel;
   tie: Tie;
+  wonPrediction?: boolean = false
   constructor(model: Event = InitalState) {
     this.id = model.id;
     this.date = model.date;
