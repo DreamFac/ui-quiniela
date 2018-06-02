@@ -99,26 +99,25 @@ body {
 
 h1 {
     font: 700 48px/55px Pilcrow-Bold, sans-serif;
-    color: white;
-    margin: 40px 0 25px
+    color: #408648;
+    margin: 40px 0 15px
 }
 
 h2 {
     font: 700 40px/50px Pilcrow-Bold, sans-serif;
-    color: #333;
+    color: #408648;;
     margin: 40px 0 0
 }
 
 h3 {
     font: 700 24px/30px Pilcrow-Bold, sans-serif;
-    color: #442366;
-    margin: 0 0 25px;
-    text-transform: uppercase
+    color: #408648;
+    margin: 0 0 15px;
 }
 
 h4 {
     font: 700 18px/25px Pilcrow-Bold, sans-serif;
-    color: #333;
+    color: #408648;;
     margin: 25px 0 -15px
 }
 

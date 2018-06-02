@@ -22,18 +22,6 @@ const {
 export class PredictionService {
     resultTypes: ResultType[] = []
     constructor(private http: HttpWrapper<any>) {
-        Observable.of()
-            .pipe(
-                startWith(null),
-                delay(0),
-                tap(() => {
-                    const resultTypesUrl = `${protocol}://${baseUrl}/${version}/${resultTypes}`;
-                    this.http.get(resultTypesUrl)
-                        .subscribe((response: ResultType[]) => {
-                            this.resultTypes = response
-                        })
-                })
-            ).subscribe()
     }
 
     getAll(): Observable<Array<Prediction>> {
@@ -51,13 +39,13 @@ export class PredictionService {
             {
                 team_event: team.teamEventId,
                 team: team.id,
-                result_type: first(this.resultTypes).id,
+                result_type: 1,
                 prediction: "1"
             },
             {
                 team_event: notSelectedTeam.teamEventId,
                 team: notSelectedTeam.id,
-                result_type: first(this.resultTypes).id,
+                result_type: 1,
                 prediction: "0"
             }
         ]
@@ -66,26 +54,8 @@ export class PredictionService {
                 return response
             })
     }
-    updatePrediction(eventPrediction: EventPredictionModel, team: TeamModel): Observable<Prediction[]> {
+    updatePrediction(predictionDto: EventPredictionDto[]): Observable<Prediction[]> {
         const predictTeamUrl = `${protocol}://${baseUrl}/${version}/predictions/`;
-        const { event: { teamA, teamB } } = eventPrediction
-        const notSelectedTeam = team.id !== teamA.id ? teamA : teamB
-        const predictionDto: EventPredictionDto[] = [
-            {
-                id: eventPrediction.predictions[1].id,
-                team_event: team.teamEventId,
-                team: team.id,
-                result_type: first(this.resultTypes).id,
-                prediction: "1"
-            },
-            {
-                id: eventPrediction.predictions[0].id,
-                team_event: notSelectedTeam.teamEventId,
-                team: notSelectedTeam.id,
-                result_type: first(this.resultTypes).id,
-                prediction: "0"
-            }
-        ]
         return this.http.put(predictTeamUrl, predictionDto)
             .map((response) => {
                 return response
@@ -111,13 +81,13 @@ export class PredictionService {
             {
                 team_event: eventPrediction.event.teamA.teamEventId,
                 team: eventPrediction.event.teamA.id,
-                result_type: first(this.resultTypes).id,
+                result_type: 1,
                 prediction: "-1"
             },
             {
                 team_event: eventPrediction.event.teamB.teamEventId,
                 team: eventPrediction.event.teamB.id,
-                result_type: first(this.resultTypes).id,
+                result_type: 1,
                 prediction: "-1"
             }
         ]
@@ -134,14 +104,14 @@ export class PredictionService {
                 id: eventPrediction.predictions[1].id,
                 team_event: eventPrediction.event.teamA.teamEventId,
                 team: eventPrediction.event.teamA.id,
-                result_type: first(this.resultTypes).id,
+                result_type: 1,
                 prediction: "-1"
             },
             {
                 id: eventPrediction.predictions[0].id,
                 team_event: eventPrediction.event.teamB.teamEventId,
                 team: eventPrediction.event.teamB.id,
-                result_type: first(this.resultTypes).id,
+                result_type: 1,
                 prediction: "-1"
             }
         ]

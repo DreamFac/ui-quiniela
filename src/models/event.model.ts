@@ -51,6 +51,7 @@ export class EventModel {
   teamB: TeamModel;
   tie: Tie;
   wonPrediction?: boolean = false
+  rewardPoints?: number = 0
   constructor(model: Event = InitalState) {
     this.id = model.id;
     this.date = model.date;

@@ -29,6 +29,7 @@ export interface ResultType {
     name?: string
     result_type?: string
     description?: string
+    points?: number
 }
 
 export interface EventType {
@@ -65,6 +66,7 @@ export interface PredictionDto {
 export interface EventPredictionDto {
     id?: number
     team_event: number
+    read?: boolean
     team: number
     result_type: number
     prediction: any

@@ -13,7 +13,7 @@ import { DashboardActions } from "../dashboard/dashboard.actions";
   styleUrls: ["./event-list.component.scss"]
 })
 export class EventListComponent implements AfterContentInit {
-  title = "Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
+  title = "¡Hola! Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
   constructor(private store: NgRedux<any>) { }
 
   @Input() eventPredictions: EventPredictionModel[] = []
