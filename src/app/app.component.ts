@@ -3,6 +3,9 @@ import { HttpWrapper } from '../services/http-wrapper.service';
 import { startWith, delay, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { DashboardActions } from '../components/dashboard/dashboard.actions';
+import { NgRedux, select } from '@angular-redux/store';
+import { AppState } from '../store/model';
+import { LoginState } from '../store/reducers/login.reducer';
 
 @Component( {
   selector: 'app-root',
@@ -11,7 +14,13 @@ import { DashboardActions } from '../components/dashboard/dashboard.actions';
 } )
 export class AppComponent implements AfterContentInit {
   isLoading: boolean
-  constructor(public httpWrapper: HttpWrapper<any>) {
+  @select(['login', 'authenticated'])
+  authenticated: Observable<LoginState>
+
+  constructor(
+    public httpWrapper: HttpWrapper<any>, 
+    private store: NgRedux<AppState>
+  ){
   }
   ngAfterContentInit () {
     // something after content init

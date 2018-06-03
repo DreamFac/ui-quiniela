@@ -21,6 +21,9 @@ export default {
         "predictions": {
             "createPrediction": "predictions/",
             "getPredictions": "predictions/"
+        },
+        "userPoints": {
+            "getPoints": "points/"
         }
     }
 }

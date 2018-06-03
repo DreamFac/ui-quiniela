@@ -19,7 +19,7 @@ const STORE_VERSION = 1
 } )
 export class StoreModule {
     constructor ( ngRedux: NgRedux<AppState>, devTools: DevToolsExtension, epics: Epics ) {
-        const config = { key: 'jwt-auth-sdk', storage, blacklist: ['team'], version: STORE_VERSION }
+        const config = { key: 'oracleapp-ui', storage, blacklist: ['team'], version: STORE_VERSION }
         const persistedReducer: any = persistCombineReducers(config, rootReducer)
         ngRedux.configureStore(
             persistedReducer,

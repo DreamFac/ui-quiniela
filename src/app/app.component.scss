@@ -16,13 +16,41 @@
     margin: 0;
   }
 
-  img {
-    width: 80px;
-    height: 50px;
+  h1 {
+      font: 700 48px/55px Pilcrow-Bold, sans-serif;
+      color: #408648;
+      margin: 40px 0 15px
   }
 
-  label {
-    color: #424242 !important;
+  h2 {
+      font: 700 40px/50px Pilcrow-Bold, sans-serif;
+      color: #408648;;
+      margin: 40px 0 0
+  }
+
+  h3 {
+      font: 700 24px/30px Pilcrow-Bold, sans-serif;
+      color: #408648;
+      margin: 0 0 15px;
+  }
+
+  h4 {
+      font: 700 18px/25px Pilcrow-Bold, sans-serif;
+      color: #408648;;
+      margin: 25px 0 -15px
+  }
+
+  img {
+    width: 80px;
+  }
+
+  label, strong {
+    color: #424242;
+  }
+
+  strong {
+      font-weight: 700;
+      font-family: Pilcrow-Bold, sans-serif
   }
 
   .container {
@@ -44,16 +72,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: -webkit-linear-gradient(30deg, #013A6B 50%, #004E95 50%);
-    // background-image: linear-gradient(to right bottom, #c41467, #c41467, #201d53, #201d53);
-    // background: url("https://wallpaperstock.net/wallpapers/thumbs1/34092hd.jpg");
+    background: linear-gradient(to right, #28544a, darkslategray);
   }
 
 .app {
   position: relative;
-  padding: 15px;
   background: none;
-  margin: 0px 15px 15px 15px;
+  margin: 60px;
 }
 
 .left {
@@ -68,6 +93,23 @@
     text-align: center;
 }
 
+.bordered {
+  border: 2px solid seagreen;
+}
+
+.padded {
+  padding: 20px;
+}
+
+.padded-sm {
+  padding: 10px;
+}
+
+
+.pad-right {
+  padding-right: 10px;
+}
+
 .flex-grid {
     height: 100%;
     display: flex;
@@ -80,12 +122,12 @@
 }
 
 .col {
-    margin: 5px;
+    margin: 0px;
     flex: 1;
 }
 
 .col-sm {
-    margin: 5px;
+    margin: 0px;
     flex: 0.5;
 }
 
@@ -94,7 +136,8 @@
 }
 
 .box {
-    background: snow;
+    color: #424242;
+    background: white;
     box-shadow: 4px 4px 8px 2px rgba(0,0,0,.1);
     transition: all 0.1s ease-in-out;
 }
@@ -107,8 +150,8 @@ span.flag-icon {
 .oraculapp-btn {
   padding: 20px;
   width: 100%;
-  background: #97bf0d;
-  color: white;
+  background: seagreen;
+  color: white !important;
   font-weight: 600;
   font-size: 24px;
   box-shadow: none;
@@ -117,9 +160,18 @@ span.flag-icon {
   border: none;
 }
 
+.valign-middle {
+  height: 90% !important;
+  line-height: 60px !important;
+  text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
     app-root {
       height: auto !important;
+    }
+    .app {
+      margin: 15px !important;
     }
     .flex-grid {
         flex-direction: column !important;
@@ -136,6 +188,10 @@ span.flag-icon {
     }
     .loader {
         top: 85% !important;
+    }
+    span.flag-icon {
+      width: 50px;
+      height: 50px;
     }
 }
 

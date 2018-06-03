@@ -27,6 +27,8 @@ import { PredictionActions } from '../store/actions/prediction.actions';
 import { PredictionService } from '../services/prediction.service';
 import { DashboardEpics } from '../components/dashboard/dashboard.epic';
 import { DashboardService } from '../components/dashboard/dashboard.service';
+import { UserProfileService } from '../components/user-points/user-profile.service';
+import { UserPointsEpics } from '../components/user-points/user-points.epic';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -59,6 +61,8 @@ const APP_COMMON_MODULES = [
     PredictionService,
     DashboardEpics,
     DashboardService,
+    UserPointsEpics,
+    UserProfileService,
     HttpWrapper,
     {
       provide: HTTP_INTERCEPTORS,

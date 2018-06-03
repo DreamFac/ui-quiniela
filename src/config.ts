@@ -20,6 +20,9 @@ export const config = (configFile: ConfigFile): AuthConfig => {
             predictions: {
                 createPrediction: configFile.urlConfig.predictions.createPrediction,
                 getPredictions: configFile.urlConfig.predictions.getPredictions
+            },
+            userPoints: {
+                getPoints: configFile.urlConfig.userPoints.getPoints
             }
         }
     }
@@ -34,6 +37,7 @@ export interface UrlConfig {
     auth: AuthUrlConfig
     events: EventUrlConfig
     predictions: PredictionUrlConfig
+    userPoints: UserPointsConfig
 }
 export interface AuthUrlConfig {
     baseUrl: string,
@@ -55,4 +59,8 @@ export interface EventUrlConfig {
 export interface PredictionUrlConfig {
     createPrediction: string
     getPredictions: string
+}
+
+export interface UserPointsConfig {
+    getPoints: string
 }

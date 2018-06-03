@@ -51,10 +51,12 @@ export class HttpWrapper<T> {
             this.http.request(requestOptions)
                 .subscribe((response: any | HttpResponse) => {
                     if (response.type) {
+                        this.isInRequest = false
                         observer.next(response.body);
                         observer.complete();
                     }
                     if (response.error) {
+                        this.isInRequest = false
                         observer.error(response)
                         if (response.status === 401) {
                             this.router.navigateByUrl('/login')
