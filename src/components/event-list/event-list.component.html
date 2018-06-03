@@ -1,9 +1,16 @@
 <div class="container">
-    <div class="title center">
-        {{ title }}
+    <div class="box padded bordered">
+        <div class="flex-grid-row">
+            <h3>Mis Predicciones</h3>
+        </div>
+        <div class="flex-grid-row">
+            <div class="title">
+                {{ title }}
+            </div>
+        </div>
     </div>
     <div class="events">
-        <div class="pick-padd" *ngFor="let item of eventPredictions | async">
+        <div class="bordered" *ngFor="let item of eventPredictions | async">
             <div class="flex-grid">
                 <div class="col center box pick" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
                     <div class="flex-grid-row">
@@ -34,13 +41,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm center">
-                    <div class="flex-grid-row">
+                <div class="col-sm center box padded-sm">
+                    <div class="flex-grid-row" *ngIf="!eventStarted(item.event)">
+                        <div class="col">
+                            <label>Clock</label>
+                        </div>
+                        <div class="col">
+                            <strong>{{item.event.timeLeft.days}}</strong>
+                            <label>&nbsp;dias</label>
+                        </div>
+                        <div class="col">
+                            <strong>{{item.event.timeLeft.hours}}</strong>
+                            <label>&nbsp;horas</label>
+                        </div>
+                        <div class="col">
+                            <strong>{{item.event.timeLeft.mins}}</strong>
+                            <label>&nbsp;mins</label>
+                        </div>
+                    </div>
+                    <div class="flex-grid-row" *ngIf="eventStarted(item.event)">
                         <div class="col">
                             &nbsp;
                         </div>
                         <div class="col">
-                            {{ item.event.date.toLocaleString() }}
+                            <strong>Evento iniciado.</strong>
                         </div>
                         <div class="col">
                             &nbsp;

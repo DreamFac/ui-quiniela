@@ -1,5 +1,19 @@
 .header {
-    color: snow;
-    background-color: #424242;
-    margin: 15px;
+    color: white;
+    height: 60px;
+    background-color: #2b9048;
+}
+
+img {
+    width: 195px !important;
+}
+
+.logo {
+    margin: 10px 10px 10px 60px;
+}
+
+.row-header {
+    flex: 1;
+    display: flex;
+    flex-direction: row !important;
 }

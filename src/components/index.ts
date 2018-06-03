@@ -4,7 +4,8 @@ import {
     HeaderComponent,
     DashboardComponent,
     EventListComponent,
-    PredictionListComponent
+    PredictionListComponent,
+    UserPointsComponent
   } from '../components/barrel';
 
   export const APP_COMPONENTS = [
@@ -12,5 +13,6 @@ import {
     HeaderComponent,
     DashboardComponent,
     EventListComponent,
-    PredictionListComponent
+    PredictionListComponent,
+    UserPointsComponent
 ];

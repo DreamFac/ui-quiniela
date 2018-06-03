@@ -1,5 +1,6 @@
 import { Injectable, Inject } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { delay, tap, startWith } from "rxjs/operators";
 import { config } from "src/config";
 import configFile from "src/config.file";
 import { Event, EventModel, Team, Tie, TeamModel } from "../../models/event.model";
@@ -19,10 +20,24 @@ const {
 
 @Injectable()
 export class EventListService {
+  resultTypes: ResultType[] = []
   constructor(
     private http: HttpWrapper<Array<any>>,
     private predictionService: PredictionService
-  ) { }
+  ) { 
+    Observable.of()
+            .pipe(
+                startWith(null),
+                delay(0),
+                tap(() => {
+                    const resultTypesUrl = `${protocol}://${baseUrl}/${version}/${resultTypes}`;
+                    this.http.get(resultTypesUrl)
+                        .subscribe((response: ResultType[]) => {
+                            this.resultTypes = response
+                        })
+                })
+            ).subscribe()
+  }
   getAll(): Observable<Array<EventModel>> {
     let events: Array<EventModel> = []
     const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
@@ -92,7 +107,25 @@ export class EventListService {
           return this.markAsSelected(response, eventPrediction, team)
         })
     } else if (action === 'update') {
-      return this.predictionService.updatePrediction(eventPrediction, team)
+      const { event: { teamA, teamB } } = eventPrediction
+        const notSelectedTeam = team.id !== teamA.id ? teamA : teamB
+        const predictionDto: EventPredictionDto[] = [
+            {
+                id: eventPrediction.predictions[1].id,
+                team_event: team.teamEventId,
+                team: team.id,
+                result_type: first(this.resultTypes).id,
+                prediction: "1"
+            },
+            {
+                id: eventPrediction.predictions[0].id,
+                team_event: notSelectedTeam.teamEventId,
+                team: notSelectedTeam.id,
+                result_type: first(this.resultTypes).id,
+                prediction: "0"
+            }
+        ]
+      return this.predictionService.updatePrediction(predictionDto)
         .map((response) => {
           return this.markAsSelected(response, eventPrediction, team)
         })

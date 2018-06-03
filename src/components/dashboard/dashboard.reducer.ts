@@ -15,7 +15,7 @@ export const dashboardReducer: Reducer<DashboardState> = (
 ): DashboardState => {
     switch (action.type) {
         case DashboardActions.MERGE_EVENTS_PREDICTIONS:
-            return { ...state, eventPredictionList: [] }
+            return { ...state, ...DASHBOARD_INITIAL_STATE }
         case DashboardActions.MERGE_EVENTS_PREDICTIONS_SUCCESS:
             return { ...state, eventPredictionList: action.payload }
         case DashboardActions.MERGE_EVENTS_PREDICTIONS_FAIL:

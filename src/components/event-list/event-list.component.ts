@@ -6,6 +6,7 @@ import { delay, tap, startWith } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 import { DashboardActions } from "../dashboard/dashboard.actions";
+import * as moment from 'moment'
 
 @Component({
   selector: "app-event-list",
@@ -13,7 +14,7 @@ import { DashboardActions } from "../dashboard/dashboard.actions";
   styleUrls: ["./event-list.component.scss"]
 })
 export class EventListComponent implements AfterContentInit {
-  title = "Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
+  title = "¡Hola! Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
   constructor(private store: NgRedux<any>) { }
 
   @Input() eventPredictions: EventPredictionModel[] = []
@@ -26,5 +27,8 @@ export class EventListComponent implements AfterContentInit {
   }
   pickTie(eventPrediction: EventPredictionModel) {
     EventListActions.selectTie(eventPrediction);
+  }
+  eventStarted (event: EventModel) {
+    return event.timeLeft.days < 0
   }
 }

@@ -1,13 +1,15 @@
 .title {
-    padding-bottom: 5px !important;
+    color: #424242;
+    background: white;
+
 }
 
-.pick-padd {
-    padding-top: 20px;
+.title-container {
+    margin: 20px;
 }
 
 .box.pick {
-    height: 125px;
+    height: auto;
     cursor: pointer;
     box-shadow: 4px 4px 8px 2px rgba(0,0,0,.1);
     transition: all 0.1s ease-in-out;
@@ -25,7 +27,7 @@
 }
 
 .box.pick.isPicked {
-    background: gold;
+    background: #d6ebd7;
 }
 
 /* Scale up the box */
@@ -39,6 +41,6 @@
 
 .vs {
     width: 75px;
-    line-height: 8;
+    line-height: 5.05;
     padding: 5px;
 }
