@@ -6,6 +6,7 @@ import { delay, tap, startWith } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 import { DashboardActions } from "../dashboard/dashboard.actions";
+import * as moment from 'moment'
 
 @Component({
   selector: "app-event-list",
@@ -26,5 +27,25 @@ export class EventListComponent implements AfterContentInit {
   }
   pickTie(eventPrediction: EventPredictionModel) {
     EventListActions.selectTie(eventPrediction);
+  }
+
+  parseTimeLeft(endDate) {
+    setTimeout(() => {
+      const startDate = moment();
+      const start_date = moment(startDate, 'YYYY-MM-DD HH:mm');
+      const end_date = moment(endDate, 'YYYY-MM-DD HH:mm');
+      const duration = moment.duration(end_date.diff(start_date));
+      const days = duration.asDays();
+
+      // Convert days 
+      const daysInt = Math.floor(days)
+      const daysDecimals = days - daysInt
+      const hours = daysDecimals * 24
+      const hoursInt = Math.floor(hours)
+      const hoursDecimals = hours - hoursInt
+      const minsInt = hoursDecimals * 60
+
+      return days;
+    })
   }
 }

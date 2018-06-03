@@ -21,7 +21,7 @@
     height: 50px;
   }
 
-  label {
+  label, strong {
     color: #424242;
   }
 
@@ -74,6 +74,11 @@
   padding: 20px;
 }
 
+.padded-sm {
+  padding: 10px;
+}
+
+
 .pad-right {
   padding-right: 10px;
 }
@@ -105,7 +110,7 @@
 
 .box {
     color: #424242;
-    background: snow;
+    background: white;
     box-shadow: 4px 4px 8px 2px rgba(0,0,0,.1);
     transition: all 0.1s ease-in-out;
 }
