@@ -23,42 +23,59 @@
                 <div class="title">
                     <h3>Tus Ultimos Resultados</h3>
                 </div>
-                <div class="flex-grid-row">
-                    <div class="row result" *ngFor="let event of eventResults">
-                        <div class="col">
-                            <span class="valign-middle" [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
-                            <span class="valign-middle" [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
-                        </div>
-                        <div class="col-sm">
-                            <div class="valign-middle">
-                                {{ event.wonPrediction }}
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="valign-middle">
-                                +{{ event.wonPrediction ? event.rewardPoints : '0' }}
-                            </div>
-                        </div>
+                <div class="row" *ngFor="let event of eventResults">
+                    <div class="col">
+                        <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
+                        <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
                     </div>
-                    <div class="total right">
-                        Total: 100
+                    <div class="col-sm marginTop">
+                        <img *ngIf="event.wonPrediction" class="icon-md" src="../../assets/check.png" alt="check" />
+                        <img *ngIf="!event.wonPrediction" class="icon-md" src="../../assets/cross.png" alt="cross" />
+                    </div>
+                    <div class="col-sm marginTop">
+                        +{{ event.wonPrediction ? event.rewardPoints : '0' }}
                     </div>
                 </div>
-                <div class="flex-grid-row">
-                    <div class="center">
-                        Ahora tienes {{points | async}} puntos.
+                <div class="row">
+                    <div class="col">
+                        &nbsp;
                     </div>
-                    <div class="center">
-                        Tu ranking mundial es 54.
+                    <div class="col-sm">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm total-pts">
+                        + 100
+                    </div>
+                </div>
+                <div class="flex-grid-row separator-light">
+                    <div class="padded">
+                        <div class="center">
+                            <strong>Ahora tienes {{points | async}} puntos.</strong>
+                            <div class="ranking-result">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Ranking</strong>
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="valign-top">
+                                            <strong># 78</strong>
+                                        </span>
+                                        <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                    </div>
+                                    <div class="col">
+                                        <div class="valign-top">
+                                            <strong># 43</strong>
+                                            <span [ngClass]="'flag-icon flag-icon-jp'"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col">
                     <p class="btn-container">
-                        <input 
-                            class="oraculapp-btn" 
-                            type="button" 
-                            value="Entendido" 
-                            (click)="markAsRead()" />
+                        <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
                     </p>
                 </div>
             </div>
