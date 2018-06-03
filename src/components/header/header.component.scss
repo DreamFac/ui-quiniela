@@ -11,3 +11,9 @@ img {
 .logo {
     margin: 10px 10px 10px 60px;
 }
+
+.row-header {
+    flex: 1;
+    display: flex;
+    flex-direction: row !important;
+}
