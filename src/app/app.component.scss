@@ -44,14 +44,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: url('../assets/pool_table.png')
+    background: linear-gradient(to right, #28544a, darkslategray);
   }
 
 .app {
   position: relative;
-  padding: 15px;
   background: none;
-  margin: 0px 15px 15px 15px;
+  margin: 60px;
 }
 
 .left {
@@ -142,6 +141,9 @@ span.flag-icon {
 @media only screen and (max-width: 768px) {
     app-root {
       height: auto !important;
+    }
+    .app {
+      margin: 15px !important;
     }
     .flex-grid {
         flex-direction: column !important;
