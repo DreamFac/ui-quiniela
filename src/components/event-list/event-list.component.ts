@@ -17,9 +17,15 @@ export class EventListComponent implements AfterContentInit {
   title = "¡Hola! Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
   constructor(private store: NgRedux<any>) { }
 
-  @Input() eventPredictions: EventPredictionModel[] = []
+  eventPredictionList: EventPredictionModel[] = []
+  @Input() eventPredictions: Observable<EventPredictionModel[]>
 
   ngAfterContentInit() {
+    this.eventPredictions
+      .subscribe((result) => {
+        // make sure timeLeft has been calculated.
+        this.eventPredictionList = result
+      })
   }
 
   pick(eventPredictionModel: EventPredictionModel, team: Team) {
@@ -27,8 +33,5 @@ export class EventListComponent implements AfterContentInit {
   }
   pickTie(eventPrediction: EventPredictionModel) {
     EventListActions.selectTie(eventPrediction);
-  }
-  eventStarted (event: EventModel) {
-    return event.timeLeft.days < 0
   }
 }

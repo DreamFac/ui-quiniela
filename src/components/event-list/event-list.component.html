@@ -9,9 +9,9 @@
             </div>
         </div>
     </div>
-    <div class="events">
-        <div class="bordered" *ngFor="let item of eventPredictions | async">
-            <div class="flex-grid">
+    <div class="events" *ngIf="eventPredictionList.length">
+        <div class="bordered" *ngFor="let item of eventPredictionList">
+            <div class="flex-grid" [ngClass]="{'disabled': item.event.started}">
                 <div class="col center box pick" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
                     <div class="flex-grid-row">
                         <div class="col">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-sm center box padded-sm">
-                    <div class="flex-grid-row" *ngIf="!eventStarted(item.event)">
+                    <div class="flex-grid-row" *ngIf="!item.event.started">
                         <div class="col">
                             <label>Clock</label>
                         </div>
@@ -59,7 +59,7 @@
                             <label>&nbsp;mins</label>
                         </div>
                     </div>
-                    <div class="flex-grid-row" *ngIf="eventStarted(item.event)">
+                    <div class="flex-grid-row" *ngIf="item.event.started">
                         <div class="col">
                             &nbsp;
                         </div>

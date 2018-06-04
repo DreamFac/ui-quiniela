@@ -70,6 +70,11 @@ strong {
     overflow-y: scroll;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 app-root {
     height: stretch;
     display: flex;
@@ -180,6 +185,7 @@ span.flag-icon {
 }
 
 img.icon-md {
+    position: absolute;
     width: 40px !important;
     line-height: 75px !important;
 }

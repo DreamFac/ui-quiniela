@@ -53,20 +53,20 @@
                             <strong>Ahora tienes {{points | async}} puntos.</strong>
                             <div class="ranking-result">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col valign-ranking">
                                         <strong>Ranking</strong>
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="valign-top">
+                                    <div class="col-sm valign-ranking">
+                                        <div class="">
                                             <strong># 78</strong>
-                                        </span>
-                                        <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                            &nbsp;
+                                            <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        <div class="valign-top">
-                                            <strong># 43</strong>
-                                            <span [ngClass]="'flag-icon flag-icon-jp'"></span>
-                                        </div>
+                                        <strong># 43</strong>
+                                        &nbsp;
+                                        <div class="abs" [ngClass]="'flag-icon flag-icon-jp'"></div>
                                     </div>
                                 </div>
                             </div>
@@ -74,9 +74,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <p class="btn-container">
-                        <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
-                    </p>
+                    <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
                 </div>
             </div>
         </div>

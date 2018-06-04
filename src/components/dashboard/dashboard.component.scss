@@ -14,6 +14,7 @@
         color: #424242;
     }
     .content {
+        height: max-content;
         background: whitesmoke;
         position: fixed;
         top: 0;
@@ -38,8 +39,18 @@
     }
 }
 
+.valign-ranking {
+    height: 90% !important;
+    line-height: 10px !important;
+    text-align: center;
+}
+
 .marginTop {
     margin-top: 10px;
+}
+
+.abs {
+    position: absolute;
 }
 
 span {

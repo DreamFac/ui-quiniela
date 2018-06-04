@@ -61,6 +61,7 @@ export class EventModel {
   teamA: TeamModel;
   teamB: TeamModel;
   tie: Tie;
+  started?: Boolean;
   timeLeft: TimeLeft = TimeLeftInitialState;
   wonPrediction?: boolean = false
   rewardPoints?: number = 0
@@ -72,12 +73,14 @@ export class EventModel {
     this.teamA = new TeamModel( model.team_event.shift() );
     this.teamB = new TeamModel( model.team_event.pop() );
     this.tie = model.tie;
-    const timeLeftInterval = setInterval( () => {
+    let timeLeftInterval;
+    timeLeftInterval = setInterval( () => {
       this.timeLeft = this.setTimeLeft( this.date )
+      this.started = this.timeLeft.days < 0;
       if (this.timeLeft.days < 0) {
         clearInterval(timeLeftInterval)
       }
-    }, 1000 )
+    }, timeLeftInterval ? 1000 : 0 )
   }
   setTimeLeft ( endDate ) {
     const startDate = moment();

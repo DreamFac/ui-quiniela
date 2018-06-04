@@ -48,7 +48,7 @@ export class DashboardComponent implements AfterContentInit {
         tap(() => DashboardActions.mergeEventsPredictions())
       )
       .subscribe();
-    // Not implented
+    // Not implemented
     this.eventPredictions.subscribe(result => {
       if (result && result.length) {
         this.eventResults = result
