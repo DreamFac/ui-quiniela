@@ -24,7 +24,7 @@
         </div>
         <div class="col">
             <div class="flex-grid">
-                <div class="team-places dotted" [dragula]='"first-bag"' [dragulaModel]='predictions'>
+                <div class="team-places bg-light" [dragula]='"first-bag"' [dragulaModel]='predictions'>
                     <div class="padded-sm" *ngFor='let pick of predictions; let i = index'>
                         <strong>{{i + 1}}</strong>
                         <div class="ranking-result">
@@ -33,8 +33,8 @@
                         </div>
                     </div>
                     <div class="drag-here" *ngIf="!predictions.length">
-                            Arrasta aqui.
-                        </div>
+                        Arrasta aqui.
+                    </div>
                 </div>
             </div>
         </div>
