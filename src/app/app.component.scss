@@ -93,6 +93,14 @@ app-root {
     margin: 60px;
 }
 
+.title {
+    padding: 5px;
+    text-align: -webkit-left;
+}
+.title > h3{
+    color: #408648 !important;
+}
+
 .left {
     text-align: left;
 }
@@ -184,6 +192,11 @@ span.flag-icon {
     padding: 10px;
 }
 
+img.icon-lg {
+    width: 90px !important;
+    line-height: 75px !important;
+}
+
 img.icon-md {
     position: absolute;
     width: 40px !important;
@@ -198,6 +211,11 @@ img.icon-sm {
 .separator-light {
     margin: 15px 30px 0px 30px;
     border-top: 1px solid lightgray;
+}
+
+span.icon-sm {
+    width: 30px !important;
+    height: 30px !important;
 }
 
 @media only screen and (max-width: 768px) {

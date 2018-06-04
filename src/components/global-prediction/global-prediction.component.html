@@ -1,0 +1,42 @@
+<div class="flex-grid-row padded bordered">
+    <div class="flex-grid">
+        <div class="col">
+            <div class="title left">
+                <h3>Copa Mundial</h3>
+            </div>
+        </div>
+        <div class="col-xs">
+            <img class="icon-lg" src="../../assets/worldcup.png" alt="wc" />
+        </div>
+    </div>
+    <div class="flex-grid">
+        <div class="col">
+            <div class="flex-grid container1">
+                <div class="team-places container2" [dragula]='"first-bag"' [dragulaModel]='teams'>
+                    <div class="padded-sm dotted" *ngFor='let team of teams; let i = index'>
+                        <div class="ranking-result">
+                            <span [ngClass]="'icon-sm flag-icon flag-icon-' + team.flag"></span>
+                            <div class="name">{{team.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="flex-grid">
+                <div class="team-places dotted" [dragula]='"first-bag"' [dragulaModel]='predictions'>
+                    <div class="padded-sm" *ngFor='let pick of predictions; let i = index'>
+                        <strong>{{i + 1}}</strong>
+                        <div class="ranking-result">
+                            <span [ngClass]="'icon-sm flag-icon flag-icon-' + pick.flag"></span>
+                            <div class="name">{{pick.name}}</div>
+                        </div>
+                    </div>
+                    <div class="drag-here" *ngIf="!predictions.length">
+                            Arrasta aqui.
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
