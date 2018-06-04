@@ -20,10 +20,14 @@ export default {
         },
         "predictions": {
             "createPrediction": "predictions/",
-            "getPredictions": "predictions/"
+            "getPredictions": "predictions/",
+            "globalPredictions": "global-predictions/"
         },
         "userPoints": {
             "getPoints": "points/"
+        },
+        "teams": {
+            "getAll": "teams/"
         }
     }
 }

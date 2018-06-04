@@ -1,42 +1,89 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DragulaService } from 'ng2-dragula';
-import { first, concat } from 'lodash';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  AfterContentInit
+} from "@angular/core";
+import { DragulaService } from "ng2-dragula";
+import { first, concat } from "lodash";
+import { HttpWrapper } from "../../services/http-wrapper.service";
+import configFile from "../../config.file";
+import { config } from "../../config";
 
-const teamsInitialState = [
-    { id: 1, name: 'Argentina', type: 'team', flag: 'ar' },
-    { id: 2, name: 'Spain', type: 'team', flag: 'es' },
-    { id: 3, name: 'Chile', type: 'team', flag: 'cr' },
-    { id: 4, name: 'Germany', type: 'team', flag: 'de' },
-    { id: 1, name: 'Argentina', type: 'team', flag: 'ar' },
-    { id: 2, name: 'Spain', type: 'team', flag: 'es' },
-    { id: 3, name: 'Chile', type: 'team', flag: 'cr' },
-    { id: 4, name: 'Germany', type: 'team', flag: 'de' }
-];
+import { Observable } from "rxjs/Observable";
+import { startWith, delay, tap } from "rxjs/operators";
+
+const {
+  protocol,
+  urlConfig: {
+    auth: { baseUrl, version },
+    predictions: { globalPredictions },
+    teams: { getAll }
+  }
+} = config(configFile);
+
+const teamsUrl = `${protocol}://${baseUrl}/${version}/${getAll}`;
+const globalPredictionsUrl = `${protocol}://${baseUrl}/${version}/${globalPredictions}`;
 
 @Component({
-    selector: 'app-global-prediction',
-    templateUrl: './global-prediction.component.html',
-    styleUrls: ['./global-prediction.component.scss']
+  selector: "app-global-prediction",
+  templateUrl: "./global-prediction.component.html",
+  styleUrls: ["./global-prediction.component.scss"]
 })
+export class GlobalPredictionComponent implements AfterContentInit {
+    hasError: boolean = false
+  constructor(
+    private dragulaService: DragulaService,
+    private http: HttpWrapper<any>
+  ) {
+    dragulaService.dropModel.subscribe(value => {
+      this.onDropModel(value.slice(1));
+    });
+  }
 
-export class GlobalPredictionComponent {
-    constructor(private dragulaService: DragulaService) {
-        dragulaService.dropModel.subscribe((value) => {
-            this.onDropModel(value.slice(1));
-        });
-    }
+  public teams: Array<DraggableModel> = [];
+  public teamsCopy: Array<DraggableModel> = [];
 
-    public teams: Array<DraggableModel> = concat(teamsInitialState)
-    public predictions: Array<DraggableModel> = []
+  ngAfterContentInit() {
+    Observable.of()
+      .pipe(
+        startWith(null),
+        delay(0),
+        tap(() => {
+          this.http.get(teamsUrl).subscribe(result => {
+            this.teams = result;
+            this.teamsCopy = concat([], result);
+          });
+          this.http.get(globalPredictionsUrl).subscribe(result => {
+            console.log(result);
+          });
+        })
+      )
+      .subscribe();
+  }
 
-    private onDropModel(args) {
-        let [el, target, source] = args;
-        console.log(this.teams)
-    }
+  private onDropModel(args) {
+    let [el, target, source] = args;
+    console.log(this.teams);
+    const predictionDto = this.teams.map((team, index) => {
+      return {
+          team: team.id,
+          place: index + 1
+      };
+    });
+    this.http.post(globalPredictionsUrl, predictionDto)
+        .catch(err => {
+            this.teams = concat([], this.teamsCopy)
+            return Observable.of(err)
+        })
+        .subscribe((response) => {
+            console.log(response)
+        })
+  }
 }
 
 export interface DraggableModel {
-    id?: number,
-    name?: string,
-    type?: string
+  id?: number;
+  name?: string;
+  type?: string;
 }
