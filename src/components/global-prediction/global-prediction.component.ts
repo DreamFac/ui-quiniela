@@ -19,7 +19,7 @@ const teamsInitialState = [
     styleUrls: ['./global-prediction.component.scss']
 })
 
-export class GlobalPredictionComponent implements OnInit {
+export class GlobalPredictionComponent {
     constructor(private dragulaService: DragulaService) {
         dragulaService.dropModel.subscribe((value) => {
             this.onDropModel(value.slice(1));
@@ -28,8 +28,6 @@ export class GlobalPredictionComponent implements OnInit {
 
     public teams: Array<DraggableModel> = concat(teamsInitialState)
     public predictions: Array<DraggableModel> = []
-
-    ngOnInit(): void { }
 
     private onDropModel(args) {
         let [el, target, source] = args;

@@ -9,7 +9,8 @@
 
 .team-places {
     text-align: left;
-    max-height: 300px;
+    max-height: 275px;
+    min-height: 210px;
 }
 
 .place-header {
@@ -27,7 +28,6 @@
 .drag-here {
     min-width: 150px;
     text-align: center;
-    line-height: 14;
 }
 
 .name {
@@ -41,15 +41,16 @@
     border-radius: 0px !important;
 }
 
-.container1{
+.container2 {
     height: 100%;
-    width: 100%;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
-.container2{
-    width: 80%;
-    height: 99%;
-    overflow-y: scroll;
-    padding-right: 20%;
+.col-container {
+    display: table; /* Make the container element behave like a table */
+    width: 100%; /* Set full-width to expand the whole page */
+}
+
+.col {
+    display: table-cell; /* Make elements inside the container behave like table cells */
 }
