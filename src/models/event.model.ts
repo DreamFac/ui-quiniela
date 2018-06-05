@@ -62,6 +62,7 @@ export class EventModel {
   teamB: TeamModel;
   tie: Tie;
   started?: Boolean;
+  deltaInDays: number;
   timeLeft: TimeLeft = TimeLeftInitialState;
   wonPrediction?: boolean = false
   rewardPoints?: number = 0
@@ -89,6 +90,7 @@ export class EventModel {
     const duration = moment.duration( end_date.diff( start_date ) );
     const days = duration.asDays();
     // Convert days
+    this.deltaInDays = parseFloat(days.toFixed(2))
     const daysInt = Math.floor( days )
     const daysDecimals = days - daysInt
     const hours = daysDecimals * 24

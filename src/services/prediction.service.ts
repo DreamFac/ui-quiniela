@@ -85,14 +85,14 @@ export class PredictionService {
                 team: eventPrediction.event.teamA.id,
                 result_type: 1,
                 prediction: "-1",
-                delta: 0.0
+                delta: eventPrediction.event.deltaInDays
             },
             {
                 team_event: eventPrediction.event.teamB.teamEventId,
                 team: eventPrediction.event.teamB.id,
                 result_type: 1,
                 prediction: "-1",
-                delta: 0.0
+                delta: eventPrediction.event.deltaInDays
             }
         ]
         return this.http.post(predictTeamUrl, predictionDto)
@@ -110,7 +110,7 @@ export class PredictionService {
                 team: eventPrediction.event.teamA.id,
                 result_type: 1,
                 prediction: "-1",
-                delta: 0.0
+                delta: eventPrediction.event.deltaInDays
             },
             {
                 id: eventPrediction.predictions[0].id,
@@ -118,7 +118,7 @@ export class PredictionService {
                 team: eventPrediction.event.teamB.id,
                 result_type: 1,
                 prediction: "-1",
-                delta: 0.0
+                delta: eventPrediction.event.deltaInDays
             }
         ]
         return this.http.put(predictTeamUrl, predictionDto)

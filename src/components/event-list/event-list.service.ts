@@ -116,7 +116,7 @@ export class EventListService {
                 team: team.id,
                 result_type: first(this.resultTypes).id,
                 prediction: "1",
-                delta: 0.0
+                delta: eventPrediction.event.deltaInDays
             },
             {
                 id: eventPrediction.predictions[0].id,
@@ -124,7 +124,7 @@ export class EventListService {
                 team: notSelectedTeam.id,
                 result_type: first(this.resultTypes).id,
                 prediction: "0",
-                delta: 0.0
+                delta: eventPrediction.event.deltaInDays
             }
         ]
       return this.predictionService.updatePrediction(predictionDto)
