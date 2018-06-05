@@ -168,6 +168,11 @@ app-root {
     transition: all 0.1s ease-in-out;
 }
 
+span.icon-xs {
+    width: 20px !important;
+    height: 20px !important;
+}
+
 span.flag-icon {
     width: 80px;
     height: 80px;
@@ -224,6 +229,12 @@ img.icon-sm {
 span.icon-sm {
     width: 30px !important;
     height: 30px !important;
+}
+
+.row-header {
+    flex: 1;
+    display: flex;
+    flex-direction: row !important;
 }
 
 @media only screen and (max-width: 910px) {
