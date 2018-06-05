@@ -4,7 +4,9 @@
 
 .container {
     height: -webkit-fill-available;
-    background: url('../../assets/blue-bg.png') no-repeat -30px;
+    background-size: cover !important;
+    background: url('../../assets/bg-launch.jpg') no-repeat center fixed;
+    background-position: center;
 }
 
 .overlay {
