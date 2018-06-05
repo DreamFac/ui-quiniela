@@ -1,0 +1,31 @@
+.app {
+    margin: 0px !important;
+}
+
+.container {
+    height: -webkit-fill-available;
+    background: url('../../assets/blue-bg.png') no-repeat -30px;
+}
+
+.overlay {
+    opacity: 0.5;
+    background: black;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.countdown {
+    padding: 20px;
+    .number {
+        display: inline-block;
+        font-size: 96px;
+        font-weight: 700;
+    }
+}
+
+@media only screen and (max-width: 910px) {
+    //
+}

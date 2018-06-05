@@ -98,7 +98,6 @@ app-root {
 .app {
     position: relative;
     background: none;
-    margin: 60px;
 }
 
 .title {
@@ -205,6 +204,11 @@ span.flag-icon {
     padding: 10px;
 }
 
+img.icon-xl {
+    width: 250px !important;
+    line-height: 75px !important;
+}
+
 img.icon-lg {
     width: 90px !important;
     line-height: 75px !important;
@@ -240,9 +244,6 @@ span.icon-sm {
 @media only screen and (max-width: 910px) {
     app-root {
         height: auto !important;
-    }
-    .app {
-        margin: 15px !important;
     }
     .flex-grid {
         flex-direction: column !important;

@@ -1,7 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="loader" *ngIf="httpWrapper.isInRequest"></div>
 <div class="main-container" [ngClass]="{'is-loading': httpWrapper.isInRequest}">
-  <app-header *ngIf="authenticated | async"></app-header>
   <div class="app">
     <router-outlet></router-outlet>
   </div>
