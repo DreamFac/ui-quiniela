@@ -51,6 +51,7 @@ export interface Prediction {
     team: number
     team_event: TeamEvent
     user: number
+    delta: number
 }
 
 export interface PredictionDto {
@@ -70,6 +71,7 @@ export interface EventPredictionDto {
     team: number
     result_type: number
     prediction: any
+    delta: number
 }
 
 export interface EventPrediction {

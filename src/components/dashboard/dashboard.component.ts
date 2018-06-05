@@ -84,7 +84,8 @@ export class DashboardComponent implements AfterContentInit {
               team_event: prediction.team_event.id,
               team: prediction.team,
               result_type: 1,
-              prediction: prediction.prediction
+              prediction: prediction.prediction,
+              delta: prediction.delta
             });
           }
         });
