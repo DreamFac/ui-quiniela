@@ -3,11 +3,11 @@ import { AfterContentInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { TimeLeft, TimeLeftInitialState } from 'src/models/event.model';
 import { getCountdown } from 'src/utils/timeUtils';
 import { SignUp, SignUpModel } from './signup.model';
-import { HttpWrapper } from '../../services/http-wrapper.service';
 import { config } from '../../config';
 import configFile from '../../config.file';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 
 const {
     protocol,
@@ -31,7 +31,7 @@ export class SignUpComponent implements AfterContentInit {
     timeLeft: TimeLeft = TimeLeftInitialState
     readonly startDate: string = '2018-06-14 09:00'
     model: SignUp = new SignUpModel();
-    constructor(private http: HttpWrapper<any>, private router: Router) { }
+    constructor(private http: Http, private router: Router) { }
 
     ngAfterContentInit () {
         const timeLeftInterval = setInterval(() => {
