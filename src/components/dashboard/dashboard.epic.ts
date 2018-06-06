@@ -28,7 +28,7 @@ import { EventPredictionModel } from "../../models/event-prediction.model";
 
 @Injectable()
 export class DashboardEpics {
-  constructor(
+  constructor(   
     private dashboardService: DashboardService,
     private store: NgRedux<AppState>
   ) { }

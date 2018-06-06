@@ -4,14 +4,19 @@ import {
     ChangeDetectorRef,
     AfterContentInit
 } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
-import { first, concat } from "lodash";
-import { HttpWrapper } from "../../services/http-wrapper.service";
-import configFile from "../../config.file";
-import { config } from "../../config";
 
-import { Observable } from "rxjs/Observable";
+import { config } from "../../config";
+import configFile from "../../config.file";
+
+
+import { DragulaService } from "ng2-dragula";
+import { HttpWrapper } from "../../services/http-wrapper.service";
+
+import { first, concat, keys, orderBy } from "lodash";
+import { Observable, forkJoin, merge } from "rxjs";
 import { startWith, delay, tap } from "rxjs/operators";
+import { Team } from "../../models/event.model";
+import { IMap } from "../../types";
 
 const {
     protocol,
@@ -41,8 +46,10 @@ export class GlobalPredictionComponent implements AfterContentInit {
         });
     }
 
-    public teams: Array<DraggableModel> = [];
-    public teamsCopy: Array<DraggableModel> = [];
+    gloablPredictionList: GlobalPrediction[] = []
+
+    public teams: Array<DraggableModel<GlobalPrediction>> = [];
+    public teamsCopy: Array<DraggableModel<GlobalPrediction>> = [];
 
     ngAfterContentInit() {
         Observable.of()
@@ -50,16 +57,36 @@ export class GlobalPredictionComponent implements AfterContentInit {
                 startWith(null),
                 delay(0),
                 tap(() => {
-                    this.http.get(teamsUrl).subscribe(result => {
-                        this.teams = result;
-                        this.teamsCopy = concat([], result);
-                    });
-                    this.http.get(globalPredictionsUrl).subscribe(result => {
-                        console.log(result);
-                        if (result && result.length) {
-                            this.teams = result
-                        }
-                    });
+                    const teams$ = this.http.get(teamsUrl);
+                    const globalPrediction$ = this.http.get(globalPredictionsUrl);
+                    let teamsList: Team[] = []
+                    let mergedPredictions: IMap<GlobalPrediction> = {}
+                    return forkJoin([teams$, globalPrediction$])
+                        .map(result => {
+                            teamsList = result.shift()
+                            result.pop().filter(prediction => {
+                                return prediction.place <= 4
+                            })
+                                .forEach(prediction => {
+                                    mergedPredictions[prediction.team.id] = prediction
+                                })
+                            keys(mergedPredictions)
+                                .forEach(key => {
+                                    this.gloablPredictionList.push(mergedPredictions[key])
+                                })
+                            teamsList.forEach(team => {
+                                if (!mergedPredictions[team.id]) {
+                                    this.gloablPredictionList.push({
+                                        id: null,
+                                        place: null,
+                                        team: team
+                                    })
+                                }
+                            })
+                            this.gloablPredictionList = 
+                                orderBy(this.gloablPredictionList, ['place'], ['asc']);
+                        })
+                        .subscribe()
                 })
             )
             .subscribe();
@@ -67,19 +94,19 @@ export class GlobalPredictionComponent implements AfterContentInit {
 
     onDropModel(args) {
         let [el, target, source] = args;
-        console.log(this.teams);
+        console.log(this.gloablPredictionList);
     }
 
     save() {
-        const predictionDto = this.teams.map((team, index) => {
+        const predictionDto = this.gloablPredictionList.map((prediction, index) => {
             return {
-                team: team.id,
+                team: prediction.team.id,
                 place: index + 1
             };
-        });
+        }).filter(prediction => prediction.place <= 4)
+
         this.http.post(globalPredictionsUrl, predictionDto)
             .catch(err => {
-                this.teams = concat([], this.teamsCopy)
                 return Observable.of(err)
             })
             .subscribe((response) => {
@@ -88,8 +115,14 @@ export class GlobalPredictionComponent implements AfterContentInit {
     }
 }
 
-export interface DraggableModel {
+export interface DraggableModel<T> {
     id?: number;
-    name?: string;
     type?: string;
+    entity: T
+}
+
+export interface GlobalPrediction {
+    id?: number
+    place?: number
+    team: Team
 }

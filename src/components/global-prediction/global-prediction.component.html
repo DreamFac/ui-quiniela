@@ -14,12 +14,12 @@
     <div class="col">
         <div class="flex-grid container1">
             <div class="col">
-                <div class="team-places container2" [dragula]='"first-bag"' [dragulaModel]='teams'>
-                    <div class="padded-sm" *ngFor='let team of teams; let i = index'>
+                <div class="team-places container2" [dragula]='"first-bag"' [dragulaModel]='gloablPredictionList'>
+                    <div class="padded-sm" *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <strong *ngIf="i < 4">{{i + 1}}</strong>
                         <div class="ranking-result">
-                            <span [ngClass]="'icon-sm flag-icon flag-icon-' + team.flag"></span>
-                            <div class="name">{{team.name}}</div>
+                            <span [ngClass]="'icon-sm flag-icon flag-icon-' + prediction.team.flag"></span>
+                            <div class="name">{{prediction.team.name}}</div>
                         </div>
                     </div>
                 </div>

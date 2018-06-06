@@ -1,5 +1,9 @@
 import { TeamModel, Tie, EventModel } from "./models/event.model";
 
+export interface IMap<T> {
+    [key: string]: T;
+}
+
 // oracle app api types
 
 export interface Team {
