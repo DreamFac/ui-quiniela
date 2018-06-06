@@ -9,6 +9,7 @@ export const config = (configFile: ConfigFile): AuthConfig => {
             auth: {
                 baseUrl: configFile.urlConfig.auth.baseUrl,
                 version: configFile.urlConfig.auth.version,
+                signup: configFile.urlConfig.auth.signup,
                 loginEndpoint: configFile.urlConfig.auth.loginEndpoint,
                 logoutEndpoint: configFile.urlConfig.auth.logoutEndpoint,
                 refreshTokenEndpoint: configFile.urlConfig.auth.refreshTokenEndpoint
@@ -47,6 +48,7 @@ export interface UrlConfig {
 export interface AuthUrlConfig {
     baseUrl: string,
     version: string,
+    signup: string,
     loginEndpoint: string,
     logoutEndpoint: string,
     refreshTokenEndpoint: string

@@ -10,6 +10,7 @@ export default {
         "auth": {
             "version": "v1",
             "baseUrl": "oraculapp.ngrok.io/api",
+            "signup": "signup",
             "loginEndpoint": "auth/token",
             "logoutEndpoint": "auth/logout",
             "refreshTokenEndpoint": "auth/refresh"
