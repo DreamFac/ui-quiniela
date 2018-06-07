@@ -1,7 +1,6 @@
 .dashboard-container {
-    
+    margin: 60px;
 }
-
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -18,7 +17,8 @@
         color: #424242;
     }
     .content {
-        background: white;
+        height: max-content;
+        background: whitesmoke;
         position: fixed;
         top: 0;
         right: 0;
@@ -26,13 +26,6 @@
         left: 0;
         margin: 10%;
         z-index: 1;
-    }
-    .title {
-        padding: 15px;
-        text-align: -webkit-center;
-    }
-    .title > h3{
-        color: green !important;
     }
     .last-results {
         margin: 10px;
@@ -42,16 +35,37 @@
     }
 }
 
+.valign-ranking {
+    height: 90% !important;
+    line-height: 10px !important;
+    text-align: center;
+}
+
+.marginTop {
+    margin-top: 10px;
+}
+
+.abs {
+    position: absolute;
+}
+
 span {
     margin: 5px;
 }
 
-.total {
-    padding: 10px;
+.total-pts {
+    font-size: 24px;
+    font-weight: 700;
+    color: seagreen !important;
+    padding-top: 10px;
+    border-top: 2px solid black;
 }
 
-.result {
-    background: #ddd;
+.ranking-result {
+    background: #d6ebd7;
+    border-radius: 30px;
+    padding: 5px;
+    margin: 5px 30px 5px 30px;
 }
 
 .row {
@@ -60,4 +74,10 @@ span {
     display: flex !important;
     text-align: -webkit-center;
     flex-direction: row !important;
+}
+
+@media only screen and (max-width: 910px) { 
+    .dashboard-container {
+        margin: 20px;
+    }
 }

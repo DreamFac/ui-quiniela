@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row-header padded">
+        <div class="col">
+            &nbsp;
+        </div>
+        <div class="col center padded">
+            <img class="icon-xl" src="../../assets/logo-ver.png" alt="logo-ver" />
+            <div class="title center">RUSIA 2018</div>
+        </div>
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row-header">
+        <div class="col">
+            &nbsp;
+        </div>
+        <div class="col">
+            <div class="row-header left">
+                <div class="col">
+                    <div class="countdown center">
+                        <div class="number">{{timeLeft.days}}</div>
+                        <div class="center">dias</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="countdown center">
+                        <div class="number">{{timeLeft.hours}}</div>
+                        <div class="center">horas</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="countdown center">
+                        <div class="number">{{timeLeft.mins}}</div>
+                        <div class="center">minutos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row-header padded">
+        <div class="col center">
+            <div class="email-field">
+                <div class="center">
+                    <input id="email" [(ngModel)]="model.email" type="email" name="email input" placeholder="email address" required>
+                </div>
+            </div>
+            <div class="password-field">
+                <div class="center">
+                    <input id="pass" [(ngModel)]="model.password" type="password" name="password" placeholder="password" required>
+                </div>
+            </div>
+            <div class="password-field">
+                <div class="center">
+                    <input id="passC" [(ngModel)]="model.passwordConfirmation" type="password" name="passwordC" placeholder="confirm password"
+                        required>
+                </div>
+                <div class="center">
+                    <input [ngClass]="{'disabled': !passwordsMatch() || !modelIsPristine()}" class="oraculapp-btn sm" type="button" value="Registrarse"
+                        (click)="register()" />
+                </div>
+                <div class="center desc padded">
+                    Ven a jugar y compite con tus amigos para ver quien puede predecir mejor los resultados. Es gratis!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

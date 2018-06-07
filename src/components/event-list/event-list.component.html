@@ -1,7 +1,9 @@
 <div class="container">
-    <div class="box padded bordered">
+    <div class="box padded-sm bordered">
         <div class="flex-grid-row">
-            <h3>Mis Predicciones</h3>
+            <div class="title">
+                <h3>Mis Predicciones</h3>
+            </div>
         </div>
         <div class="flex-grid-row">
             <div class="title">
@@ -9,9 +11,9 @@
             </div>
         </div>
     </div>
-    <div class="events">
-        <div class="bordered" *ngFor="let item of eventPredictions | async">
-            <div class="flex-grid">
+    <div class="events" *ngIf="eventPredictionList && eventPredictionList.length">
+        <div class="bordered" *ngFor="let item of eventPredictionList">
+            <div class="flex-grid" [ngClass]="{'disabled': item.event.started}">
                 <div class="col center box pick" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
                     <div class="flex-grid-row">
                         <div class="col">
@@ -42,9 +44,9 @@
                     </div>
                 </div>
                 <div class="col-sm center box padded-sm">
-                    <div class="flex-grid-row" *ngIf="!eventStarted(item.event)">
+                    <div class="flex-grid-row" *ngIf="!item.event.started">
                         <div class="col">
-                            <label>Clock</label>
+                            <img class="icon-sm" src="../../assets/clock.png" alt="clock" />
                         </div>
                         <div class="col">
                             <strong>{{item.event.timeLeft.days}}</strong>
@@ -59,7 +61,7 @@
                             <label>&nbsp;mins</label>
                         </div>
                     </div>
-                    <div class="flex-grid-row" *ngIf="eventStarted(item.event)">
+                    <div class="flex-grid-row" *ngIf="item.event.started">
                         <div class="col">
                             &nbsp;
                         </div>

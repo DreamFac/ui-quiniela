@@ -48,7 +48,7 @@ export class DashboardComponent implements AfterContentInit {
         tap(() => DashboardActions.mergeEventsPredictions())
       )
       .subscribe();
-    // Not implented
+    // Not implemented
     this.eventPredictions.subscribe(result => {
       if (result && result.length) {
         this.eventResults = result
@@ -84,7 +84,8 @@ export class DashboardComponent implements AfterContentInit {
               team_event: prediction.team_event.id,
               team: prediction.team,
               result_type: 1,
-              prediction: prediction.prediction
+              prediction: prediction.prediction,
+              delta: prediction.delta
             });
           }
         });

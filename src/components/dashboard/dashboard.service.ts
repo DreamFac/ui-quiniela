@@ -5,7 +5,7 @@ import { startWith } from "rxjs/operators";
 import { EventListService } from "../event-list/event-list.service";
 import { PredictionService } from "../../services/prediction.service";
 import { EventModel } from "../../models/event.model";
-import { Prediction, EventPrediction } from "../../types";
+import { Prediction, EventPrediction, IMap } from "../../types";
 import { intersectionBy, keys } from "lodash";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 
@@ -55,8 +55,4 @@ export class DashboardService {
                 return eventPredictionList;
             });
     }
-}
-
-interface IMap<T> {
-    [key: string]: T;
 }

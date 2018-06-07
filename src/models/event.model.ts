@@ -1,10 +1,12 @@
 import * as moment from 'moment'
 import { EventType, TeamEvent, ResultType } from "../types";
+import { getCountdown } from 'src/utils/timeUtils';
 
 export interface TimeLeft {
   days: number
   hours: number
   mins: number
+  deltaInDays: number
 }
 export interface Team {
   id: number;
@@ -51,7 +53,8 @@ export const InitalState: Event = {
 export const TimeLeftInitialState: TimeLeft = {
   days: 0,
   hours: 0,
-  mins: 0
+  mins: 0,
+  deltaInDays: 0
 }
 export class EventModel {
   id?: number;
@@ -61,6 +64,8 @@ export class EventModel {
   teamA: TeamModel;
   teamB: TeamModel;
   tie: Tie;
+  started?: Boolean;
+  deltaInDays: number;
   timeLeft: TimeLeft = TimeLeftInitialState;
   wonPrediction?: boolean = false
   rewardPoints?: number = 0
@@ -72,32 +77,18 @@ export class EventModel {
     this.teamA = new TeamModel( model.team_event.shift() );
     this.teamB = new TeamModel( model.team_event.pop() );
     this.tie = model.tie;
-    const timeLeftInterval = setInterval( () => {
+    let timeLeftInterval;
+    timeLeftInterval = setInterval( () => {
       this.timeLeft = this.setTimeLeft( this.date )
+      this.deltaInDays = this.timeLeft.deltaInDays
+      this.started = this.timeLeft.days < 0;
       if (this.timeLeft.days < 0) {
         clearInterval(timeLeftInterval)
       }
-    }, 1000 )
+    }, timeLeftInterval ? 1000 : 0 )
   }
   setTimeLeft ( endDate ) {
-    const startDate = moment();
-    const start_date = moment( startDate, 'YYYY-MM-DD HH:mm' );
-    const end_date = moment( endDate, 'YYYY-MM-DD HH:mm' );
-    const duration = moment.duration( end_date.diff( start_date ) );
-    const days = duration.asDays();
-    // Convert days
-    const daysInt = Math.floor( days )
-    const daysDecimals = days - daysInt
-    const hours = daysDecimals * 24
-    const hoursInt = Math.floor( hours )
-    const hoursDecimals = hours - hoursInt
-    const mins = hoursDecimals * 60
-    const minsInt = Math.floor( mins )
-    return {
-      days: daysInt,
-      hours: hoursInt,
-      mins: minsInt
-    };
+    return getCountdown(endDate)
   }
 }
 

@@ -20,24 +20,11 @@ const {
 
 @Injectable()
 export class EventListService {
-  resultTypes: ResultType[] = []
+  resultTypes: ResultType[] = [{id:1}]
   constructor(
     private http: HttpWrapper<Array<any>>,
     private predictionService: PredictionService
-  ) { 
-    Observable.of()
-            .pipe(
-                startWith(null),
-                delay(0),
-                tap(() => {
-                    const resultTypesUrl = `${protocol}://${baseUrl}/${version}/${resultTypes}`;
-                    this.http.get(resultTypesUrl)
-                        .subscribe((response: ResultType[]) => {
-                            this.resultTypes = response
-                        })
-                })
-            ).subscribe()
-  }
+  ) { }
   getAll(): Observable<Array<EventModel>> {
     let events: Array<EventModel> = []
     const eventListUrl = `${protocol}://${baseUrl}/${version}/${getAllEndpoint}`;
@@ -115,14 +102,16 @@ export class EventListService {
                 team_event: team.teamEventId,
                 team: team.id,
                 result_type: first(this.resultTypes).id,
-                prediction: "1"
+                prediction: "1",
+                delta: eventPrediction.event.deltaInDays
             },
             {
                 id: eventPrediction.predictions[0].id,
                 team_event: notSelectedTeam.teamEventId,
                 team: notSelectedTeam.id,
                 result_type: first(this.resultTypes).id,
-                prediction: "0"
+                prediction: "0",
+                delta: eventPrediction.event.deltaInDays
             }
         ]
       return this.predictionService.updatePrediction(predictionDto)
