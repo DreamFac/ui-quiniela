@@ -9,6 +9,7 @@ export const config = (configFile: ConfigFile): AuthConfig => {
             auth: {
                 baseUrl: configFile.urlConfig.auth.baseUrl,
                 version: configFile.urlConfig.auth.version,
+                signup: configFile.urlConfig.auth.signup,
                 loginEndpoint: configFile.urlConfig.auth.loginEndpoint,
                 logoutEndpoint: configFile.urlConfig.auth.logoutEndpoint,
                 refreshTokenEndpoint: configFile.urlConfig.auth.refreshTokenEndpoint
@@ -19,10 +20,14 @@ export const config = (configFile: ConfigFile): AuthConfig => {
             },
             predictions: {
                 createPrediction: configFile.urlConfig.predictions.createPrediction,
-                getPredictions: configFile.urlConfig.predictions.getPredictions
+                getPredictions: configFile.urlConfig.predictions.getPredictions,
+                globalPredictions: configFile.urlConfig.predictions.globalPredictions
             },
             userPoints: {
                 getPoints: configFile.urlConfig.userPoints.getPoints
+            },
+            teams: {
+                getAll:  configFile.urlConfig.teams.getAll
             }
         }
     }
@@ -38,10 +43,12 @@ export interface UrlConfig {
     events: EventUrlConfig
     predictions: PredictionUrlConfig
     userPoints: UserPointsConfig
+    teams: TeamsConfig
 }
 export interface AuthUrlConfig {
     baseUrl: string,
     version: string,
+    signup: string,
     loginEndpoint: string,
     logoutEndpoint: string,
     refreshTokenEndpoint: string
@@ -59,8 +66,13 @@ export interface EventUrlConfig {
 export interface PredictionUrlConfig {
     createPrediction: string
     getPredictions: string
+    globalPredictions: string
 }
 
 export interface UserPointsConfig {
     getPoints: string
+}
+
+export interface TeamsConfig {
+    getAll: string
 }

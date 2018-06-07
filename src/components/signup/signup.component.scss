@@ -1,0 +1,78 @@
+.app {
+    margin: 0px !important;
+}
+
+.container {
+    height: -webkit-fill-available;
+    background-size: cover !important;
+    background: url('../../assets/bg-launch.jpg') no-repeat center fixed;
+    background-position: center;
+}
+
+.overlay {
+    opacity: 0.5;
+    background: black;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.countdown {
+    padding: 20px;
+    .number {
+        display: inline-block;
+        font-size: 96px;
+        font-weight: 700;
+    }
+}
+
+label {
+    color: white;
+}
+
+.register {
+    width: auto;
+}
+
+.desc {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+input[type="email"],input[type="password"] {
+    padding: 20px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #435160;
+    outline: none;
+    color: snow !important;
+    font-size: 20px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ddd;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ddd;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ddd;
+}
+
+@media only screen and (max-width: 400px) {
+    .container {
+        height: auto !important;
+    }
+}
+
+@media only screen and (max-width: 910px) {
+    .container {
+        height: -webkit-fill-available;
+        background: url('../../assets/bg-launch.jpg') no-repeat center !important;
+    }
+}

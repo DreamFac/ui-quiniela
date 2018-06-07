@@ -105,7 +105,6 @@ export class EventListEpic {
     return action$
       .ofType(EventListActions.SELECT_TEAM_FAIL)
       .concatMap(() => {
-        document.location.reload()
         return Observable.of([])
       })
   }

@@ -1,5 +1,9 @@
 import { TeamModel, Tie, EventModel } from "./models/event.model";
 
+export interface IMap<T> {
+    [key: string]: T;
+}
+
 // oracle app api types
 
 export interface Team {
@@ -51,6 +55,7 @@ export interface Prediction {
     team: number
     team_event: TeamEvent
     user: number
+    delta: number
 }
 
 export interface PredictionDto {
@@ -70,6 +75,7 @@ export interface EventPredictionDto {
     team: number
     result_type: number
     prediction: any
+    delta: number
 }
 
 export interface EventPrediction {

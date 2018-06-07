@@ -10,6 +10,7 @@ export default {
         "auth": {
             "version": "v1",
             "baseUrl": "oraculapp.ngrok.io/api",
+            "signup": "signup",
             "loginEndpoint": "auth/token",
             "logoutEndpoint": "auth/logout",
             "refreshTokenEndpoint": "auth/refresh"
@@ -20,10 +21,14 @@ export default {
         },
         "predictions": {
             "createPrediction": "predictions/",
-            "getPredictions": "predictions/"
+            "getPredictions": "predictions/",
+            "globalPredictions": "global-predictions/"
         },
         "userPoints": {
             "getPoints": "points/"
+        },
+        "teams": {
+            "getAll": "teams/"
         }
     }
 }

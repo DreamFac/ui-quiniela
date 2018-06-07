@@ -30,6 +30,10 @@ import { DashboardService } from '../components/dashboard/dashboard.service';
 import { UserProfileService } from '../components/user-points/user-profile.service';
 import { UserPointsEpics } from '../components/user-points/user-points.epic';
 
+// dragula
+import { DragulaModule } from 'ng2-dragula';
+import { HttpModule } from '@angular/http';
+
 const APP_COMMON_MODULES = [
   BrowserModule,
   FormsModule,
@@ -43,7 +47,9 @@ const APP_COMMON_MODULES = [
     ...APP_COMPONENTS
   ],
   imports: [
+    HttpModule,
     ...APP_COMMON_MODULES,
+    DragulaModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false, useHash: false }

@@ -1,18 +1,16 @@
+<app-header></app-header>
 <div class="dashboard-container">
     <div class="flex-grid">
-        <div class="col pad-right">
+        <div class="col">
             <app-event-list [eventPredictions]="eventPredictions"></app-event-list>
         </div>
         <div class="col-sm">
             <div class="flex-grid-row">
-                <div class="col center box" style="height:200px">
-                    widget 1
+                <div class="col center box bordered">
+                    <app-global-prediction></app-global-prediction>
                 </div>
-                <div class="col-xs center">
-
-                </div>
-                <div class="col center box" style="height:500px">
-                    widget 2
+                <div class="col center box bordered">
+                    <app-leaderboards></app-leaderboards>
                 </div>
             </div>
         </div>
@@ -53,20 +51,20 @@
                             <strong>Ahora tienes {{points | async}} puntos.</strong>
                             <div class="ranking-result">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col valign-ranking">
                                         <strong>Ranking</strong>
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="valign-top">
+                                    <div class="col-sm valign-ranking">
+                                        <div class="">
                                             <strong># 78</strong>
-                                        </span>
-                                        <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                            &nbsp;
+                                            <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        <div class="valign-top">
-                                            <strong># 43</strong>
-                                            <span [ngClass]="'flag-icon flag-icon-jp'"></span>
-                                        </div>
+                                        <strong># 43</strong>
+                                        &nbsp;
+                                        <div class="abs" [ngClass]="'flag-icon flag-icon-jp'"></div>
                                     </div>
                                 </div>
                             </div>
@@ -74,9 +72,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <p class="btn-container">
-                        <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
-                    </p>
+                    <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
                 </div>
             </div>
         </div>

@@ -1,0 +1,56 @@
+* {
+    color: #424242;
+}
+
+.teams-container {
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.team-places {
+    text-align: left;
+    max-height: 275px;
+    min-height: 210px;
+}
+
+.place-header {
+    pointer-events: none;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.ranking-result {
+    margin: 0px 10px 0px 20px;
+    min-width: 150px !important;
+    display: inline-flex;
+}
+
+.drag-here {
+    min-width: 150px;
+    text-align: center;
+}
+
+.name {
+    padding-top: 2px;
+    padding-left: 5px;
+}
+
+.dotted {
+    margin: 5px;
+    border: 2px dotted black;
+    border-radius: 0px !important;
+}
+
+.container2 {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.col-container {
+    display: table; /* Make the container element behave like a table */
+    width: 100%; /* Set full-width to expand the whole page */
+}
+
+.col {
+    display: table-cell; /* Make elements inside the container behave like table cells */
+}
