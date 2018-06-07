@@ -83,3 +83,23 @@ export interface EventPrediction {
     prediction?: Prediction
 }
 
+export interface UserDto {
+    email: string
+    id: number
+    is_active: Boolean
+    username: string
+}
+
+export interface LeaderboardDto {
+    delta_points: number
+    points: number
+    user: UserDto
+
+}
+
+export interface UserInfo {
+    exp: number
+    jti: string
+    token_type: string
+    user_id: number
+}

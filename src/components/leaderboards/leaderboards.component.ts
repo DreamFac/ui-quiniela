@@ -4,6 +4,9 @@ import { config } from '../../config';
 import configFile from '../../config.file';
 import { Observable } from "rxjs/Observable";
 import { startWith, delay, tap } from "rxjs/operators";
+import { LeaderboardDto } from '../../types';
+import { trim, orderBy, truncate } from 'lodash';
+import { AuthService } from '../../services/auth.service';
 
 const {
     protocol,
@@ -19,23 +22,34 @@ const {
     styleUrls: ['./leaderboards.component.scss']
 })
 export class LeaderboardsComponent implements AfterContentInit {
+    myUser: {position?: number} = {}
+    leaderboardList: Array<LeaderboardDto> = []
     constructor(
-        private http: HttpWrapper<any>
+        private http: HttpWrapper<any>,
+        private authService: AuthService
     ) { }
 
     ngAfterContentInit() {
         Observable.of()
             .pipe(
                 startWith(null),
-                delay(0),
-                tap(() => {
-
-                })
+                delay(0)
             )
             .subscribe(() => {
                 this.getAll()
-                    .subscribe((result) => {
-                        console.log(result)
+                    .catch(err => Observable.of(err))
+                    .subscribe((result: Array<LeaderboardDto>) => {
+                        this.leaderboardList = orderBy(result.map((item, index) => {
+                            const userInfo = this.authService.getUserInfo()
+                            if (item.user.id === userInfo.user_id) {
+                                this.myUser.position = index + 1
+                            }
+                            item.user.username = truncate(item.user.username, {
+                                'length': 15,
+                                'separator': '...'
+                            });
+                            return item
+                        }), ['points'], ['desc'])
                     })
             });
     }
