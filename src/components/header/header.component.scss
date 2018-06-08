@@ -1,9 +1,27 @@
 .header {
     color: white;
+    margin-top: 16px;
     height: 60px;
     background-color: #2b9048;
 }
 
+.event {
+    margin-left: 150px;
+    margin-top: -10px;
+    font-size: 18px;
+}
+
 .logo {
-    margin: 10px 10px 10px 60px;
+    margin-left: 60px;
+}
+
+@media only screen and (max-width: 910px) { 
+    .logo {
+        margin: 10px 10px 10px 20px !important;
+    }
+    .event {
+        margin-left: 60px;
+        margin-top: -20px;
+        font-size: 14px;
+    }
 }

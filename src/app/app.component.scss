@@ -1,5 +1,5 @@
 * {
-    font: normal normal 20px/24px Pilcrow, sans-serif;
+    font: normal normal 20px/24px Helvetica, sans-serif;
     color: white;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -17,28 +17,31 @@ body {
 }
 
 h1 {
-    font: 700 48px/55px Pilcrow-Bold, sans-serif;
+    font: 700 48px/55px Helvetica, sans-serif;
     color: #408648;
-    margin: 40px 0 15px
+    margin: 40px 0 15px;
+    font-weight: 700;
 }
 
 h2 {
-    font: 700 40px/50px Pilcrow-Bold, sans-serif;
+    font: 700 40px/50px Helvetica, sans-serif;
     color: #408648;
-    ;
-    margin: 40px 0 0
+    margin: 40px 0 0;
+    font-weight: 700;
 }
 
 h3 {
-    font: 700 24px/30px Pilcrow-Bold, sans-serif;
+    font: 700 24px/30px Helvetica, sans-serif;
     color: #408648;
     margin: 5px !important;
+    font-weight: 600;
 }
 
 h4 {
-    font: 700 18px/25px Pilcrow-Bold, sans-serif;
+    font: 700 18px/25px Helvetica, sans-serif;
     color: #81abdf !important;
     margin: 15px 5px 5px 5px;
+    font-weight: 600;
 }
 
 .bg-light {
@@ -145,7 +148,7 @@ app-root {
 }
 
 .bordered {
-    border: 2px solid seagreen;
+    margin: 1px;
 }
 
 .padded {
@@ -176,7 +179,6 @@ app-root {
 }
 
 .col-sm {
-    margin: 0px;
     flex: 0.5;
 }
 
@@ -266,9 +268,12 @@ span.icon-sm {
     flex-direction: row !important;
 }
 
-@media only screen and (max-width: 910px) {
+@media only screen and (max-width: 900px) {
     app-root {
         height: auto !important;
+    }
+    .mobile-hide {
+        display: none;
     }
     .flex-grid {
         flex-direction: column !important;
@@ -289,9 +294,6 @@ span.icon-sm {
     span.flag-icon {
         width: 50px;
         height: 50px;
-    }
-    .logo {
-        margin: 20px 10px 10px 20px !important;
     }
     img {
         width: 120px !important;
