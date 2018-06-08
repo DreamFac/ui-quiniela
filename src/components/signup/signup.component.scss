@@ -66,13 +66,13 @@ input[type="email"],input[type="password"] {
 
 @media only screen and (max-width: 400px) {
     .container {
-        height: auto !important;
+        height: -webkit-fill-available !important;
+        background-size: cover !important;
     }
 }
 
-@media only screen and (max-width: 910px) {
+@media only screen and (max-width: 910px) and (min-width: 400px) {
     .container {
-        height: -webkit-fill-available;
-        background: url('../../assets/bg-launch.jpg') no-repeat center !important;
+        height: -webkit-fill-available !important;
     }
 }

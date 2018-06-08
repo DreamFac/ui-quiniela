@@ -1,4 +1,4 @@
-<div class="flex-grid">
+<!-- <div class="flex-grid">
     <div class="col-sm">
     </div>
     <div class="col">
@@ -32,5 +32,25 @@
         </div>
     </div>
     <div class="col-sm">
+    </div>
+</div> -->
+<div class="container">
+    <div class="row-header padded">
+        <div class="col center">
+            <div class="email-field">
+                <div class="center">
+                    <input id="email" [(ngModel)]="model.email" type="email" name="email input" placeholder="email address" required>
+                </div>
+            </div>
+            <div class="password-field">
+                <div class="center">
+                    <input id="pass" [(ngModel)]="model.password" type="password" name="password" placeholder="password" required>
+                </div>
+            </div>
+            <div class="center">
+                <input class="oraculapp-btn sm" type="button" value="Registrarse"
+                    (clsick)="register()" />
+            </div>
+        </div>
     </div>
 </div>
