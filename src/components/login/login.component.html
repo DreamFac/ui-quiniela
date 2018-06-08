@@ -39,7 +39,7 @@
         <div class="col center">
             <div class="email-field">
                 <div class="center">
-                    <input id="email" [(ngModel)]="model.email" type="email" name="email input" placeholder="email address" required>
+                    <input id="email" [(ngModel)]="model.username" type="email" name="email input" placeholder="email address" required>
                 </div>
             </div>
             <div class="password-field">
@@ -48,8 +48,8 @@
                 </div>
             </div>
             <div class="center">
-                <input class="oraculapp-btn sm" type="button" value="Registrarse"
-                    (clsick)="register()" />
+                <input class="oraculapp-btn sm" type="button" value="Ingresar"
+                    (click)="login()" />
             </div>
         </div>
     </div>
