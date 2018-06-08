@@ -45,29 +45,6 @@ label {
     font-size: 22px;
 }
 
-input[type="email"],input[type="password"] {
-    padding: 20px;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid #435160;
-    outline: none;
-    color: snow !important;
-    font-size: 20px;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #ddd;
-    opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #ddd;
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
-    color: #ddd;
-}
-
 @media only screen and (max-width: 400px) {
     .sign-up-bg {
         height: auto !important;

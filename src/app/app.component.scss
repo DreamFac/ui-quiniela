@@ -54,6 +54,31 @@ strong {
     color: #424242;
 }
 
+input[type="email"],input[type="password"] {
+    padding: 20px;
+    width: 250px;
+    margin: 5px;
+    background: whitesmoke;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #435160;
+    outline: none;
+    color: #424242 !important;
+    font-size: 20px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: gray;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: gray;
+}
+
 strong {
     font-weight: 700;
     font-family: Pilcrow-Bold, sans-serif
@@ -176,13 +201,10 @@ span.flag-icon {
     height: 80px;
 }
 
-.oraculapp-btn.sm {
-    width: 50% !important;
-}
-
 .oraculapp-btn {
-    padding: 15px;
-    width: 100%;
+    padding: 20px;
+    margin: 10px;
+    width: 290px;
     background: seagreen;
     color: white !important;
     font-weight: 600;

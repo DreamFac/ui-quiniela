@@ -52,6 +52,10 @@ export class SignUpComponent implements AfterContentInit {
             .length === 0 && this.passwordsMatch();
     }
 
+    redirectToLogin () {
+        this.router.navigate(['/login'])
+    }
+
     register () {
         const dto = {
             email: this.model.email,

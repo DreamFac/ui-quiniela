@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { select, dispatch } from '@angular-redux/store';
 import { JwtInfo } from 'src/store/types';
 import { LoginActions } from 'src/store/actions/login.actions';
+import { Router } from '@angular/router';
 
 @Component( {
     selector: 'app-login',
@@ -12,6 +13,9 @@ import { LoginActions } from 'src/store/actions/login.actions';
 } )
 export class LoginComponent {
     model = new LogInModel();
+    constructor (private router: Router) {
+
+    }
 
     @select( 'login' )
     jwtInfo: Observable<JwtInfo>
@@ -22,6 +26,10 @@ export class LoginComponent {
 
     login () {
         this.startLogin( this.model )
+    }
+
+    redirectToSignup () {
+        this.router.navigate(['/signup'])
     }
 
     @dispatch()
