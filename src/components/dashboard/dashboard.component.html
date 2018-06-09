@@ -18,7 +18,7 @@
     <div class="modal-container" *ngIf="eventResults.length">
         <div class="content">
             <div class="flex-grid-row">
-                <div class="title">
+                <div class="title center">
                     <h3>Tus Ultimos Resultados</h3>
                 </div>
                 <div class="row" *ngFor="let event of eventResults">
@@ -42,7 +42,7 @@
                         &nbsp;
                     </div>
                     <div class="col-sm total-pts">
-                        + 100
+                        + {{ptsCount}}
                     </div>
                 </div>
                 <div class="flex-grid-row separator-light">
@@ -50,7 +50,7 @@
                         <div class="center">
                             <strong>Ahora tienes {{points | async}} puntos.</strong>
                             <div class="ranking-result">
-                                <div class="row">
+                                <div class="row-header">
                                     <div class="col valign-ranking">
                                         <strong>Ranking</strong>
                                     </div>
@@ -58,20 +58,20 @@
                                         <div class="">
                                             <strong># 78</strong>
                                             &nbsp;
-                                            <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                            <img class="icon-sm valign" src="../../assets/globe.svg" alt="World" />
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <!-- <div class="col">
                                         <strong># 43</strong>
                                         &nbsp;
                                         <div class="abs" [ngClass]="'flag-icon flag-icon-jp'"></div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col center">
                     <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
                 </div>
             </div>

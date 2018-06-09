@@ -159,6 +159,10 @@ app-root {
     padding: 10px;
 }
 
+.padded-xs {
+    padding: 5px;
+}
+
 .pad-right {
     padding-right: 10px;
 }
@@ -243,7 +247,6 @@ img.icon-lg {
 }
 
 img.icon-md {
-    position: absolute;
     width: 40px !important;
     line-height: 75px !important;
 }
@@ -269,17 +272,20 @@ span.icon-sm {
     flex-direction: row !important;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 800px) {
     app-root {
         height: auto !important;
     }
     .mobile-hide {
-        display: none;
+        display: none !important;
     }
     .flex-grid {
         flex-direction: column !important;
     }
     .flex-grid-row {
+        flex-direction: column !important;
+    }
+    .row-header {
         flex-direction: column !important;
     }
     .box.pick {
@@ -300,8 +306,12 @@ span.icon-sm {
         width: 120px !important;
     }
     .container2 {
-        width: 75%;
-        padding-right: 25%;
+        width: 50%;
+        padding-right: 50%;
+    }
+    .oraculapp-btn {
+        margin: 0px !important;
+        width: 100% !important;
     }
 }
 
