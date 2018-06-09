@@ -25,7 +25,7 @@ export class LeaderboardsComponent implements AfterContentInit {
     leaderboardList: Array<LeaderboardDto> = []
     constructor(
         private http: HttpWrapper<any>,
-        private authService: AuthService
+        public authService: AuthService
     ) { }
 
     ngAfterContentInit() {
