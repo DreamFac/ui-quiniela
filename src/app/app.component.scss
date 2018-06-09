@@ -1,10 +1,13 @@
 * {
     font: normal normal 20px/24px Helvetica, sans-serif;
     color: white;
+}
+
+*:not(input.field) {    
     -webkit-user-select: none;
     -khtml-user-select: none;
-    -moz-user-select: -moz-none;
-    -o-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
 
