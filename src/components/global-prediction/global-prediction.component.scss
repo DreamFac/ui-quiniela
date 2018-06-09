@@ -64,6 +64,16 @@
     display: table-cell; /* Make elements inside the container behave like table cells */
 }
 
+@media only screen and (max-width: 460px) { 
+    .team {
+        width: 120px !important;
+        padding-right: 20px !important;
+    }
+    .ranking-result {
+        min-width: max-content !important;
+    }
+}
+
 // scroll animation
 
 $circle-w: 100px;
