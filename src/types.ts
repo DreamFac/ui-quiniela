@@ -98,8 +98,9 @@ export interface LeaderboardDto {
 }
 
 export interface UserInfo {
-    exp: number
-    jti: string
-    token_type: string
-    user_id: number
+    exp?: number
+    jti?: string
+    token_type?: string
+    user_id?: number
+    leaderboardInfo: {points: number, ranking: number}
 }

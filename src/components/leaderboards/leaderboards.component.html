@@ -19,7 +19,7 @@
         &nbsp;
     </div>
     <div class="col">
-        <strong>Tu #{{myUser.position}}</strong>
+        <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
     </div>
 </div>
 <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">

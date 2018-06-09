@@ -14,6 +14,12 @@ import { UserInfo } from '../types';
 
 @Injectable()
 export class AuthService {
+    user: UserInfo = {
+        leaderboardInfo: {
+            points: 0,
+            ranking: 0
+        }
+    }
     @select(['login', 'jwtInfo'])
     jwtInfo: Observable<JwtInfo>
     constructor ( private http: HttpClient ) { }
@@ -51,6 +57,11 @@ export class AuthService {
         this.jwtInfo.subscribe(info => {
             userInfo = parseJwt(info.access)
         })
+        this.user = userInfo
         return userInfo 
+    }
+
+    setLeaderboardInfo (info: {points: number, ranking: number}) {
+        this.user.leaderboardInfo = info
     }
 }

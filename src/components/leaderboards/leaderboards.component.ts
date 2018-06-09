@@ -22,7 +22,6 @@ const {
     styleUrls: ['./leaderboards.component.scss']
 })
 export class LeaderboardsComponent implements AfterContentInit {
-    myUser: {position?: number} = {}
     leaderboardList: Array<LeaderboardDto> = []
     constructor(
         private http: HttpWrapper<any>,
@@ -42,7 +41,11 @@ export class LeaderboardsComponent implements AfterContentInit {
                         this.leaderboardList = orderBy(result.map((item, index) => {
                             const userInfo = this.authService.getUserInfo()
                             if (item.user.id === userInfo.user_id) {
-                                this.myUser.position = index + 1
+                                const info = {
+                                    points: item.points,
+                                    ranking: index + 1
+                                }
+                                this.authService.setLeaderboardInfo(info)
                             }
                             item.user.username = truncate(item.user.username, {
                                 'length': 15,
