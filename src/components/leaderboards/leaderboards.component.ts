@@ -7,14 +7,8 @@ import { startWith, delay, tap } from "rxjs/operators";
 import { LeaderboardDto } from '../../types';
 import { trim, orderBy, truncate } from 'lodash';
 import { AuthService } from '../../services/auth.service';
-
-const {
-    protocol,
-    urlConfig: {
-        auth: { baseUrl, version, loginEndpoint },
-        leaderboards: { getAllLeaderboards }
-    }
-} = config(configFile);
+import { Router } from '@angular/router';
+import { LeaderboardService } from './leaderboard.service';
 
 @Component({
     selector: 'app-leaderboards',
@@ -24,8 +18,9 @@ const {
 export class LeaderboardsComponent implements AfterContentInit {
     leaderboardList: Array<LeaderboardDto> = []
     constructor(
-        private http: HttpWrapper<any>,
-        public authService: AuthService
+        private router: Router,
+        private authService: AuthService,
+        private leaderboardService: LeaderboardService
     ) { }
 
     ngAfterContentInit() {
@@ -35,32 +30,14 @@ export class LeaderboardsComponent implements AfterContentInit {
                 delay(0)
             )
             .subscribe(() => {
-                this.getAll()
-                    .catch(err => Observable.of(err))
-                    .subscribe((result: Array<LeaderboardDto>) => {
-                        if (result.length) {
-                            this.leaderboardList = orderBy(result.map((item, index) => {
-                                const userInfo = this.authService.getUserInfo()
-                                if (item.user.id === userInfo.user_id) {
-                                    const info = {
-                                        points: item.points,
-                                        ranking: index + 1
-                                    }
-                                    this.authService.setLeaderboardInfo(info)
-                                }
-                                item.user.username = truncate(item.user.username, {
-                                    'length': 15,
-                                    'separator': '...'
-                                });
-                                return item
-                            }), ['points'], ['desc'])
-                        }
+                this.leaderboardService.mapAll(true)
+                    .subscribe(result => {
+                        this.leaderboardList = result
                     })
             });
     }
 
-    getAll() {
-        const leaderboardsUrl = `${protocol}://${baseUrl}/${version}/${getAllLeaderboards}`;
-        return this.http.get(leaderboardsUrl)
+    goTo () {
+        this.router.navigate(['/leaderboard-detail'])
     }
 }

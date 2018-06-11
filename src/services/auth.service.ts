@@ -28,7 +28,7 @@ const {
 
 @Injectable()
 export class AuthService {
-  user: UserInfo = {
+  public user: UserInfo = {
     leaderboardInfo: {
       points: 0,
       ranking: 0
@@ -99,7 +99,7 @@ export class AuthService {
     return userInfo;
   }
 
-  setLeaderboardInfo(info: { points: number; ranking: number }) {
+  setLeaderboardInfo(info: { points: number; ranking: number } = {points: 0, ranking: 0}) {
     this.user.leaderboardInfo = info;
   }
 }
