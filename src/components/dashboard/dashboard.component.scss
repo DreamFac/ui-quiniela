@@ -1,5 +1,5 @@
 .dashboard-container {
-    margin: 60px;
+    margin: 40px;
 }
 .modal-backdrop {
     position: fixed;
@@ -78,6 +78,6 @@ span {
 
 @media only screen and (max-width: 800px) { 
     .dashboard-container {
-        margin: 10px;
+        margin: 10px !important;
     }
 }
