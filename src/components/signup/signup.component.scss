@@ -3,7 +3,7 @@
 }
 
 .sign-up-bg {
-    height: 100vh;
+    height: -webkit-fill-available;
     background-size: cover !important;
     background: url('../../assets/bg-launch-min.jpg') no-repeat center fixed;
     background-position: center;
