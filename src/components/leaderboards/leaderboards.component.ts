@@ -38,21 +38,23 @@ export class LeaderboardsComponent implements AfterContentInit {
                 this.getAll()
                     .catch(err => Observable.of(err))
                     .subscribe((result: Array<LeaderboardDto>) => {
-                        this.leaderboardList = orderBy(result.map((item, index) => {
-                            const userInfo = this.authService.getUserInfo()
-                            if (item.user.id === userInfo.user_id) {
-                                const info = {
-                                    points: item.points,
-                                    ranking: index + 1
+                        if (result.length) {
+                            this.leaderboardList = orderBy(result.map((item, index) => {
+                                const userInfo = this.authService.getUserInfo()
+                                if (item.user.id === userInfo.user_id) {
+                                    const info = {
+                                        points: item.points,
+                                        ranking: index + 1
+                                    }
+                                    this.authService.setLeaderboardInfo(info)
                                 }
-                                this.authService.setLeaderboardInfo(info)
-                            }
-                            item.user.username = truncate(item.user.username, {
-                                'length': 15,
-                                'separator': '...'
-                            });
-                            return item
-                        }), ['points'], ['desc'])
+                                item.user.username = truncate(item.user.username, {
+                                    'length': 15,
+                                    'separator': '...'
+                                });
+                                return item
+                            }), ['points'], ['desc'])
+                        }
                     })
             });
     }

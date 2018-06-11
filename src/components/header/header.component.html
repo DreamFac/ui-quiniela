@@ -29,7 +29,9 @@
             </div>
         </div>
         <div class="col-sm valign-middle">
-            <img class="icon-sm circle" src="../../assets/logout.png" alt="Logout" />
+            <img (click)="authService.logout()"
+                class="icon-sm circle" 
+                src="../../assets/logout.png" alt="Logout" />
         </div>
     </div>
 </div>
