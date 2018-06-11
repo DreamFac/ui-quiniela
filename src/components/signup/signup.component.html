@@ -53,11 +53,13 @@
                         <div class="center">
                             <input id="email" [(ngModel)]="model.email" type="email" name="email input" placeholder="correo@ejemplo.com" required>
                         </div>
+                        <div class="tiny">Debe ser un correo valido.</div>
                     </div>
                     <div class="password-field">
                         <div class="center">
                             <input id="pass" [(ngModel)]="model.password" type="password" name="password" placeholder="contraseña" required>
                         </div>
+                        <div class="tiny">Al menos 8 caracteres. (alphanumerico)</div>
                     </div>
                     <div class="password-field">
                         <div class="center">
