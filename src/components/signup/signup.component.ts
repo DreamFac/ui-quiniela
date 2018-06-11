@@ -85,7 +85,7 @@ export class SignUpComponent implements AfterContentInit {
             .catch(err => {
                 const jsonerror = err.json()
                 this.emitter.publish(channels.TOASTER_CHANNEL, {
-                    text: Object.keys(jsonerror).map(key => jsonerror[key]).join(' - '),
+                    text: Object.keys(jsonerror).map(key => `${key}: ${jsonerror[key]}`).join('  '),
                     response: {status: 400}
                 });
                 return Observable.throw(err);

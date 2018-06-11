@@ -11,8 +11,8 @@
 #oraculapp-toaster {
     &.show {
         visibility: visible;
-        -webkit-animation: toaster-show 0.3s ease-out, toaster-hide 0.3s ease-out 3s;
-        animation: toaster-show 0.3s ease-out, toaster-hide 0.3s ease-out 3s;
+        -webkit-animation: toaster-show 0.3s ease-out, toaster-hide 0.3s ease-out 4s;
+        animation: toaster-show 0.3s ease-out, toaster-hide 0.3s ease-out 4s;
         animation-fill-mode: forwards;
         -webkit-animation-fill-mode: forwards;
     }

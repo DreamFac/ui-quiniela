@@ -21,7 +21,7 @@ export class ToasterComponent {
         toaster.classList.add('show');
         setTimeout(() => {
             toaster.classList.remove('show');
-        }, 3500);
+        }, 4000);
     }
 
     registerPop() {
