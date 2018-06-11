@@ -31,11 +31,18 @@
 }
 
 .name {
-    padding-left: 5px;
+    padding-left: 2px;
+    vertical-align: bottom;
 }
 
 .place {
-    padding-right: 5px;
+    vertical-align: bottom;
+    margin-left: -10px;
+    padding-right: 3px;
+}
+
+.valign-sub {
+  vertical-align: sub !important;
 }
 
 .team {
@@ -43,6 +50,8 @@
     border-radius: 10px;
     margin: 5px;
     cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .dotted {
@@ -57,19 +66,50 @@
 }
 
 .col-container {
-    display: table; /* Make the container element behave like a table */
-    width: 100%; /* Set full-width to expand the whole page */
+    display: table;
+    /* Make the container element behave like a table */
+    width: 100%;
+    /* Set full-width to expand the whole page */
 }
 
 .col {
-    display: table-cell; /* Make elements inside the container behave like table cells */
+    display: table-cell;
+    /* Make elements inside the container behave like table cells */
 }
 
-@media only screen and (max-width: 460px) { 
-    .team {
-        width: 120px !important;
-        padding-right: 20px !important;
-    }
+.row-header {
+    flex-direction: row !important;
+}
+
+.arrows {
+    text-align: -webkit-right;
+}
+
+.arrow-container {
+    padding: 10px 20px 10px 20px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 400px) {
     .ranking-result {
         min-width: max-content !important;
     }

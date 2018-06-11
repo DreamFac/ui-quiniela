@@ -60,7 +60,7 @@ export class GlobalPredictionComponent implements AfterContentInit {
                     const teams$ = this.http.get(teamsUrl);
                     const globalPrediction$ = this.http.get(globalPredictionsUrl);
                     let teamsList: Team[] = []
-                    let mergedPredictions: IMap<GlobalPrediction> = {}
+                    const mergedPredictions: IMap<GlobalPrediction> = {}
                     return forkJoin([teams$, globalPrediction$])
                         .map(result => {
                             teamsList = result.shift()
@@ -74,22 +74,41 @@ export class GlobalPredictionComponent implements AfterContentInit {
                                 .forEach(key => {
                                     this.gloablPredictionList.push(mergedPredictions[key])
                                 })
-                            teamsList.forEach(team => {
+                            teamsList.forEach((team, index) => {
                                 if (!mergedPredictions[team.id]) {
                                     this.gloablPredictionList.push({
                                         id: null,
-                                        place: null,
+                                        place: index + 1,
                                         team: team
                                     })
                                 }
                             })
-                            this.gloablPredictionList = 
-                                orderBy(this.gloablPredictionList, ['place'], ['asc']);
+                            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
                         })
                         .subscribe()
                 })
             )
             .subscribe();
+    }
+
+    moveUp (prediction: GlobalPrediction, i: number) {
+        const aboveTeam = this.gloablPredictionList[i - 1]
+        aboveTeam.place = aboveTeam.place + 1
+        prediction.place = prediction.place - 1
+        setTimeout(() => {
+            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
+        }, 0)
+        console.log('UP')
+    }
+
+    moveDown (prediction: GlobalPrediction, i: number) {
+        const belowTeam = this.gloablPredictionList[i + 1]
+        belowTeam.place = belowTeam.place - 1
+        prediction.place = prediction.place + 1
+        setTimeout(() => {
+            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
+        }, 0)
+        console.log('DOWN')
     }
 
     onDropModel(args) {

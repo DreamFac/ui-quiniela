@@ -59,7 +59,7 @@ export class HttpWrapper<T> {
                         this.isInRequest = false
                         observer.error(response)
                         if (response.status === 401) {
-                            this.router.navigateByUrl('/signup')
+                            this.router.navigateByUrl('/login')
                         }
                     }
                 }, (error) => {
