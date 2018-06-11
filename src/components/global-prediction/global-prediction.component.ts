@@ -77,8 +77,8 @@ export class GlobalPredictionComponent implements AfterContentInit {
                             teamsList.forEach((team, index) => {
                                 if (!mergedPredictions[team.id]) {
                                     this.gloablPredictionList.push({
-                                        id: null,
-                                        place: index + 1,
+                                        id: undefined,
+                                        place: undefined,
                                         team: team
                                     })
                                 }
@@ -93,22 +93,22 @@ export class GlobalPredictionComponent implements AfterContentInit {
 
     moveUp (prediction: GlobalPrediction, i: number) {
         const aboveTeam = this.gloablPredictionList[i - 1]
-        aboveTeam.place = aboveTeam.place + 1
-        prediction.place = prediction.place - 1
+        aboveTeam.place = aboveTeam.place ? aboveTeam.place + 1 : i + 1
+        prediction.place = prediction.place ? prediction.place - 1 : aboveTeam.place - 1
         setTimeout(() => {
             this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
         }, 0)
-        console.log('UP')
+        console.log(this.gloablPredictionList)
     }
 
     moveDown (prediction: GlobalPrediction, i: number) {
         const belowTeam = this.gloablPredictionList[i + 1]
-        belowTeam.place = belowTeam.place - 1
-        prediction.place = prediction.place + 1
+        belowTeam.place = belowTeam.place ? belowTeam.place - 1 : i + 1
+        prediction.place = prediction.place ? prediction.place + 1 : belowTeam.place + 1
         setTimeout(() => {
             this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
         }, 0)
-        console.log('DOWN')
+        console.log(this.gloablPredictionList)
     }
 
     onDropModel(args) {
