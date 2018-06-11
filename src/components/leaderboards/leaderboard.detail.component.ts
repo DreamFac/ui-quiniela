@@ -15,7 +15,7 @@ export class LeaderboardDetailComponent implements AfterContentInit {
     leaderboardList: LeaderboardDto[] = []
     constructor(
         private router: Router,
-        private authService: AuthService,
+        public authService: AuthService,
         private leaderboardService: LeaderboardService) { }
 
     ngAfterContentInit() {

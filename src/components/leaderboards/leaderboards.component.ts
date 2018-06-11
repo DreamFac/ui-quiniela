@@ -19,7 +19,7 @@ export class LeaderboardsComponent implements AfterContentInit {
     leaderboardList: Array<LeaderboardDto> = []
     constructor(
         private router: Router,
-        private authService: AuthService,
+        public authService: AuthService,
         private leaderboardService: LeaderboardService
     ) { }
 
