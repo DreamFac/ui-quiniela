@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { startWith, delay, tap } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { HttpWrapper } from '../../services/http-wrapper.service';
+import { AuthService } from '../../services/auth.service';
 
 const {
     protocol,
@@ -33,7 +33,11 @@ export class SignUpComponent implements AfterContentInit {
     timeLeft: TimeLeft = TimeLeftInitialState
     readonly startDate: string = '2018-06-14 09:00'
     model: SignUp = new SignUpModel();
-    constructor(private http: Http, private router: Router, private httpWrapper: HttpWrapper<any>) { }
+    constructor(
+        private http: Http, 
+        private router: Router,
+        private authService: AuthService
+    ) { }
 
     ngAfterContentInit () {
         const timeLeftInterval = setInterval(() => {
@@ -50,15 +54,7 @@ export class SignUpComponent implements AfterContentInit {
                 delay(0)
             )
             .subscribe(() => {
-                this.httpWrapper.get(teamsUrl)
-                    .catch(err => {
-                        return Observable.of(err)
-                    })
-                    .subscribe((response) => {
-                        if (response.length){
-                            this.router.navigate(['/dashboard'])
-                        }
-                    })
+                this.authService.checkUserAuth('/signup')
             })
     }
 
