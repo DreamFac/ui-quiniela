@@ -1,0 +1,48 @@
+#oraculapp-toaster {
+    visibility: hidden;
+    height: 25px;
+    position: absolute;
+    text-align: center;
+    color: snow !important;
+    width: 100%;
+    display: inline-table;
+}
+
+#oraculapp-toaster {
+    &.show {
+        visibility: visible;
+        -webkit-animation: toaster-show 0.3s ease-out, toaster-hide 0.3s ease-out 3s;
+        animation: toaster-show 0.3s ease-out, toaster-hide 0.3s ease-out 3s;
+        animation-fill-mode: forwards;
+        -webkit-animation-fill-mode: forwards;
+    }
+}
+
+.success {
+    background-color: green;
+}
+.error {
+    background-color: #cc0000;
+}
+
+@-webkit-keyframes toaster-show {
+    from {top: -30px;}
+    to {top: 0px;}
+}
+
+/* Standard syntax */
+@keyframes toaster-show {
+    from {top: -30px;}
+    to {top: 0px;}
+}
+
+@-webkit-keyframes toaster-hide {
+    from {top: 0px;}
+    to {top: -30px;}
+}
+
+/* Standard syntax */
+@keyframes toaster-hide {
+    from {top: 0px;}
+    to {top: -30px;}
+}

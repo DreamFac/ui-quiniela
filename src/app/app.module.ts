@@ -33,6 +33,7 @@ import { UserPointsEpics } from '../components/user-points/user-points.epic';
 // dragula
 import { DragulaModule } from 'ng2-dragula';
 import { HttpModule } from '@angular/http';
+import { EventService } from '../services/emitter.service';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -70,6 +71,7 @@ const APP_COMMON_MODULES = [
     UserPointsEpics,
     UserProfileService,
     HttpWrapper,
+    EventService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

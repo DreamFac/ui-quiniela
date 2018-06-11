@@ -9,7 +9,8 @@ import {
     GlobalPredictionComponent,
     LeaderboardsComponent,
     SignUpComponent,
-    FooterComponent
+    FooterComponent,
+    ToasterComponent
   } from '../components/barrel';
 
   export const APP_COMPONENTS = [
@@ -22,5 +23,6 @@ import {
     GlobalPredictionComponent,
     LeaderboardsComponent,
     SignUpComponent,
-    FooterComponent
+    FooterComponent,
+    ToasterComponent
 ];

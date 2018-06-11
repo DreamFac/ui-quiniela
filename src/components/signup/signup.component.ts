@@ -10,6 +10,7 @@ import { startWith, delay, tap } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { AuthService } from '../../services/auth.service';
+import { EventService, channels } from '../../services/emitter.service';
 
 const {
     protocol,
@@ -36,7 +37,8 @@ export class SignUpComponent implements AfterContentInit {
     constructor(
         private http: Http, 
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private emitter: EventService
     ) { }
 
     ngAfterContentInit () {
@@ -81,11 +83,14 @@ export class SignUpComponent implements AfterContentInit {
         const registerUrl = `${protocol}://${baseUrl}/${version}/${signup}`;
         this.http.post(registerUrl, dto)
             .catch(err => {
-                console.log('ERROR --->', err);
+                const jsonerror = err.json()
+                this.emitter.publish(channels.TOASTER_CHANNEL, {
+                    text: Object.keys(jsonerror).map(key => jsonerror[key]).join(' - '),
+                    response: {status: 400}
+                });
                 return Observable.throw(err);
             })
             .subscribe(result => {
-                console.log('RESULT --->', result);
                 this.router.navigate(['/login'])
             });
     }
