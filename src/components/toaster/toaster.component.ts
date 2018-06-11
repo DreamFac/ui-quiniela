@@ -18,6 +18,7 @@ export class ToasterComponent {
     showHide () {
         this.resolveResponse();
         const toaster = document.getElementById('oraculapp-toaster');
+        document.getElementsByClassName('main-container')[0].scrollTo(0,0);
         toaster.classList.add('show');
         setTimeout(() => {
             toaster.classList.remove('show');
