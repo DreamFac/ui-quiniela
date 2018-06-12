@@ -8,8 +8,6 @@ import {
 import { config } from "../../config";
 import configFile from "../../config.file";
 
-
-import { DragulaService } from "ng2-dragula";
 import { HttpWrapper } from "../../services/http-wrapper.service";
 
 import { first, concat, keys, orderBy } from "lodash";
@@ -38,13 +36,8 @@ const globalPredictionsUrl = `${protocol}://${baseUrl}/${version}/${globalPredic
 export class GlobalPredictionComponent implements AfterContentInit {
     hasError: boolean = false
     constructor(
-        private dragulaService: DragulaService,
         private http: HttpWrapper<any>
-    ) {
-        dragulaService.dropModel.subscribe(value => {
-            this.onDropModel(value.slice(1));
-        });
-    }
+    ) { }
 
     gloablPredictionList: GlobalPrediction[] = []
 
@@ -91,29 +84,18 @@ export class GlobalPredictionComponent implements AfterContentInit {
             .subscribe();
     }
 
-    moveUp (prediction: GlobalPrediction, i: number) {
+    moveUp(prediction: GlobalPrediction, i: number) {
         const aboveTeam = this.gloablPredictionList[i - 1]
         aboveTeam.place = aboveTeam.place ? aboveTeam.place + 1 : i + 1
         prediction.place = prediction.place ? prediction.place - 1 : aboveTeam.place - 1
-        setTimeout(() => {
-            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
-        }, 0)
-        console.log(this.gloablPredictionList)
+        this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
     }
 
-    moveDown (prediction: GlobalPrediction, i: number) {
+    moveDown(prediction: GlobalPrediction, i: number) {
         const belowTeam = this.gloablPredictionList[i + 1]
         belowTeam.place = belowTeam.place ? belowTeam.place - 1 : i + 1
         prediction.place = prediction.place ? prediction.place + 1 : belowTeam.place + 1
-        setTimeout(() => {
-            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
-        }, 0)
-        console.log(this.gloablPredictionList)
-    }
-
-    onDropModel(args) {
-        let [el, target, source] = args;
-        console.log(this.gloablPredictionList);
+        this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
     }
 
     save() {
@@ -124,12 +106,18 @@ export class GlobalPredictionComponent implements AfterContentInit {
             };
         }).filter(prediction => prediction.place <= 4)
 
-        this.http.post(globalPredictionsUrl, predictionDto)
+        this.http.delete(`${globalPredictionsUrl}`)
             .catch(err => {
                 return Observable.of(err)
             })
-            .subscribe((response) => {
-                console.log(response)
+            .subscribe(result => {
+                this.http.post(globalPredictionsUrl, predictionDto)
+                    .catch(err => {
+                        return Observable.of(err)
+                    })
+                    .subscribe((response) => {
+                        console.log(response)
+                    })
             })
     }
 }
