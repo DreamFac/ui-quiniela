@@ -1,40 +1,42 @@
-<div class="row-header">
-    <div class="col">
-        <div class="title left">
-            <h3>Lideres</h3>
+<div class="ld-container">
+    <div class="row-header padded-xs">
+        <div class="col">
+            <div class="title left">
+                <h3>Lideres</h3>
+            </div>
+        </div>
+        <div class="col-sm right padded-xs" (click)="goTo();">
+            <h4>Ver Mas</h4>
         </div>
     </div>
-    <div class="col-sm" (click)="goTo();">
-        <h4>Ver mas</h4>
-    </div>
-</div>
-<div class="row-header bg-light padded-sm">
-    <div class="col-sm marginTop">
-        <img class="icon-sm" src="../../assets/lider.svg" alt="wc" />
-    </div>
-    <div class="col-sm">
-        <strong>Global</strong>
-    </div>
-    <div class="col">
-        &nbsp;
-    </div>
-    <div class="col">
-        <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
-    </div>
-</div>
-<div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
-    <div class="col-sm marginTop">
-        <strong>#{{i+1}}</strong>
-    </div>
-    <div class="col-sm">
-        <span class="icon-xs" [ngClass]="'flag-icon flag-icon-br'"></span>
-    </div>
-    <div class="col">
-        <div class="username">
-            {{leader.user.username}}
+    <div class="row-header bg-light">
+        <div class="col-sm center marginTop">
+            <img class="icon-sm" src="../../assets/lider.svg" alt="wc" />
+        </div>
+        <div class="col-sm marginTop">
+            <strong>Global</strong>
+        </div>
+        <div class="col">
+            &nbsp;
+        </div>
+        <div class="col center marginTop">
+            <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
         </div>
     </div>
-    <div class="col">
-        {{leader.points}}
+    <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
+        <div class="col-sm center">
+            <strong>#{{i+1}}</strong>
+        </div>
+        <div class="col-sm">
+            <span class="icon-xs" [ngClass]="'flag-icon flag-icon-br'"></span>
+        </div>
+        <div class="col">
+            <div class="username">
+                {{leader.user.username}}
+            </div>
+        </div>
+        <div class="col center">
+            {{leader.points}}
+        </div>
     </div>
 </div>

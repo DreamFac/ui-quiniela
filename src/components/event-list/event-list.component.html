@@ -14,17 +14,17 @@
     <div class="events" *ngIf="eventPredictionList && eventPredictionList.length">
         <div class="" *ngFor="let item of eventPredictionList">
             <div class="flex-grid" [ngClass]="{'disabled': item.event.started}">
-                <div class="col center box pick bordered" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
+                <div class="col-md center box pick bordered" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
                     <div class="flex-grid-row marginTop">
                         <div class="col">
                             <span [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
                         </div>
-                        <div class="col-sm">
-                            <label>{{ item.event.teamA.name }}</label>
+                        <div class="col-sm t-name">
+                            {{ item.event.teamA.name }}
                         </div>
                     </div>
                 </div>
-                <div class="col-xs center">
+                <div class="col-sm center">
                     <div class="flex-grid-row">
                         <div class="col box pick bordered" [ngClass]="{'isPicked': item.event.tie.isPicked}" (click)="pickTie(item)">
                             <div class="vs">
@@ -33,13 +33,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col center box pick bordered" [ngClass]="{'isPicked': item.event.teamB.isPicked}" (click)="pick(item, item.event.teamB)">
+                <div class="col-md center box pick bordered" [ngClass]="{'isPicked': item.event.teamB.isPicked}" (click)="pick(item, item.event.teamB)">
                     <div class="flex-grid-row marginTop">
                         <div class="col">
                             <span [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
                         </div>
-                        <div class="col-sm">
-                            <label>{{ item.event.teamB.name }}</label>
+                        <div class="col-sm t-name">
+                            {{ item.event.teamB.name }}
                         </div>
                     </div>
                 </div>

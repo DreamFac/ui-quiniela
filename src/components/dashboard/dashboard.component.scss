@@ -1,5 +1,5 @@
 .dashboard-container {
-    margin: 40px;
+    margin: 40px 80px 40px 80px;
 }
 .modal-backdrop {
     position: fixed;
@@ -74,6 +74,19 @@ span {
     display: flex !important;
     text-align: -webkit-center;
     flex-direction: row !important;
+}
+
+@media only screen and (min-width: 800px) { 
+    .eventListMargin {
+        margin-right: 20px;
+    }
+    .globalPredictionMargin {
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+    .leaderboardnMargin {
+        margin-right: 20px;
+    }
 }
 
 @media only screen and (max-width: 800px) { 

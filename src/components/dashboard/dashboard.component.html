@@ -1,15 +1,15 @@
 <app-header></app-header>
 <div class="dashboard-container">
     <div class="flex-grid">
-        <div class="col">
+        <div class="col eventListMargin">
             <app-event-list [eventPredictions]="eventPredictions"></app-event-list>
         </div>
-        <div class="col-sm bordered">
+        <div class="col-sm">
             <div class="flex-grid-row">
-                <div class="col center box bordered">
+                <div class="col center box globalPredictionMargin">
                     <app-global-prediction></app-global-prediction>
                 </div>
-                <div class="col center box bordered">
+                <div class="col center box leaderboardnMargin">
                     <app-leaderboards></app-leaderboards>
                 </div>
             </div>
@@ -80,3 +80,4 @@
         </div>
     </div>
 </div>
+<app-footer></app-footer>

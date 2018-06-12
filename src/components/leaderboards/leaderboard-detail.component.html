@@ -10,22 +10,22 @@
             <h4>Regresar</h4>
         </div>
     </div>
-    <div class="row-header bg-light padded-sm">
-        <div class="col-sm marginTop">
+    <div class="row-header bg-light">
+        <div class="col-sm center marginTop">
             <img class="icon-sm" src="../../assets/lider.svg" alt="wc" />
         </div>
-        <div class="col-sm">
+        <div class="col-sm marginTop">
             <strong>Global</strong>
         </div>
         <div class="col">
             &nbsp;
         </div>
-        <div class="col right">
+        <div class="col center marginTop">
             <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
         </div>
     </div>
     <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
-        <div class="col-sm marginTop">
+        <div class="col-sm center">
             <strong>#{{i+1}}</strong>
         </div>
         <div class="col-sm">
@@ -36,8 +36,9 @@
                 {{leader.user.username}}
             </div>
         </div>
-        <div class="col right">
+        <div class="col center">
             {{leader.points}}
         </div>
     </div>
 </div>
+<app-footer></app-footer>
