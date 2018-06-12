@@ -5,7 +5,7 @@
                 <div class="col">
                     &nbsp;
                 </div>
-                <div class="col center padded">
+                <div class="col center">
                     <img class="icon-xl" src="../../assets/logo-ver.png" alt="logo-ver" />
                     <div class="title center">RUSIA 2018</div>
                 </div>
@@ -59,19 +59,24 @@
                         <div class="center">
                             <input id="pass" [(ngModel)]="model.password" type="password" name="password" placeholder="contraseña" required>
                         </div>
-                        <div class="tiny">Al menos 8 caracteres. (alfanumérico)</div>
+                        <div class="tiny">Al menos 8 caracteres. (numeros y letras)</div>
                     </div>
                     <div class="password-field">
                         <div class="center">
                             <input id="passC" [(ngModel)]="model.passwordConfirmation" type="password" name="passwordC" placeholder="confirmar contraseña"
                                 required>
                         </div>
+                        <div class="center">
+                            <select>
+                                <option value="" disabled="disabled" selected="selected">Selecciona tu pais</option>
+                                <option *ngFor="let country of countries" value="{{country.alpha2Code}}">
+                                    {{country.name}}
+                                </option>
+                            </select>
+                        </div>
                         <div class="col-sm valign-middle">
                             ¿Ya eres miembro? ¡Ingresa!
-                            <img (click)="redirectToLogin()" 
-                                class="icon-sm circle" 
-                                src="../../assets/arrow-right.png" 
-                                alt="Login" />
+                            <img (click)="redirectToLogin()" class="icon-sm circle" src="../../assets/arrow-right.png" alt="Login" />
                         </div>
                         <div class="center">
                             <input [ngClass]="{'disabled': !passwordsMatch() || !modelIsPristine()}" class="oraculapp-btn sm" type="button" value="Registrarse"

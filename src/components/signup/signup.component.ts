@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { AuthService } from '../../services/auth.service';
 import { EventService, channels } from '../../services/emitter.service';
+import { CountryService } from '../../services/country.service';
 
 const {
     protocol,
@@ -34,10 +35,12 @@ export class SignUpComponent implements AfterContentInit {
     timeLeft: TimeLeft = TimeLeftInitialState
     readonly startDate: string = '2018-06-14 09:00'
     model: SignUp = new SignUpModel();
+    countries: any[] = []
     constructor(
         private http: Http, 
         private router: Router,
         private authService: AuthService,
+        private countryService: CountryService,
         private emitter: EventService
     ) { }
 
@@ -48,7 +51,6 @@ export class SignUpComponent implements AfterContentInit {
                 clearInterval(timeLeftInterval)
               }
         })
-
         // Check if user is logged in
         Observable.of()
             .pipe(
@@ -57,6 +59,11 @@ export class SignUpComponent implements AfterContentInit {
             )
             .subscribe(() => {
                 this.authService.checkUserAuth('/signup')
+                this.countries = this.countryService.getAll()
+                    .map(item => {
+                        item.alpha2Code = item.alpha2Code.toLowerCase()
+                        return item
+                    })
             })
     }
 

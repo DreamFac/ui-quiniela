@@ -34,6 +34,7 @@ import { UserPointsEpics } from '../components/user-points/user-points.epic';
 import { HttpModule } from '@angular/http';
 import { EventService } from '../services/emitter.service';
 import { LeaderboardService } from '../components/leaderboards/leaderboard.service';
+import { CountryService } from '../services/country.service';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -72,6 +73,7 @@ const APP_COMMON_MODULES = [
     LeaderboardService,
     HttpWrapper,
     EventService,
+    CountryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -166,7 +166,7 @@ app-root {
 }
 
 .bordered {
-    margin: 1px;
+    margin: 1px !important;
 }
 
 .padded {
@@ -289,6 +289,13 @@ span.icon-sm {
     flex-direction: row !important;
 }
 
+@media only screen and (min-width: 800px) { 
+    span.flag-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
 @media only screen and (max-width: 800px) {
     app-root {
         height: auto !important;
@@ -325,6 +332,13 @@ span.icon-sm {
     .oraculapp-btn {
         margin: 0px !important;
         width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 400px) { 
+    span.flag-icon {
+        width: 30px;
+        height: 30px;
     }
 }
 
