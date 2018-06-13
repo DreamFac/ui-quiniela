@@ -31,21 +31,21 @@ body {
 h1 {
     font: 700 34px/40px Helvetica, sans-serif;
     color: #408648;
-    margin: 40px 0 15px;
+    margin: 20px 0 15px;
     font-weight: 700;
 }
 
 h2 {
     font: 700 28px/36px Helvetica, sans-serif;
     color: #408648;
-    margin: 40px 0 0;
+    margin: 20px 0 0;
     font-weight: 700;
 }
 
 h3 {
     font: 700 18px/22px Helvetica, sans-serif;
     color: #408648;
-    margin: 5px !important;
+    margin: 0px !important;
     font-weight: 600;
 }
 
@@ -146,7 +146,6 @@ app-root {
 }
 
 .title {
-    padding: 5px;
     text-align: -webkit-left;
 }
 
@@ -230,7 +229,7 @@ span.icon-xs {
 }
 
 span.flag-icon {
-    box-shadow: 4px 4px 8px 2px rgba(0,0,0,.2);
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, .2);
 }
 
 .oraculapp-btn {
@@ -303,7 +302,7 @@ span.icon-sm {
     background-size: cover !important;
 }
 
-@media only screen and (max-width: 900px) { 
+@media only screen and (max-width: 900px) {
     .flex-grid {
         flex-direction: column !important;
     }
@@ -341,21 +340,21 @@ span.icon-sm {
     }
 }
 
-@media only screen and (max-width: 400px) { 
+@media only screen and (max-width: 400px) {
     span.flag-icon {
         width: 30px;
         height: 30px;
     }
 }
 
-@media only screen and (min-width: 400px) and (max-width: 800px) { 
+@media only screen and (min-width: 400px) and (max-width: 800px) {
     span.flag-icon {
         width: 100px;
         height: 60px;
     }
 }
 
-@media only screen and (min-width: 800px) { 
+@media only screen and (min-width: 800px) {
     span.flag-icon {
         width: 110px;
         height: 70px;

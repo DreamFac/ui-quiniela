@@ -79,18 +79,19 @@ select {
     .sign-up-bg {
         height: auto !important;
         background-size: auto !important;
-        background: url('../../assets/bg-launch-min.jpg') no-repeat center fixed;
+        background: url('../../assets/bg-launch-mb.jpg') no-repeat center fixed !important;
         background-position: center;
     }
 }
 
-@media only screen and (max-width: 800px) and (min-width: 400px) {
+@media only screen and (min-width: 401px) {
     .row-header {
         flex-direction: row !important;
     }
     .sign-up-bg {
-        background-size: cover !important;
-        background: url('../../assets/bg-launch-min.jpg') no-repeat center fixed;
+        height: auto !important;
+        background-size: auto !important;
+        background: url('../../assets/bg-launch-min.jpg') no-repeat center fixed !important;
         background-position: center;
     }
 }

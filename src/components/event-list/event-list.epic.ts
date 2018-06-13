@@ -58,18 +58,18 @@ export class EventListEpic {
 
         if (event.tie.isPicked) {
           return this.eventListService.selectTie(result.payload, 'delete')
-            .map(result => {
-              return EventListActions.selectTeamSuccess(result)
+            .map(tieResult => {
+              return EventListActions.selectTeamSuccess(tieResult)
             })
         } else if (!event.tie.isPicked && !teamSelected) {
           return this.eventListService.selectTie(result.payload, 'create')
-            .map(result => {
-              return EventListActions.selectTeamSuccess(result)
+            .map(tieResult => {
+              return EventListActions.selectTeamSuccess(tieResult)
             })
         } else {
           return this.eventListService.selectTie(result.payload, 'update')
-            .map(result => {
-              return EventListActions.selectTeamSuccess(result)
+            .map(tieResult => {
+              return EventListActions.selectTeamSuccess(tieResult)
             })
         }
       })

@@ -2,11 +2,11 @@
     <div class="row-header">
         <div class="col">
             <div class="title left">
-                <h3>Mi Quiniela</h3>
+                <h3>Mi Quiniela de la Copa</h3>
             </div>
-        </div>
-        <div class="col-sm mobile-hide">
-            <img class="icon-md" src="../../assets/worldcup.svg" alt="wc" />
+            <div class="desc">
+                Predice los 4 primeros lugares de la Copa. Tienes hasta el cierre de la fase de grupos para hacer tu predicción.
+            </div>
         </div>
     </div>
     <div class="col">
@@ -19,7 +19,11 @@
                         *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <div class="col ranking-result">
                             <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
-                            <span class="valign-sub" [ngClass]="'icon-xxs flag-icon flag-icon-' + prediction.team.flag"></span>
+                            <img *ngIf="prediction.team.flag === 'en'"
+                                class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                            <span class="valign-sub"
+                                *ngIf="prediction.team.flag !== 'en'"  
+                                [ngClass]="'icon-xxs flag-icon flag-icon-' + prediction.team.flag"></span>
                             <span class="name">{{prediction.team.name}}</span>
                         </div>
                         <!-- <div class="col arrows">
