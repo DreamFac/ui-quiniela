@@ -15,7 +15,7 @@
                 <div class="team-places container2" 
                     [dragula]='"bag-one"' 
                     [dragulaModel]='gloablPredictionList' >
-                    <div class="row-header team"
+                    <div class="row-header team1"
                         *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <div class="col ranking-result">
                             <img *ngIf="prediction.team.flag === 'en'"
@@ -32,9 +32,9 @@
                     <div class="team-places container2 drag-here" 
                         [dragula]='"bag-one"' 
                         [dragulaModel]='pickedList' >
-                        <div class="row-header team" [ngClass]="{'bg-light': i < 4}"
+                        <div class="row-header team2" [ngClass]="{'bg-light': i < 4}"
                             *ngFor='let prediction of pickedList; let i = index'>
-                            <div class="col ranking-result">
+                            <div class="col ranking-result2">
                                 <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
                                 <img *ngIf="prediction.team.flag === 'en'"
                                     class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
