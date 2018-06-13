@@ -23,111 +23,118 @@ const {
         predictions: { globalPredictions },
         teams: { getAll }
     }
-} = config(configFile);
+} = config( configFile );
 
-const teamsUrl = `${protocol}://${baseUrl}/${version}/${getAll}`;
-const globalPredictionsUrl = `${protocol}://${baseUrl}/${version}/${globalPredictions}`;
+const teamsUrl = `${ protocol }://${ baseUrl }/${ version }/${ getAll }`;
+const globalPredictionsUrl = `${ protocol }://${ baseUrl }/${ version }/${ globalPredictions }`;
 
 let teamsList: Team[] = []
 const mergedPredictions: IMap<GlobalPrediction> = {}
 
-@Component({
+@Component( {
     selector: "app-global-prediction",
     templateUrl: "./global-prediction.component.html",
-    styleUrls: ["./global-prediction.component.scss"]
-})
+    styleUrls: [ "./global-prediction.component.scss" ]
+} )
 export class GlobalPredictionComponent implements AfterContentInit {
     hasError: boolean = false
-    constructor(
+    constructor (
         private http: HttpWrapper<any>
     ) { }
 
     gloablPredictionList: GlobalPrediction[] = []
 
-    ngAfterContentInit() {
+    ngAfterContentInit () {
+        this.mergePredictions()
+    }
+
+    mergePredictions () {
         Observable.of()
             .pipe(
-                startWith(null),
-                delay(0),
-                tap(() => {
-                    const teams$ = this.http.get(teamsUrl);
-                    const globalPrediction$ = this.http.get(globalPredictionsUrl);
-                    return forkJoin([teams$, globalPrediction$])
-                        .map(result => {
-                            teamsList = result.shift()
-                            result.pop().filter(prediction => {
-                                return prediction.place <= 4
-                            })
-                                .forEach(prediction => {
-                                    mergedPredictions[prediction.team.id] = prediction
-                                })
-                            keys(mergedPredictions)
-                                .forEach(key => {
-                                    this.gloablPredictionList.push(mergedPredictions[key])
-                                })
-                            teamsList.forEach((team, index) => {
-                                if (!mergedPredictions[team.id]) {
-                                    this.gloablPredictionList.push({
-                                        id: undefined,
-                                        place: index + 4,
-                                        team: team
-                                    })
-                                }
-                            })
-                            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
-                        })
-                        .subscribe()
-                })
+            startWith( null ),
+            delay( 0 ),
+            tap( () => {
+                const teams$ = this.http.get( teamsUrl );
+                const globalPrediction$ = this.http.get( globalPredictionsUrl );
+                return forkJoin( [ teams$, globalPrediction$ ] )
+                    .map( result => {
+                        teamsList = result.shift()
+                        result.pop().filter( prediction => {
+                            return prediction.place <= 4
+                        } )
+                            .forEach( prediction => {
+                                mergedPredictions[ prediction.team.id ] = prediction
+                            } )
+                        keys( mergedPredictions )
+                            .forEach( key => {
+                                this.gloablPredictionList.push( mergedPredictions[ key ] )
+                            } )
+                        teamsList.forEach( ( team, index ) => {
+                            if ( !mergedPredictions[ team.id ] ) {
+                                this.gloablPredictionList.push( {
+                                    id: undefined,
+                                    place: index + 4,
+                                    team: team
+                                } )
+                            }
+                        } )
+                        this.gloablPredictionList = orderBy( this.gloablPredictionList, [ 'place' ], [ 'asc' ] );
+                    } )
+                    .subscribe()
+            } )
             )
             .subscribe();
     }
 
-    moveUp(prediction: GlobalPrediction, i: number) {
-        const aboveTeam = this.gloablPredictionList[i - 1]
+    moveUp ( prediction: GlobalPrediction, i: number ) {
+        const aboveTeam = this.gloablPredictionList[ i - 1 ]
         aboveTeam.place = aboveTeam.place ? aboveTeam.place + 1 : i + 1
         prediction.place = prediction.place ? prediction.place - 1 : aboveTeam.place - 1
-        this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
+        this.gloablPredictionList = orderBy( this.gloablPredictionList, [ 'place' ], [ 'asc' ] );
     }
 
-    moveDown(prediction: GlobalPrediction, i: number) {
-        const belowTeam = this.gloablPredictionList[i + 1]
+    moveDown ( prediction: GlobalPrediction, i: number ) {
+        const belowTeam = this.gloablPredictionList[ i + 1 ]
         belowTeam.place = belowTeam.place ? belowTeam.place - 1 : i + 1
         prediction.place = prediction.place ? prediction.place + 1 : belowTeam.place + 1
-        this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
+        this.gloablPredictionList = orderBy( this.gloablPredictionList, [ 'place' ], [ 'asc' ] );
     }
 
-    save() {
+    save () {
 
-        const predictionDto = this.gloablPredictionList.map((prediction, index) => {
+        const predictionDto = this.gloablPredictionList.map( ( prediction, index ) => {
             return {
                 team: prediction.team.id,
                 place: index + 1
             };
-        }).filter(prediction => prediction.place <= 4)
+        } ).filter( prediction => prediction.place <= 4 )
 
-        if (isEmpty(mergedPredictions)) {
-            this.http.post(globalPredictionsUrl, predictionDto)
-                .catch(err => {
-                    return Observable.of(err)
-                })
-                .subscribe((response) => {
-                    console.log(response)
-                })
-        } else {
-            this.http.delete(`${globalPredictionsUrl}`)
-                .catch(err => {
-                    return Observable.of(err)
-                })
-                .subscribe(result => {
-                    this.http.post(globalPredictionsUrl, predictionDto)
-                        .catch(err => {
-                            return Observable.of(err)
-                        })
-                        .subscribe((response) => {
-                            console.log(response)
-                        })
-                })
-        }
+        this.http.get( globalPredictionsUrl )
+            .subscribe( globalResult => {
+                if ( !globalResult.length ) {
+                    this.http.post( globalPredictionsUrl, predictionDto )
+                        .catch( err => {
+                            return Observable.of( err )
+                        } )
+                        .subscribe( ( response ) => {
+                            console.log( response )
+                        } )
+                } else {
+                    this.http.delete( `${ globalPredictionsUrl }` )
+                        .catch( err => {
+                            return Observable.of( err )
+                        } )
+                        .subscribe( result => {
+                            this.http.post( globalPredictionsUrl, predictionDto )
+                                .catch( err => {
+                                    return Observable.of( err )
+                                } )
+                                .subscribe( ( response ) => {
+                                    console.log( response )
+                                } )
+                        } )
+                }
+            } )
     }
 }
 
