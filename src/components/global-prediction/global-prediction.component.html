@@ -18,7 +18,11 @@
                         *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <div class="col ranking-result">
                             <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
-                            <span class="valign-sub" [ngClass]="'icon-xs flag-icon flag-icon-' + prediction.team.flag"></span>
+                            <img *ngIf="prediction.team.flag === 'en'"
+                                class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                            <span class="valign-sub"
+                                *ngIf="prediction.team.flag !== 'en'"  
+                                [ngClass]="'icon-xs flag-icon flag-icon-' + prediction.team.flag"></span>
                             <span class="name">{{prediction.team.name}}</span>
                         </div>
                         <div class="col arrows">

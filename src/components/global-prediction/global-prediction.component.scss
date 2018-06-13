@@ -25,6 +25,12 @@
     display: inline-flex;
 }
 
+.flag-eng {
+    width: 30px !important;
+    height: 20px !important;
+    vertical-align: -webkit-baseline-middle;
+}
+
 .drag-here {
     min-width: 150px;
     text-align: center;
