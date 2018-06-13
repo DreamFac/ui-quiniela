@@ -12,9 +12,10 @@
     <div class="col">
         <div class="row-header container1">
             <div class="col">
-                <div class="team-places container2">
-                    <div class="row-header team" 
-                        [ngClass]="{'bg-light': i < 4}"
+                <div class="team-places container2" 
+                    [dragula]='"bag-one"' 
+                    [dragulaModel]='gloablPredictionList' >
+                    <div class="row-header team" [ngClass]="{'bg-light': i < 4}"
                         *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <div class="col ranking-result">
                             <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>

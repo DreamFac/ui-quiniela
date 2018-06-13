@@ -2,3 +2,4 @@
 @import url('font.css');
 @import url('src/app/app.component.scss');
 @import url('node_modules/flag-icon-css/css/flag-icon.min.css');
+@import url('node_modules/dragula/dist/dragula.css');

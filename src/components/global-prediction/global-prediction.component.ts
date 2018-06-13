@@ -16,6 +16,8 @@ import { startWith, delay, tap } from "rxjs/operators";
 import { Team } from "../../models/event.model";
 import { IMap } from "../../types";
 
+import { DragulaService } from 'ng2-dragula';
+
 const {
     protocol,
     urlConfig: {
@@ -39,10 +41,37 @@ const mergedPredictions: IMap<GlobalPrediction> = {}
 export class GlobalPredictionComponent implements AfterContentInit {
     hasError: boolean = false
     constructor(
-        private http: HttpWrapper<any>
-    ) { }
+        private http: HttpWrapper<any>,
+        private dragulaService: DragulaService
+    ) {
+        dragulaService.setOptions('bag-one', {
+            removeOnSpill: true
+        });
+        dragulaService.drop.subscribe(value => {
+            this.onDropModel(value.slice(1));
+        });
+        dragulaService.drag.subscribe(value => {
+            this.onDragModel(value.slice(1));
+        });
+    }
 
     gloablPredictionList: GlobalPrediction[] = []
+
+    onDropModel(args) {
+        let [el, target, source] = args;
+        console.log('drop');
+        console.log('list ::::: ', this.gloablPredictionList)
+    }
+
+    onDragModel(args) {
+        let [el, target, source] = args;
+        console.log('drag')
+        // prevent scrolling
+        document.body.style.pointerEvents = 'none';
+        setTimeout(() => {
+            document.body.style.pointerEvents = 'all';
+        }, 150)
+    }
 
     ngAfterContentInit() {
         Observable.of()
@@ -68,8 +97,8 @@ export class GlobalPredictionComponent implements AfterContentInit {
                             teamsList.forEach((team, index) => {
                                 if (!mergedPredictions[team.id]) {
                                     this.gloablPredictionList.push({
-                                        id: undefined,
-                                        place: index + 4,
+                                        id: null,
+                                        place: null,
                                         team: team
                                     })
                                 }
