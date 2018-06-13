@@ -67,9 +67,9 @@
                                 required>
                         </div>
                         <div class="center">
-                            <select>
+                            <select #c (change)="selectCountry(c.value)">
                                 <option value="" disabled="disabled" selected="selected">Selecciona tu pais</option>
-                                <option *ngFor="let country of countries" value="{{country.alpha2Code}}">
+                                <option *ngFor="let country of countries" [ngValue]="country">
                                     {{country.name}}
                                 </option>
                             </select>

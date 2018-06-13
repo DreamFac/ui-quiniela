@@ -36,6 +36,7 @@ export class SignUpComponent implements AfterContentInit {
     readonly startDate: string = '2018-06-14 09:00'
     model: SignUp = new SignUpModel();
     countries: any[] = []
+    selectedCountry: string
     constructor(
         private http: Http, 
         private router: Router,
@@ -81,11 +82,19 @@ export class SignUpComponent implements AfterContentInit {
         this.router.navigate(['/login'])
     }
 
+    selectCountry (country) {
+        this.selectedCountry = country
+        console.log(this.selectedCountry)
+    }
+
     register () {
         const dto = {
             email: this.model.email,
             username: this.model.email,
-            password: this.model.password
+            password: this.model.password,
+            user_profile:{
+                country: this.selectedCountry
+            }
         };
         const registerUrl = `${protocol}://${baseUrl}/${version}/${signup}`;
         this.http.post(registerUrl, dto)

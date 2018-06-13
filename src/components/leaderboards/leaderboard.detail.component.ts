@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { startWith, delay } from 'rxjs/operators';
-import { LeaderboardDto } from '../../types';
+import { LeaderboardDto, LeaderboardModel } from '../../types';
 import { LeaderboardService } from './leaderboard.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./leaderboard-detail.component.scss']
 })
 export class LeaderboardDetailComponent implements AfterContentInit {
-    leaderboardList: LeaderboardDto[] = []
+    leaderboardList: LeaderboardModel[] = []
     constructor(
         private router: Router,
         public authService: AuthService,

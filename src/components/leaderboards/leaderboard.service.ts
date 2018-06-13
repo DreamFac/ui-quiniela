@@ -3,9 +3,10 @@ import { config } from '../../config';
 import configFile from '../../config.file';
 import { HttpWrapper } from '../../services/http-wrapper.service';
 import { Observable } from 'rxjs/Observable';
-import { LeaderboardDto } from '../../types';
-import { orderBy, truncate } from 'lodash';
+import { LeaderboardDto, LeaderboardModel, Country } from '../../types';
+import { orderBy, truncate, first } from 'lodash';
 import { AuthService } from '../../services/auth.service';
+import { CountryService } from '../../services/country.service';
 
 const {
     protocol,
@@ -17,7 +18,11 @@ const {
 
 @Injectable()
 export class LeaderboardService {
-    constructor(private http: HttpWrapper<any>, public authService: AuthService) {
+    constructor(
+        private http: HttpWrapper<any>,
+        public authService: AuthService,
+        private countryService: CountryService
+    ) {
 
     }
 
@@ -26,7 +31,7 @@ export class LeaderboardService {
         return this.http.get(leaderboardsUrl)
     }
 
-    mapAll(truncateUsername: Boolean = false) {
+    mapAll(truncateUsername: Boolean = false): Observable<Array<LeaderboardModel>> {
         return this.getAll()
             .catch(err => Observable.of(err))
             .map((result: Array<LeaderboardDto>) => {
@@ -48,7 +53,31 @@ export class LeaderboardService {
                                 'separator': '...'
                             });
                         }
-                        return item
+                        const country: Country = first(
+                            this.countryService.getAll()
+                                .filter(x => x.name === item.user.user_profile.country)
+                            )
+                        return {
+                            delta_points: item.delta_points,
+                            points: item.points,
+                            user: {
+                                email: item.user.email,
+                                id: item.user.id,
+                                is_active: item.user.is_active,
+                                username: item.user.username,
+                                user_profile: {
+                                    id: item.user.user_profile.id,
+                                    first_name: item.user.user_profile.first_name,
+                                    last_name: item.user.user_profile.last_name,
+                                    country: {
+                                        name: country.name,
+                                        alpha2Code: country.alpha2Code.toLowerCase(),
+                                        alpha3Code: country.alpha3Code.toLowerCase()
+                                    },
+                                    user: item.user.user_profile.user
+                                }
+                            }
+                        }
                     }), ['points'], ['desc'])
                 }
             })

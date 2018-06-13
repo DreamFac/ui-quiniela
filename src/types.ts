@@ -88,13 +88,49 @@ export interface UserDto {
     id: number
     is_active: Boolean
     username: string
+    user_profile: UserProfileDto
+}
+
+export interface UserModel {
+    email: string
+    id: number
+    is_active: Boolean
+    username: string
+    user_profile: UserProfile
 }
 
 export interface LeaderboardDto {
     delta_points: number
     points: number
     user: UserDto
+}
 
+export interface LeaderboardModel {
+    delta_points: number
+    points: number
+    user: UserModel
+}
+
+export interface Country {
+    name: string
+    alpha2Code: string
+    alpha3Code: string
+}
+
+export interface UserProfileDto {
+    id: number
+    first_name: string
+    last_name: string
+    country: string
+    user: number
+}
+
+export interface UserProfile {
+    id: number
+    first_name: string
+    last_name: string
+    country: Country
+    user: number
 }
 
 export interface UserInfo {
@@ -102,5 +138,5 @@ export interface UserInfo {
     jti?: string
     token_type?: string
     user_id?: number
-    leaderboardInfo: {points: number, ranking: number}
+    leaderboardInfo: { points: number, ranking: number }
 }
