@@ -15,10 +15,9 @@
                 <div class="team-places container2" 
                     [dragula]='"bag-one"' 
                     [dragulaModel]='gloablPredictionList' >
-                    <div class="row-header team" [ngClass]="{'bg-light': i < 4}"
+                    <div class="row-header team"
                         *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <div class="col ranking-result">
-                            <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
                             <img *ngIf="prediction.team.flag === 'en'"
                                 class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
                             <span class="valign-sub"
@@ -26,20 +25,27 @@
                                 [ngClass]="'icon-xxs flag-icon flag-icon-' + prediction.team.flag"></span>
                             <span class="name">{{prediction.team.name}}</span>
                         </div>
-                        <!-- <div class="col arrows">
-                            <div *ngIf="i > 0" class="col arrow-container" (click)="moveUp(prediction, i)">
-                                <i class="arrow up"></i>
-                            </div>
-                            <div class="col">&nbsp;</div>
-                            <div *ngIf="i < gloablPredictionList.length - 1" 
-                                class="col arrow-container"
-                                (click)="moveDown(prediction, i)">
-                                <i class="arrow down"></i>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
+            <div class="col">
+                    <div class="team-places container2 drag-here" 
+                        [dragula]='"bag-one"' 
+                        [dragulaModel]='pickedList' >
+                        <div class="row-header team" [ngClass]="{'bg-light': i < 4}"
+                            *ngFor='let prediction of pickedList; let i = index'>
+                            <div class="col ranking-result">
+                                <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
+                                <img *ngIf="prediction.team.flag === 'en'"
+                                    class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                                <span class="valign-sub"
+                                    *ngIf="prediction.team.flag !== 'en'"  
+                                    [ngClass]="'icon-xxs flag-icon flag-icon-' + prediction.team.flag"></span>
+                                <span class="name">{{prediction.team.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <div class="col-sm">
