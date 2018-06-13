@@ -79,10 +79,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
             console.log(args)
         }, 1000)
         // prevent scrolling
-        document.body.style.pointerEvents = 'none';
-        setTimeout(() => {
-            document.body.style.pointerEvents = 'all';
-        }, 25)
     }
 
     ngAfterContentInit() {
@@ -120,20 +116,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
                 })
             ).subscribe()
 
-    }
-
-    moveUp(prediction: GlobalPrediction, i: number) {
-        const aboveTeam = this.gloablPredictionList[i - 1]
-        aboveTeam.place = aboveTeam.place ? aboveTeam.place + 1 : i + 1
-        prediction.place = prediction.place ? prediction.place - 1 : aboveTeam.place - 1
-        this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
-    }
-
-    moveDown(prediction: GlobalPrediction, i: number) {
-        const belowTeam = this.gloablPredictionList[i + 1]
-        belowTeam.place = belowTeam.place ? belowTeam.place - 1 : i + 1
-        prediction.place = prediction.place ? prediction.place + 1 : belowTeam.place + 1
-        this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
     }
 
     save() {
