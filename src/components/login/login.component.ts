@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { select, dispatch } from '@angular-redux/store';
 import { JwtInfo } from 'src/store/types';
 import { LoginActions } from 'src/store/actions/login.actions';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { startWith, delay, tap } from "rxjs/operators";
 import { AuthService } from '../../services/auth.service';
 
@@ -14,8 +14,9 @@ import { AuthService } from '../../services/auth.service';
     styleUrls: [ './login.component.scss' ]
 } )
 export class LoginComponent implements AfterContentInit {
-    model = new LogInModel();
+    model = new LogInModel(this.authService.tempCreds);
     constructor (
+        private route: ActivatedRoute,
         private router: Router,
         private authService: AuthService
     ) {}
@@ -32,6 +33,9 @@ export class LoginComponent implements AfterContentInit {
             )
             .subscribe(() => {
                 this.authService.checkUserAuth('/login')
+                this.route.params.subscribe(params => {
+                    console.log(params)
+                 });
             })
     }
 

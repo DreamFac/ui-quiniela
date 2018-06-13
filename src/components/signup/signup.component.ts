@@ -75,7 +75,7 @@ export class SignUpComponent implements AfterContentInit {
     modelIsPristine () {
         return Object.keys(this.model)
             .filter(key => this.model[key] === '')
-            .length === 0 && this.passwordsMatch();
+            .length === 0 && this.passwordsMatch() && this.selectedCountry;
     }
 
     redirectToLogin () {
@@ -107,6 +107,7 @@ export class SignUpComponent implements AfterContentInit {
                 return Observable.throw(err);
             })
             .subscribe(result => {
+                this.authService.setTempCreds(dto)
                 this.router.navigate(['/login'])
             });
     }

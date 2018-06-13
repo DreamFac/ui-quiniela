@@ -34,6 +34,10 @@ export class AuthService {
       ranking: 0
     }
   };
+  tempCreds: {username: string, password: string} = {
+    username: '',
+    password: ''
+  }
   @select(["login", "jwtInfo"])
   jwtInfo: Observable<JwtInfo>;
   constructor(private http: HttpClient, private router: Router, private store: NgRedux<AppState>) {}
@@ -97,6 +101,10 @@ export class AuthService {
     });
     this.user = userInfo;
     return userInfo;
+  }
+
+  setTempCreds (dto) {
+    this.tempCreds = dto
   }
 
   setLeaderboardInfo(info: { points: number; ranking: number } = {points: 0, ranking: 0}) {

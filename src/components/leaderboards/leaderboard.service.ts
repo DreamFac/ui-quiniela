@@ -61,7 +61,7 @@ export class LeaderboardService {
                             delta_points: item.delta_points,
                             points: item.points,
                             user: {
-                                email: item.user.email,
+                                email: item.user.email.substring(0, item.user.email.indexOf('@')),
                                 id: item.user.id,
                                 is_active: item.user.is_active,
                                 username: item.user.username,

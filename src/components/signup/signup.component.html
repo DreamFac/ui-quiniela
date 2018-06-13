@@ -53,7 +53,6 @@
                         <div class="center">
                             <input id="email" [(ngModel)]="model.email" type="email" name="email input" placeholder="correo@ejemplo.com" required>
                         </div>
-                        <div class="tiny">Debe ser un correo válido.</div>
                     </div>
                     <div class="password-field">
                         <div class="center">
@@ -79,7 +78,7 @@
                             <img (click)="redirectToLogin()" class="icon-sm circle" src="../../assets/arrow-right.png" alt="Login" />
                         </div>
                         <div class="center">
-                            <input [ngClass]="{'disabled': !passwordsMatch() || !modelIsPristine()}" class="oraculapp-btn sm" type="button" value="Registrarse"
+                            <input [ngClass]="{'disabled': !modelIsPristine()}" class="oraculapp-btn sm" type="button" value="Registrarse"
                                 (click)="register()" />
                         </div>
                     </div>
