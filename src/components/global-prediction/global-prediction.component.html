@@ -13,10 +13,12 @@
         <div class="row-header container1">
             <div class="col">
                 <div class="team-places container2">
-                    <div class="row-header padded-xs team" *ngFor='let prediction of gloablPredictionList; let i = index'>
+                    <div class="row-header team" 
+                        [ngClass]="{'bg-light': i < 4}"
+                        *ngFor='let prediction of gloablPredictionList; let i = index'>
                         <div class="col ranking-result">
                             <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
-                            <span class="valign-sub" [ngClass]="'icon-sm flag-icon flag-icon-' + prediction.team.flag"></span>
+                            <span class="valign-sub" [ngClass]="'icon-xs flag-icon flag-icon-' + prediction.team.flag"></span>
                             <span class="name">{{prediction.team.name}}</span>
                         </div>
                         <div class="col arrows">

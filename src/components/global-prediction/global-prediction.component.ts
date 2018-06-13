@@ -69,7 +69,7 @@ export class GlobalPredictionComponent implements AfterContentInit {
                                 if (!mergedPredictions[team.id]) {
                                     this.gloablPredictionList.push({
                                         id: undefined,
-                                        place: undefined,
+                                        place: index + 4,
                                         team: team
                                     })
                                 }
