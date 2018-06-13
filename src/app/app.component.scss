@@ -31,21 +31,21 @@ body {
 h1 {
     font: 700 34px/40px Helvetica, sans-serif;
     color: #408648;
-    margin: 40px 0 15px;
+    margin: 20px 0 15px;
     font-weight: 700;
 }
 
 h2 {
     font: 700 28px/36px Helvetica, sans-serif;
     color: #408648;
-    margin: 40px 0 0;
+    margin: 20px 0 0;
     font-weight: 700;
 }
 
 h3 {
     font: 700 18px/22px Helvetica, sans-serif;
     color: #408648;
-    margin: 5px !important;
+    margin: 0px !important;
     font-weight: 600;
 }
 
@@ -146,7 +146,6 @@ app-root {
 }
 
 .title {
-    padding: 5px;
     text-align: -webkit-left;
 }
 
@@ -230,7 +229,7 @@ span.icon-xs {
 }
 
 span.flag-icon {
-    box-shadow: 4px 4px 8px 2px rgba(0, 0, 0, .2);
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, .2);
 }
 
 .oraculapp-btn {
