@@ -10,7 +10,7 @@ import configFile from "../../config.file";
 
 import { HttpWrapper } from "../../services/http-wrapper.service";
 
-import { first, concat, keys, orderBy } from "lodash";
+import { first, concat, keys, orderBy, isEmpty } from "lodash";
 import { Observable, forkJoin, merge } from "rxjs";
 import { startWith, delay, tap } from "rxjs/operators";
 import { Team } from "../../models/event.model";
@@ -28,6 +28,9 @@ const {
 const teamsUrl = `${protocol}://${baseUrl}/${version}/${getAll}`;
 const globalPredictionsUrl = `${protocol}://${baseUrl}/${version}/${globalPredictions}`;
 
+let teamsList: Team[] = []
+const mergedPredictions: IMap<GlobalPrediction> = {}
+
 @Component({
     selector: "app-global-prediction",
     templateUrl: "./global-prediction.component.html",
@@ -41,9 +44,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
 
     gloablPredictionList: GlobalPrediction[] = []
 
-    public teams: Array<DraggableModel<GlobalPrediction>> = [];
-    public teamsCopy: Array<DraggableModel<GlobalPrediction>> = [];
-
     ngAfterContentInit() {
         Observable.of()
             .pipe(
@@ -52,8 +52,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
                 tap(() => {
                     const teams$ = this.http.get(teamsUrl);
                     const globalPrediction$ = this.http.get(globalPredictionsUrl);
-                    let teamsList: Team[] = []
-                    const mergedPredictions: IMap<GlobalPrediction> = {}
                     return forkJoin([teams$, globalPrediction$])
                         .map(result => {
                             teamsList = result.shift()
@@ -99,6 +97,7 @@ export class GlobalPredictionComponent implements AfterContentInit {
     }
 
     save() {
+
         const predictionDto = this.gloablPredictionList.map((prediction, index) => {
             return {
                 team: prediction.team.id,
@@ -106,19 +105,29 @@ export class GlobalPredictionComponent implements AfterContentInit {
             };
         }).filter(prediction => prediction.place <= 4)
 
-        this.http.delete(`${globalPredictionsUrl}`)
-            .catch(err => {
-                return Observable.of(err)
-            })
-            .subscribe(result => {
-                this.http.post(globalPredictionsUrl, predictionDto)
-                    .catch(err => {
-                        return Observable.of(err)
-                    })
-                    .subscribe((response) => {
-                        console.log(response)
-                    })
-            })
+        if (isEmpty(mergedPredictions)) {
+            this.http.post(globalPredictionsUrl, predictionDto)
+                .catch(err => {
+                    return Observable.of(err)
+                })
+                .subscribe((response) => {
+                    console.log(response)
+                })
+        } else {
+            this.http.delete(`${globalPredictionsUrl}`)
+                .catch(err => {
+                    return Observable.of(err)
+                })
+                .subscribe(result => {
+                    this.http.post(globalPredictionsUrl, predictionDto)
+                        .catch(err => {
+                            return Observable.of(err)
+                        })
+                        .subscribe((response) => {
+                            console.log(response)
+                        })
+                })
+        }
     }
 }
 
