@@ -119,10 +119,11 @@ export class DashboardComponent implements AfterContentInit {
   tourInit(isCompleted: string) {
     this.tour = {
       sections: [
-        { image: 'tour1.png', description: 'desc tour 1', activeIndex: 1 },
-        { image: 'tour2.png', description: 'desc tour 2', activeIndex: 0 },
-        { image: 'tour3.png', description: 'desc tour 3', activeIndex: 0 },
-        { image: 'tour4.png', description: 'desc tour 4', activeIndex: 0 }
+        { image: 'tour1.png', description: 'Es muy fácil jugar. Una vez tengas tu cuenta podrás ver todos los partidos que se jugarán próximamente. Tendrás un pequeno reloj, que te indica cuánto tiempo queda para ingresar tu predicción. ', activeIndex: 1 },
+        { image: 'tour2.png', description: 'Haz click en la bandera del país que crees que va a ganar. Asi de fácil ya has ingresado tu quiniela!', activeIndex: 0 },
+        { image: 'tour3.png', description: 'Si crees que será empate, haz click al centro de las banderas.', activeIndex: 0 },
+        { image: 'tour4.png', description: 'Una vez el tiempo haya terminado, se deshabilitará el poder votar por ese partido. Ve a disfrutar del partido!', activeIndex: 0 },
+        { image: 'tour5.png', description: 'Al terminar el juego aparecerá el marcador final al centro y, en lugar del reloj, un cheque si acertaste y la cantidad de puntos que ganaste. Si no acertaste, aparecerá una equis. Puedes ver tu ranking, en la barra derecha.', activeIndex: 0 }
       ],
       isCompleted: isCompleted
     }
@@ -133,7 +134,7 @@ export class DashboardComponent implements AfterContentInit {
         section.activeIndex = 0
         return section
       })
-    if (index > 2){
+    if (index > 3){
       this.tour.isCompleted = 'true'
       localStorage.setItem('tour-completed', JSON.stringify(true))
     } else {
