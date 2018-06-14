@@ -47,6 +47,10 @@ export class GlobalPredictionComponent implements AfterContentInit {
         private http: HttpWrapper<any>,
         private dragulaService: DragulaService
     ) {
+        const bag: any = this.dragulaService.find( 'bag-one' );
+        if ( bag !== undefined ) {
+            this.dragulaService.destroy( 'bag-one' );
+        }
         dragulaService.setOptions( 'bag-one', {
             revertOnSpill: true
         } );
@@ -66,9 +70,9 @@ export class GlobalPredictionComponent implements AfterContentInit {
     onDragModel ( args ) {
         console.log( 'drag' )
         document.body.style.pointerEvents = 'none';
-        setTimeout(() => {
+        setTimeout( () => {
             document.body.style.pointerEvents = 'all';
-        }, 25)
+        }, 25 )
     }
 
     ngAfterContentInit () {
@@ -83,13 +87,13 @@ export class GlobalPredictionComponent implements AfterContentInit {
                     .map( result => {
                         this.teamsList = result.shift();
                         this.pickedList = result.pop().map( ( item ) => item.team )
-                        this.teamsList.forEach((team, index) => {
-                            this.pickedList.forEach(pick => {
-                                if (team.id === pick.id) {
-                                    this.teamsList.splice(index, 1)
+                        this.teamsList.forEach( ( team, index ) => {
+                            this.pickedList.forEach( pick => {
+                                if ( team.id === pick.id ) {
+                                    this.teamsList.splice( index, 1 )
                                 }
-                            })
-                        })
+                            } )
+                        } )
                     } ).subscribe()
             } )
             ).subscribe()
