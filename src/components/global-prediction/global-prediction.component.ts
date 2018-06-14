@@ -26,112 +26,106 @@ const {
         predictions: { globalPredictions },
         teams: { getAll }
     }
-} = config(configFile);
+} = config( configFile );
 
-const teamsUrl = `${protocol}://${baseUrl}/${version}/${getAll}`;
-const globalPredictionsUrl = `${protocol}://${baseUrl}/${version}/${globalPredictions}`;
+const teamsUrl = `${ protocol }://${ baseUrl }/${ version }/${ getAll }`;
+const globalPredictionsUrl = `${ protocol }://${ baseUrl }/${ version }/${ globalPredictions }`;
 
 const mergedPredictions: IMap<GlobalPrediction> = {}
 
-let dragInterval = null
-
-@Component({
+@Component( {
     selector: "app-global-prediction",
     templateUrl: "./global-prediction.component.html",
-    styleUrls: ["./global-prediction.component.scss"]
-})
+    styleUrls: [ "./global-prediction.component.scss" ]
+} )
 export class GlobalPredictionComponent implements AfterContentInit {
     hasError: boolean = false
     teamsList: Team[] = []
     pickedList: GlobalPrediction[] = []
     gloablPredictionList: GlobalPrediction[] = []
-    constructor(
+    constructor (
         private http: HttpWrapper<any>,
         private dragulaService: DragulaService
     ) {
-        dragulaService.setOptions('bag-one', {
-            removeOnSpill: true
-        });
-        dragulaService.drop.subscribe(value => {
-            this.onDropModel(value.slice(1));
-        });
-        dragulaService.drag.subscribe(value => {
+        dragulaService.setOptions( 'bag-one', {
+            revertOnSpill: true
+        } );
+        dragulaService.drop.subscribe( value => {
+            this.onDropModel( value.slice( 1 ) );
+        } );
+        dragulaService.drag.subscribe( value => {
             // auto scroll
-            this.onDragModel(value.slice(1));
-        });
-        // detach the mouse move event when the drag ends
-        dragulaService.dragend.subscribe(value => {
-            document.onmousemove = null;
-        });
+            this.onDragModel( value.slice( 1 ) );
+        } );
     }
 
-    onDropModel(args) {
-        let [el, target, source] = args;
-        console.log('drop');
-        console.log('list ::::: ', this.gloablPredictionList)
-        clearInterval(dragInterval)
+    onDropModel ( args ) {
+        console.log( 'drop' )
+        console.log( 'teams list', this.teamsList.length )
+        console.log( 'picked list', this.pickedList.length )
     }
 
-    onDragModel(args) {
-        let [el, target, source] = args;
-        console.log('drag')
-        // prevent scrolling
+    onDragModel ( args ) {
+        console.log( 'drag' )
     }
 
-    ngAfterContentInit() {
+    ngAfterContentInit () {
         Observable.of()
             .pipe(
-                startWith(null),
-                delay(0),
-                tap(() => {
-
-                    const teams$ = this.http.get(teamsUrl);
-                    const globalPrediction$ = this.http.get(globalPredictionsUrl);
-                    return forkJoin([teams$, globalPrediction$])
-                        .map(result => {
-                            this.teamsList = result.shift()
-                            this.pickedList = result.pop()
-                                .map((item) => item.team)
-                        }).subscribe()
-                })
+            startWith( null ),
+            delay( 0 ),
+            tap( () => {
+                const teams$ = this.http.get( teamsUrl );
+                const globalPrediction$ = this.http.get( globalPredictionsUrl );
+                return forkJoin( [ teams$, globalPrediction$ ] )
+                    .map( result => {
+                        this.teamsList = result.shift();
+                        this.pickedList = result.pop().map( ( item ) => item.team )
+                        this.teamsList.forEach((team, index) => {
+                            this.pickedList.forEach(pick => {
+                                if (team.id === pick.id) {
+                                    this.teamsList.splice(index, 1)
+                                }
+                            })
+                        })
+                    } ).subscribe()
+            } )
             ).subscribe()
     }
 
-    save() {
-
-        const predictionDto = this.pickedList.map((team, index) => {
+    save () {
+        const predictionDto = this.pickedList.map( ( team, index ) => {
             return {
                 team: team.id,
                 place: index + 1
             };
-        }).filter(prediction => prediction.place <= 4)
-
-        this.http.get(globalPredictionsUrl)
-            .subscribe(globalResult => {
-                if (!globalResult.length) {
-                    this.http.post(globalPredictionsUrl, predictionDto)
-                        .catch(err => {
-                            return Observable.of(err)
-                        })
-                        .subscribe((response) => {
-                            console.log(response)
-                        })
+        } )
+        this.http.get( globalPredictionsUrl )
+            .subscribe( globalResult => {
+                if ( !globalResult.length ) {
+                    this.http.post( globalPredictionsUrl, predictionDto )
+                        .catch( err => {
+                            return Observable.of( err )
+                        } )
+                        .subscribe( ( response ) => {
+                            console.log( response )
+                        } )
                 } else {
-                    this.http.delete(`${globalPredictionsUrl}`)
-                        .catch(err => {
-                            return Observable.of(err)
-                        })
-                        .subscribe(result => {
-                            this.http.post(globalPredictionsUrl, predictionDto)
-                                .catch(err => {
-                                    return Observable.of(err)
-                                })
-                                .subscribe((response) => {
-                                    console.log(response)
-                                })
-                        })
+                    this.http.delete( `${ globalPredictionsUrl }` )
+                        .catch( err => {
+                            return Observable.of( err )
+                        } )
+                        .subscribe( result => {
+                            this.http.post( globalPredictionsUrl, predictionDto )
+                                .catch( err => {
+                                    return Observable.of( err )
+                                } )
+                                .subscribe( ( response ) => {
+                                    console.log( response )
+                                } )
+                        } )
                 }
-            })
+            } )
     }
 }
 
