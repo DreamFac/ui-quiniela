@@ -17,6 +17,7 @@ import { EventModel } from "../../models/event.model";
 import { PredictionService } from "../../services/prediction.service";
 import { AppState } from "../../store/model";
 import { REHYDRATE } from "redux-persist";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-dashboard",
@@ -31,14 +32,26 @@ export class DashboardComponent implements AfterContentInit {
   eventPredictions: Observable<Array<EventPredictionModel>>;
   eventResults: Array<EventModel> = [];
   ptsCount: number = 0
+  tour: {
+    sections: Array<{
+      image: string,
+      description: string,
+      activeIndex: number
+    }>,
+    isCompleted: string
+  }
   constructor(
     private store: NgRedux<AppState>,
+    public authService: AuthService,
     private predictionService: PredictionService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    let tourCompleted = localStorage.getItem('tour-completed')
+    if (!tourCompleted) {
+      localStorage.setItem('tour-completed', JSON.stringify(false))
+    }
+    this.tourInit(tourCompleted)
   }
 
   ngAfterContentInit() {
@@ -60,7 +73,7 @@ export class DashboardComponent implements AfterContentInit {
                 if (prediction.team_event.completed && !prediction.read) {
                   if (prediction.prediction === prediction.team_event.result) {
                     eventPrediction.event.wonPrediction = true;
-                    eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;                    
+                    eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;
                   }
                   return eventPrediction.event;
                 }
@@ -94,11 +107,37 @@ export class DashboardComponent implements AfterContentInit {
       this.predictionService
         .updatePrediction(predictionDto)
         .subscribe(result => {
-          if ( subscription ) {
+          if (subscription) {
             subscription.unsubscribe()
           }
           DashboardActions.mergeEventsPredictions()
         });
     });
+  }
+
+  // Tour
+  tourInit(isCompleted: string) {
+    this.tour = {
+      sections: [
+        { image: 'tour1.png', description: 'desc tour 1', activeIndex: 1 },
+        { image: 'tour2.png', description: 'desc tour 2', activeIndex: 0 },
+        { image: 'tour3.png', description: 'desc tour 3', activeIndex: 0 },
+        { image: 'tour4.png', description: 'desc tour 4', activeIndex: 0 }
+      ],
+      isCompleted: isCompleted
+    }
+  }
+  next(index: number) {
+    this.tour.sections = this.tour.sections
+      .map((section) => {
+        section.activeIndex = 0
+        return section
+      })
+    if (index > 2){
+      this.tour.isCompleted = 'true'
+      localStorage.setItem('tour-completed', JSON.stringify(true))
+    } else {
+      this.tour.sections[index + 1].activeIndex = 1
+    }
   }
 }

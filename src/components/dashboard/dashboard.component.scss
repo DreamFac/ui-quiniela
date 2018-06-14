@@ -76,6 +76,22 @@ span {
     flex-direction: row !important;
 }
 
+.tour-img {
+    width: 85% !important;
+    height: 85% !important;
+    margin: 1% 8% !important;
+}
+
+.tour-desc {
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 400px) { 
+    .tour-desc {
+        font-size: 14px !important; 
+    }
+}
+
 @media only screen and (max-width: 800px) { 
     .eventListMargin {
         margin-bottom: 10px !important;
