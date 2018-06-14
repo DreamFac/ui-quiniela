@@ -1,22 +1,18 @@
 import {
   Component,
-  AfterContentChecked,
   AfterContentInit,
   Output,
-  AfterViewInit
 } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { startWith, delay, tap } from "rxjs/operators";
-import { forkJoin } from "rxjs";
 import { DashboardActions } from "./dashboard.actions";
-import { EventPrediction, Prediction, EventPredictionDto } from "../../types";
+import { EventPredictionDto } from "../../types";
 import { select, NgRedux } from "@angular-redux/store";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 import { first } from "lodash";
 import { EventModel } from "../../models/event.model";
 import { PredictionService } from "../../services/prediction.service";
 import { AppState } from "../../store/model";
-import { REHYDRATE } from "redux-persist";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
@@ -41,7 +37,6 @@ export class DashboardComponent implements AfterContentInit {
     isCompleted: string
   }
   constructor(
-    private store: NgRedux<AppState>,
     public authService: AuthService,
     private predictionService: PredictionService
   ) { }
@@ -58,31 +53,32 @@ export class DashboardComponent implements AfterContentInit {
     Observable.of()
       .pipe(
         startWith(null),
-        delay(100),
-        tap(() => DashboardActions.mergeEventsPredictions())
+        delay(0),
+        tap(() => DashboardActions.mergeEventsPredictions()),
+        tap(() => {
+          this.eventPredictions.subscribe(result => {
+            if (result && result.length) {
+              this.eventResults = result
+                .map(eventPrediction => {
+                  return first(
+                    eventPrediction.predictions.map(prediction => {
+                      if (prediction.team_event.completed && !prediction.read) {
+                        if (prediction.prediction === prediction.team_event.result) {
+                          eventPrediction.event.wonPrediction = true;
+                          eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;
+                          this.ptsCount += eventPrediction.event.rewardPoints
+                        }
+                        return eventPrediction.event;
+                      }
+                    })
+                  );
+                })
+                .filter(eventPred => eventPred !== undefined);
+            }
+          });
+        })
       )
-      .subscribe();
-    // Not implemented
-    this.eventPredictions.subscribe(result => {
-      if (result && result.length) {
-        this.eventResults = result
-          .map(eventPrediction => {
-            this.ptsCount += eventPrediction.event.rewardPoints
-            return first(
-              eventPrediction.predictions.map(prediction => {
-                if (prediction.team_event.completed && !prediction.read) {
-                  if (prediction.prediction === prediction.team_event.result) {
-                    eventPrediction.event.wonPrediction = true;
-                    eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;
-                  }
-                  return eventPrediction.event;
-                }
-              })
-            );
-          })
-          .filter(eventPred => eventPred !== undefined);
-      }
-    });
+      .subscribe()
   }
 
   markAsRead() {

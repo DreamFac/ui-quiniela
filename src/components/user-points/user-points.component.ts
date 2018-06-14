@@ -1,14 +1,9 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { startWith, delay, tap, takeUntil, timeInterval, take } from 'rxjs/operators';
-import { UserProfileService } from './user-profile.service';
+import { startWith, delay, tap, take, repeat } from 'rxjs/operators';
 import { UserPointsActions } from './user-points.actions';
-import { select, NgRedux } from '@angular-redux/store';
-import { interval, timer } from 'rxjs';
-import { AppState } from '../../store/model';
-import { PURGE } from 'redux-persist';
-import { rootReducer } from '../../store/reducers';
-import { combineReducers } from 'redux';
+import { select } from '@angular-redux/store';
+import { interval } from 'rxjs';
 
 @Component({
     selector: 'app-user-points',
@@ -19,7 +14,7 @@ export class UserPointsComponent implements AfterContentInit {
     @select(['userPoints', 'points'])
     points: Observable<number>
     totalPoints: number = 0
-    constructor(private store: NgRedux<AppState>) {
+    constructor() {
     }
 
     ngAfterContentInit() {
@@ -27,12 +22,14 @@ export class UserPointsComponent implements AfterContentInit {
             .pipe(
                 startWith(null),
                 delay(0),
-                tap(() => UserPointsActions.get())
-            ).subscribe(result => {
-                this.points.subscribe(points => {
-                    this.countPoints(points).subscribe()
+                repeat(1),
+                tap(() => UserPointsActions.get()),
+                tap(() => {
+                    this.points.subscribe(points => {
+                        this.countPoints(points).subscribe()
+                    })
                 })
-            })
+            ).subscribe()
     }
 
     countPoints(points) {
