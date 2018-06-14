@@ -65,6 +65,10 @@ export class GlobalPredictionComponent implements AfterContentInit {
 
     onDragModel ( args ) {
         console.log( 'drag' )
+        document.body.style.pointerEvents = 'none';
+        setTimeout(() => {
+            document.body.style.pointerEvents = 'all';
+        }, 25)
     }
 
     ngAfterContentInit () {
