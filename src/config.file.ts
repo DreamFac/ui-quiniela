@@ -4,12 +4,12 @@
  * url configuration json object.
  */
 export default {
-    "protocol": "http",
+    "protocol": "https",
     "scheme": "Bearer",
     "urlConfig": {
         "auth": {
             "version": "v1",
-            "baseUrl": "165.227.242.169/api",
+            "baseUrl": "a.oraculapp.com/api",
             "signup": "signup",
             "loginEndpoint": "auth/token",
             "logoutEndpoint": "auth/logout",
