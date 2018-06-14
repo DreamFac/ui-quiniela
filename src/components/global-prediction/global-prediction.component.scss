@@ -19,46 +19,68 @@
     font-size: 24px;
 }
 
-.ranking-result {
-    margin: 0px 10px 0px 20px;
-    min-width: 150px !important;
-    display: inline-flex;
-}
-
 .flag-eng {
-    width: 30px !important;
-    height: 20px !important;
-    vertical-align: -webkit-baseline-middle;
+    width: 25px !important;
+    height: 16px !important;
+    vertical-align: middle;
 }
 
 .drag-here {
-    min-width: 150px;
-    text-align: center;
+    border: 1px dotted seagreen;
+    border-radius: 10px;
 }
 
 .name {
-    font-size: 14px;
+    font-size: 16px;
     padding-left: 6px;
-    vertical-align: -webkit-baseline-middle;
+    line-height: 2;
 }
 
 .place {
-    vertical-align: bottom;
     margin-left: -10px;
     padding-right: 3px;
+    font-size: 16px;
 }
 
 .valign-sub {
-  vertical-align: sub !important;
+  vertical-align: middle !important;
 }
 
-.team {
+.ranking-result {
+    margin: 0px 10px 0px 5px;
+    display: inline-flex;
+}
+
+.ranking-result2 {
+    margin: 0px 10px 0px 20px;
+    display: inline-flex;
+    width: max-content;
+}
+
+.team1 {
     background: #eee;
     border-radius: 10px;
     margin: 5px;
+    width: max-content;
+    height: 30px;
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.team2 {
+    background: #eee;
+    border-radius: 10px;
+    margin: 5px;
+    height: 30px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+span.icon-xxs {
+    width: 25px !important;
+    height: 15px !important;
 }
 
 .dotted {

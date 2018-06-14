@@ -30,11 +30,13 @@ import { DashboardService } from '../components/dashboard/dashboard.service';
 import { UserProfileService } from '../components/user-points/user-profile.service';
 import { UserPointsEpics } from '../components/user-points/user-points.epic';
 
-// dragula
 import { HttpModule } from '@angular/http';
 import { EventService } from '../services/emitter.service';
 import { LeaderboardService } from '../components/leaderboards/leaderboard.service';
 import { CountryService } from '../services/country.service';
+
+// dragula
+import { DragulaModule } from 'ng2-dragula';
 
 const APP_COMMON_MODULES = [
   BrowserModule,
@@ -54,7 +56,8 @@ const APP_COMMON_MODULES = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false, useHash: false }
-    )
+    ),
+    DragulaModule
   ],
   providers: [
     LoginEpics,

@@ -16,6 +16,9 @@ import { startWith, delay, tap } from "rxjs/operators";
 import { Team } from "../../models/event.model";
 import { IMap } from "../../types";
 
+import { DragulaService } from 'ng2-dragula';
+import { isNgTemplate } from "@angular/compiler";
+
 const {
     protocol,
     urlConfig: {
@@ -28,7 +31,6 @@ const {
 const teamsUrl = `${ protocol }://${ baseUrl }/${ version }/${ getAll }`;
 const globalPredictionsUrl = `${ protocol }://${ baseUrl }/${ version }/${ globalPredictions }`;
 
-let teamsList: Team[] = []
 const mergedPredictions: IMap<GlobalPrediction> = {}
 
 @Component( {
@@ -38,17 +40,42 @@ const mergedPredictions: IMap<GlobalPrediction> = {}
 } )
 export class GlobalPredictionComponent implements AfterContentInit {
     hasError: boolean = false
-    constructor (
-        private http: HttpWrapper<any>
-    ) { }
-
+    teamsList: Team[] = []
+    pickedList: GlobalPrediction[] = []
     gloablPredictionList: GlobalPrediction[] = []
-
-    ngAfterContentInit () {
-        this.mergePredictions()
+    constructor (
+        private http: HttpWrapper<any>,
+        private dragulaService: DragulaService
+    ) {
+        const bag: any = this.dragulaService.find( 'bag-one' );
+        if ( bag !== undefined ) {
+            this.dragulaService.destroy( 'bag-one' );
+        }
+        dragulaService.setOptions( 'bag-one', {
+            revertOnSpill: true
+        } );
+        dragulaService.drop.subscribe( value => {
+            this.onDropModel( value.slice( 1 ) );
+        } );
+        dragulaService.drag.subscribe( value => {
+            // auto scroll
+            this.onDragModel( value.slice( 1 ) );
+        } );
     }
 
-    mergePredictions () {
+    onDropModel ( args ) {
+        console.log( 'drop' )
+    }
+
+    onDragModel ( args ) {
+        console.log( 'drag' )
+        document.body.style.pointerEvents = 'none';
+        setTimeout( () => {
+            document.body.style.pointerEvents = 'all';
+        }, 25 )
+    }
+
+    ngAfterContentInit () {
         Observable.of()
             .pipe(
             startWith( null ),
@@ -58,57 +85,27 @@ export class GlobalPredictionComponent implements AfterContentInit {
                 const globalPrediction$ = this.http.get( globalPredictionsUrl );
                 return forkJoin( [ teams$, globalPrediction$ ] )
                     .map( result => {
-                        teamsList = result.shift()
-                        result.pop().filter( prediction => {
-                            return prediction.place <= 4
-                        } )
-                            .forEach( prediction => {
-                                mergedPredictions[ prediction.team.id ] = prediction
+                        this.teamsList = result.shift();
+                        this.pickedList = result.pop().map( ( item ) => item.team )
+                        this.teamsList.forEach( ( team, index ) => {
+                            this.pickedList.forEach( pick => {
+                                if ( team.id === pick.id ) {
+                                    this.teamsList.splice( index, 1 )
+                                }
                             } )
-                        keys( mergedPredictions )
-                            .forEach( key => {
-                                this.gloablPredictionList.push( mergedPredictions[ key ] )
-                            } )
-                        teamsList.forEach( ( team, index ) => {
-                            if ( !mergedPredictions[ team.id ] ) {
-                                this.gloablPredictionList.push( {
-                                    id: undefined,
-                                    place: index + 4,
-                                    team: team
-                                } )
-                            }
                         } )
-                        this.gloablPredictionList = orderBy( this.gloablPredictionList, [ 'place' ], [ 'asc' ] );
-                    } )
-                    .subscribe()
+                    } ).subscribe()
             } )
-            )
-            .subscribe();
-    }
-
-    moveUp ( prediction: GlobalPrediction, i: number ) {
-        const aboveTeam = this.gloablPredictionList[ i - 1 ]
-        aboveTeam.place = aboveTeam.place ? aboveTeam.place + 1 : i + 1
-        prediction.place = prediction.place ? prediction.place - 1 : aboveTeam.place - 1
-        this.gloablPredictionList = orderBy( this.gloablPredictionList, [ 'place' ], [ 'asc' ] );
-    }
-
-    moveDown ( prediction: GlobalPrediction, i: number ) {
-        const belowTeam = this.gloablPredictionList[ i + 1 ]
-        belowTeam.place = belowTeam.place ? belowTeam.place - 1 : i + 1
-        prediction.place = prediction.place ? prediction.place + 1 : belowTeam.place + 1
-        this.gloablPredictionList = orderBy( this.gloablPredictionList, [ 'place' ], [ 'asc' ] );
+            ).subscribe()
     }
 
     save () {
-
-        const predictionDto = this.gloablPredictionList.map( ( prediction, index ) => {
+        const predictionDto = this.pickedList.map( ( team, index ) => {
             return {
-                team: prediction.team.id,
+                team: team.id,
                 place: index + 1
             };
-        } ).filter( prediction => prediction.place <= 4 )
-
+        } )
         this.http.get( globalPredictionsUrl )
             .subscribe( globalResult => {
                 if ( !globalResult.length ) {

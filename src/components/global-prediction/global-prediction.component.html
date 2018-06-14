@@ -12,36 +12,44 @@
     <div class="col">
         <div class="row-header container1">
             <div class="col">
-                <div class="team-places container2">
-                    <div class="row-header team" 
-                        [ngClass]="{'bg-light': i < 4}"
-                        *ngFor='let prediction of gloablPredictionList; let i = index'>
+                <div id="drop1" class="team-places container2" 
+                    [dragula]='"bag-one"' 
+                    [dragulaModel]='teamsList' >
+                    <div class="row-header team1"
+                        *ngFor='let team of teamsList; let i = index'>
                         <div class="col ranking-result">
-                            <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
-                            <img *ngIf="prediction.team.flag === 'en'"
+                            <img *ngIf="team.flag === 'en'"
                                 class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
                             <span class="valign-sub"
-                                *ngIf="prediction.team.flag !== 'en'"  
-                                [ngClass]="'icon-xs flag-icon flag-icon-' + prediction.team.flag"></span>
-                            <span class="name">{{prediction.team.name}}</span>
-                        </div>
-                        <div class="col arrows">
-                            <div *ngIf="i > 0" class="col arrow-container" (click)="moveUp(prediction, i)">
-                                <i class="arrow up"></i>
-                            </div>
-                            <div class="col">&nbsp;</div>
-                            <div *ngIf="i < gloablPredictionList.length - 1" 
-                                class="col arrow-container"
-                                (click)="moveDown(prediction, i)">
-                                <i class="arrow down"></i>
-                            </div>
+                                *ngIf="team.flag !== 'en'"  
+                                [ngClass]="'icon-xxs flag-icon flag-icon-' + team.flag"></span>
+                            <span class="name">{{team.name}}</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col">
+                    <div id="drop2" class="team-places container2 drag-here" 
+                        [dragula]='"bag-one"' 
+                        [dragulaModel]='pickedList' >
+                        <div class="row-header team2" [ngClass]="{'bg-light': i < 4}"
+                            *ngFor='let team of pickedList; let i = index'>
+                            <div class="col ranking-result2">
+                                <strong *ngIf="i < 4" class="place">{{i + 1}}</strong>
+                                <img *ngIf="team.flag === 'en'"
+                                    class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                                <span class="valign-sub"
+                                    *ngIf="team.flag !== 'en'"  
+                                    [ngClass]="'icon-xxs flag-icon flag-icon-' + team.flag"></span>
+                                <span class="name">{{team.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
-    <div class="col-sm">
-        <input class="oraculapp-btn" type="button" value="Guardar" (click)="save()" />
+    <div class="col-sm padded-xs">
+        <input [ngClass]="{'disabled': !pickedList.length || pickedList.length !== 4 }" 
+            class="oraculapp-btn" type="button" value="Guardar" (click)="save()" />
     </div>
 </div>
