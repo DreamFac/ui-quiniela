@@ -1,12 +1,13 @@
-<div class="ld-container">
+<app-header></app-header>
+<div class="leaderboard-container">
     <div class="row-header padded-xs">
         <div class="col">
             <div class="title left marginTop padded-xs">
-                <h3>Líderes</h3>
+                <h3>Lideres</h3>
             </div>
         </div>
-        <div class="col-sm right padded-xs" (click)="goTo();">
-            <h4>Ver Más</h4>
+        <div class="col-sm right padded-xs" (click)="goBack();">
+            <h4>Regresar</h4>
         </div>
     </div>
     <div class="row-header bg-light">
@@ -14,7 +15,7 @@
             <img class="icon-sm" src="../../assets/lider.svg" alt="wc" />
         </div>
         <div class="col-sm marginTop">
-            <strong>País</strong>
+            <strong>Pais</strong>
         </div>
         <div class="col">
             &nbsp;
@@ -42,3 +43,4 @@
         </div>
     </div>
 </div>
+<app-footer></app-footer>

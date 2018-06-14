@@ -1,7 +1,7 @@
 .title {
     color: #424242;
     background: white;
-
+    font-size: 14px;
 }
 
 .title-container {
@@ -39,8 +39,29 @@
     opacity: 1;
 }
 
+.t-name {
+    color: #424242;
+    font-size: 16px;
+}
+
 .vs {
-    width: 75px;
-    line-height: 5.4;
+    line-height: 5.6 !important;
     padding: 5px;
+}
+
+.flex-grid {
+    flex-direction: row !important;
+}
+
+@media only screen and (max-width: 400px) { 
+    .time-left {
+        max-width: 60px !important;
+        min-width: 60px !important;
+    }
+}
+
+@media only screen and (max-width: 800px) { 
+    .vs {
+        width: auto !important; 
+    }
 }

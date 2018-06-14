@@ -28,6 +28,9 @@ export const config = (configFile: ConfigFile): AuthConfig => {
             },
             teams: {
                 getAll:  configFile.urlConfig.teams.getAll
+            },
+            leaderboards: {
+                getAllLeaderboards:  configFile.urlConfig.leaderboards.getAllLeaderboards
             }
         }
     }
@@ -44,6 +47,7 @@ export interface UrlConfig {
     predictions: PredictionUrlConfig
     userPoints: UserPointsConfig
     teams: TeamsConfig
+    leaderboards: LeaderboardsConfig
 }
 export interface AuthUrlConfig {
     baseUrl: string,
@@ -75,4 +79,8 @@ export interface UserPointsConfig {
 
 export interface TeamsConfig {
     getAll: string
+}
+
+export interface LeaderboardsConfig {
+    getAllLeaderboards: string
 }

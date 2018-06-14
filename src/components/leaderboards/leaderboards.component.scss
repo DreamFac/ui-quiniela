@@ -2,6 +2,11 @@
     color: #424242;
 }
 
+.ld-container {
+    min-height: 255px;
+    max-height: 255px;
+}
+
 .header {
     width: 100%;
     margin: 0px;
@@ -13,4 +18,20 @@
     color: #81abdf;
     margin-top: 8px;
     cursor: pointer;
+}
+
+.username {
+    font-size: 16px;
+}
+
+.pts {
+    font-size: 16px;
+}
+
+.row-header {
+    flex-direction: row !important;
+}
+
+@media only screen and (max-width: 400px) { 
+    //
 }

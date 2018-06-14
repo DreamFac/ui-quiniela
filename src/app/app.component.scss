@@ -1,11 +1,23 @@
 * {
-    font: normal normal 20px/24px Pilcrow, sans-serif;
+    font: normal normal 20px/24px Helvetica, sans-serif;
     color: white;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: -moz-none;
-    -o-user-select: none;
-    user-select: none;
+}
+
+input,
+textarea {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 *:focus {
@@ -17,29 +29,31 @@ body {
 }
 
 h1 {
-    font: 700 48px/55px Pilcrow-Bold, sans-serif;
+    font: 700 34px/40px Helvetica, sans-serif;
     color: #408648;
-    margin: 40px 0 15px
+    margin: 20px 0 15px;
+    font-weight: 700;
 }
 
 h2 {
-    font: 700 40px/50px Pilcrow-Bold, sans-serif;
+    font: 700 28px/36px Helvetica, sans-serif;
     color: #408648;
-    ;
-    margin: 40px 0 0
+    margin: 20px 0 0;
+    font-weight: 700;
 }
 
 h3 {
-    font: 700 24px/30px Pilcrow-Bold, sans-serif;
+    font: 700 18px/22px Helvetica, sans-serif;
     color: #408648;
-    margin: 0 0 15px;
+    margin: 0px !important;
+    font-weight: 600;
 }
 
 h4 {
-    font: 700 18px/25px Pilcrow-Bold, sans-serif;
-    color: #408648;
-    ;
-    margin: 25px 0 -15px
+    font: 700 16px/20px Helvetica, sans-serif;
+    color: #81abdf !important;
+    margin: 10px 5px 5px 5px;
+    font-weight: 600;
 }
 
 .bg-light {
@@ -53,6 +67,36 @@ img {
 label,
 strong {
     color: #424242;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    width: 250px;
+    margin: 5px;
+    background: whitesmoke;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #435160;
+    outline: none;
+    color: #424242 !important;
+    font-size: 18px;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: gray;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: gray;
 }
 
 strong {
@@ -72,15 +116,16 @@ strong {
 .main-container {
     height: stretch;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .no-clicks {
     pointer-events: none;
-  }
+}
 
 .disabled {
-  pointer-events: none;
-  opacity: 0.7;
+    pointer-events: none;
+    opacity: 0.7;
 }
 
 app-root {
@@ -92,7 +137,8 @@ app-root {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to right, #28544a, darkslategray);
+    background-color: #235845;
+    background-image: url(http://transparenttextures.com/patterns/black-felt.png);
 }
 
 .app {
@@ -101,10 +147,10 @@ app-root {
 }
 
 .title {
-    padding: 5px;
     text-align: -webkit-left;
 }
-.title > h3{
+
+.title>h3 {
     color: #408648 !important;
 }
 
@@ -120,8 +166,12 @@ app-root {
     text-align: center;
 }
 
+.marginTop {
+    margin-top: 10px !important;
+}
+
 .bordered {
-    border: 2px solid seagreen;
+    border-top: 1px solid;
 }
 
 .padded {
@@ -130,6 +180,10 @@ app-root {
 
 .padded-sm {
     padding: 10px;
+}
+
+.padded-xs {
+    padding: 5px;
 }
 
 .pad-right {
@@ -151,8 +205,11 @@ app-root {
     flex: 1;
 }
 
+.col-md {
+    flex: 0.75;
+}
+
 .col-sm {
-    margin: 0px;
     flex: 0.5;
 }
 
@@ -168,26 +225,22 @@ app-root {
 }
 
 span.icon-xs {
-    width: 20px !important;
+    width: 30px !important;
     height: 20px !important;
 }
 
 span.flag-icon {
-    width: 80px;
-    height: 80px;
-}
-
-.oraculapp-btn.sm {
-    width: 50% !important;
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, .2);
 }
 
 .oraculapp-btn {
-    padding: 20px;
-    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    width: 290px;
     background: seagreen;
     color: white !important;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 16px;
     box-shadow: none;
     text-decoration: none;
     cursor: pointer;
@@ -219,9 +272,10 @@ img.icon-lg {
 }
 
 img.icon-md {
-    position: absolute;
-    width: 40px !important;
+    width: 30px !important;
     line-height: 75px !important;
+    float: right;
+    margin: 10px;
 }
 
 img.icon-sm {
@@ -235,7 +289,7 @@ img.icon-sm {
 }
 
 span.icon-sm {
-    width: 30px !important;
+    width: 50px !important;
     height: 30px !important;
 }
 
@@ -245,15 +299,28 @@ span.icon-sm {
     flex-direction: row !important;
 }
 
-@media only screen and (max-width: 910px) {
-    app-root {
-        height: auto !important;
-    }
+.flag-icon {
+    background-size: cover !important;
+}
+
+@media only screen and (max-width: 900px) {
     .flex-grid {
         flex-direction: column !important;
     }
     .flex-grid-row {
         flex-direction: column !important;
+    }
+    .row-header {
+        flex-direction: column !important;
+    }
+    .mobile-hide {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    app-root {
+        height: auto !important;
     }
     .box.pick {
         height: auto !important;
@@ -265,19 +332,33 @@ span.icon-sm {
     .loader {
         top: 85% !important;
     }
-    span.flag-icon {
-        width: 50px;
-        height: 50px;
-    }
-    .logo {
-        margin: 20px 10px 10px 20px !important;
-    }
     img {
         width: 120px !important;
     }
-    .container2 {
-        width: 75%;
-        padding-right: 25%;
+    .oraculapp-btn {
+        margin: 0px !important;
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    span.flag-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 800px) {
+    span.flag-icon {
+        width: 100px;
+        height: 60px;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    span.flag-icon {
+        width: 110px;
+        height: 70px;
     }
 }
 

@@ -9,8 +9,8 @@
 
 .team-places {
     text-align: left;
-    max-height: 275px;
-    min-height: 210px;
+    max-height: 200px;
+    min-height: 180px;
 }
 
 .place-header {
@@ -19,20 +19,68 @@
     font-size: 24px;
 }
 
-.ranking-result {
-    margin: 0px 10px 0px 20px;
-    min-width: 150px !important;
-    display: inline-flex;
+.flag-eng {
+    width: 25px !important;
+    height: 16px !important;
+    vertical-align: middle;
 }
 
 .drag-here {
-    min-width: 150px;
-    text-align: center;
+    border: 1px dotted seagreen;
+    border-radius: 10px;
 }
 
 .name {
-    padding-top: 2px;
-    padding-left: 5px;
+    font-size: 16px;
+    padding-left: 6px;
+    line-height: 2;
+}
+
+.place {
+    margin-left: -10px;
+    padding-right: 3px;
+    font-size: 16px;
+}
+
+.valign-sub {
+  vertical-align: middle !important;
+}
+
+.ranking-result {
+    margin: 0px 10px 0px 5px;
+    display: inline-flex;
+}
+
+.ranking-result2 {
+    margin: 0px 10px 0px 20px;
+    display: inline-flex;
+    width: max-content;
+}
+
+.team1 {
+    background: #eee;
+    border-radius: 10px;
+    margin: 5px;
+    width: max-content;
+    height: 30px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.team2 {
+    background: #eee;
+    border-radius: 10px;
+    margin: 5px;
+    height: 30px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+span.icon-xxs {
+    width: 25px !important;
+    height: 15px !important;
 }
 
 .dotted {
@@ -47,10 +95,61 @@
 }
 
 .col-container {
-    display: table; /* Make the container element behave like a table */
-    width: 100%; /* Set full-width to expand the whole page */
+    display: table;
+    /* Make the container element behave like a table */
+    width: 100%;
+    /* Set full-width to expand the whole page */
 }
 
 .col {
-    display: table-cell; /* Make elements inside the container behave like table cells */
+    display: table-cell;
+    /* Make elements inside the container behave like table cells */
+}
+
+.row-header {
+    flex-direction: row !important;
+}
+
+.arrows {
+    text-align: -webkit-right;
+    padding: 3px;
+}
+
+.arrow-container {
+    padding: 0px 8px 0px 8px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background: seagreen;
+}
+
+i {
+    border: solid snow;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-bottom: 5px;
+}
+
+.desc {
+    font-size: 14px;
+    text-align: left;
+}
+
+@media only screen and (max-width: 400px) {
+    .ranking-result {
+        min-width: max-content !important;
+    }
+    .arrow-container {
+        padding: 5px 10px 5px 10px !important;
+    }
 }

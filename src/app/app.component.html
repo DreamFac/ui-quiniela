@@ -2,6 +2,7 @@
 <div class="loader" *ngIf="httpWrapper.isInRequest"></div>
 <div class="main-container" [ngClass]="{'is-loading': httpWrapper.isInRequest}">
   <div class="app">
+    <app-toaster></app-toaster>
     <router-outlet></router-outlet>
   </div>
 </div>

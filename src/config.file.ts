@@ -4,12 +4,12 @@
  * url configuration json object.
  */
 export default {
-    "protocol": "https",
+    "protocol": "http",
     "scheme": "Bearer",
     "urlConfig": {
         "auth": {
             "version": "v1",
-            "baseUrl": "oraculapp.ngrok.io/api",
+            "baseUrl": "165.227.242.169/api",
             "signup": "signup",
             "loginEndpoint": "auth/token",
             "logoutEndpoint": "auth/logout",
@@ -29,6 +29,9 @@ export default {
         },
         "teams": {
             "getAll": "teams/"
+        },
+        "leaderboards": {
+            "getAllLeaderboards": "leaderboard/"
         }
     }
 }

@@ -30,6 +30,7 @@ export class DashboardComponent implements AfterContentInit {
   @Output()
   eventPredictions: Observable<Array<EventPredictionModel>>;
   eventResults: Array<EventModel> = [];
+  ptsCount: number = 0
   constructor(
     private store: NgRedux<AppState>,
     private predictionService: PredictionService
@@ -53,13 +54,13 @@ export class DashboardComponent implements AfterContentInit {
       if (result && result.length) {
         this.eventResults = result
           .map(eventPrediction => {
+            this.ptsCount += eventPrediction.event.rewardPoints
             return first(
               eventPrediction.predictions.map(prediction => {
                 if (prediction.team_event.completed && !prediction.read) {
                   if (prediction.prediction === prediction.team_event.result) {
                     eventPrediction.event.wonPrediction = true;
-                    eventPrediction.event.rewardPoints =
-                      prediction.team_event.result_type.points;
+                    eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;                    
                   }
                   return eventPrediction.event;
                 }

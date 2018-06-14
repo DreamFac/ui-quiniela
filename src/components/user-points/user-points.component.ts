@@ -36,7 +36,7 @@ export class UserPointsComponent implements AfterContentInit {
     }
 
     countPoints(points) {
-        return interval(5).pipe(
+        return interval(0).pipe(
             startWith(null),
             tap(x => this.totalPoints = this.totalPoints + 1),
             take(points)

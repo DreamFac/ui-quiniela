@@ -1,12 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { HttpWrapper } from '../../services/http-wrapper.service';
+import { config } from '../../config';
+import configFile from '../../config.file';
+import { Observable } from "rxjs/Observable";
+import { startWith, delay, tap } from "rxjs/operators";
+import { LeaderboardDto, LeaderboardModel } from '../../types';
+import { trim, orderBy, truncate } from 'lodash';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { LeaderboardService } from './leaderboard.service';
 
 @Component({
     selector: 'app-leaderboards',
     templateUrl: './leaderboards.component.html',
     styleUrls: ['./leaderboards.component.scss']
 })
-export class LeaderboardsComponent implements OnInit {
-    constructor() { }
+export class LeaderboardsComponent implements AfterContentInit {
+    leaderboardList: Array<LeaderboardModel> = []
+    constructor(
+        private router: Router,
+        public authService: AuthService,
+        private leaderboardService: LeaderboardService
+    ) { }
 
-    ngOnInit(): void { }
+    ngAfterContentInit() {
+        Observable.of()
+            .pipe(
+                startWith(null),
+                delay(0)
+            )
+            .subscribe(() => {
+                this.leaderboardService.mapAll(true)
+                    .subscribe(result => {
+                        this.leaderboardList = result
+                    })
+            });
+    }
+
+    goTo () {
+        this.router.navigate(['/leaderboard-detail'])
+    }
 }

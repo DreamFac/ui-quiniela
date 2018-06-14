@@ -14,7 +14,7 @@ import * as moment from 'moment'
   styleUrls: ["./event-list.component.scss"]
 })
 export class EventListComponent implements AfterContentInit {
-  title = "¡Hola! Haz click en el ganador (o al centro si crees que sera empate). Tienes hasta la hora indicada.";
+  title = "Haz click en el Ganador o VS si crees que será empate. El reloj indica el tiempo restante para predecir. Al iniciar el partido, se bloqueará.";
   constructor(private store: NgRedux<any>) { }
 
   eventPredictionList: EventPredictionModel[] = []
