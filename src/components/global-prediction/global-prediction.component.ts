@@ -17,6 +17,7 @@ import { Team } from "../../models/event.model";
 import { IMap } from "../../types";
 
 import { DragulaService } from 'ng2-dragula';
+import { isNgTemplate } from "@angular/compiler";
 
 const {
     protocol,
@@ -30,7 +31,6 @@ const {
 const teamsUrl = `${protocol}://${baseUrl}/${version}/${getAll}`;
 const globalPredictionsUrl = `${protocol}://${baseUrl}/${version}/${globalPredictions}`;
 
-let teamsList: Team[] = []
 const mergedPredictions: IMap<GlobalPrediction> = {}
 
 let dragInterval = null
@@ -42,6 +42,9 @@ let dragInterval = null
 })
 export class GlobalPredictionComponent implements AfterContentInit {
     hasError: boolean = false
+    teamsList: Team[] = []
+    pickedList: GlobalPrediction[] = []
+    gloablPredictionList: GlobalPrediction[] = []
     constructor(
         private http: HttpWrapper<any>,
         private dragulaService: DragulaService
@@ -62,9 +65,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
         });
     }
 
-    pickedList: GlobalPrediction[] = []
-    gloablPredictionList: GlobalPrediction[] = []
-
     onDropModel(args) {
         let [el, target, source] = args;
         console.log('drop');
@@ -75,9 +75,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
     onDragModel(args) {
         let [el, target, source] = args;
         console.log('drag')
-        dragInterval = setInterval(() => {
-            console.log(args)
-        }, 1000)
         // prevent scrolling
     }
 
@@ -87,42 +84,24 @@ export class GlobalPredictionComponent implements AfterContentInit {
                 startWith(null),
                 delay(0),
                 tap(() => {
+
                     const teams$ = this.http.get(teamsUrl);
                     const globalPrediction$ = this.http.get(globalPredictionsUrl);
                     return forkJoin([teams$, globalPrediction$])
                         .map(result => {
-                            teamsList = result.shift()
-                            result.pop().filter(prediction => {
-                                return prediction.place <= 4
-                            })
-                                .forEach(prediction => {
-                                    mergedPredictions[prediction.team.id] = prediction
-                                })
-                            keys(mergedPredictions)
-                                .forEach(key => {
-                                    this.gloablPredictionList.push(mergedPredictions[key])
-                                })
-                            teamsList.forEach((team, index) => {
-                                if (!mergedPredictions[team.id]) {
-                                    this.gloablPredictionList.push({
-                                        id: null,
-                                        place: null,
-                                        team: team
-                                    })
-                                }
-                            })
-                            this.gloablPredictionList = orderBy(this.gloablPredictionList, ['place'], ['asc']);
+                            this.teamsList = result.shift()
+                            this.pickedList = result.pop()
+                                .map((item) => item.team)
                         }).subscribe()
                 })
             ).subscribe()
-
     }
 
     save() {
 
-        const predictionDto = this.gloablPredictionList.map((prediction, index) => {
+        const predictionDto = this.pickedList.map((team, index) => {
             return {
-                team: prediction.team.id,
+                team: team.id,
                 place: index + 1
             };
         }).filter(prediction => prediction.place <= 4)
