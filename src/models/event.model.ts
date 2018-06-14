@@ -1,6 +1,7 @@
 import * as moment from 'moment'
 import { EventType, TeamEvent, ResultType } from "../types";
 import { getCountdown } from 'src/utils/timeUtils';
+import { first, last } from 'lodash';
 
 export interface TimeLeft {
   days: number
@@ -19,7 +20,7 @@ export interface Tie {
 }
 export interface Event {
   id?: number;
-  team_event?: any[];
+  team_event?: TeamEvent[];
   date: string;
   place: string;
   event_type: EventType;
@@ -63,6 +64,7 @@ export class EventModel {
   event_type: EventType;
   teamA: TeamModel;
   teamB: TeamModel;
+  completed: Boolean;
   tie: Tie;
   started?: Boolean;
   deltaInDays: number;
@@ -75,8 +77,9 @@ export class EventModel {
     this.date = model.date;
     this.place = model.place;
     this.event_type = model.event_type;
-    this.teamA = new TeamModel( model.team_event.shift() );
-    this.teamB = new TeamModel( model.team_event.pop() );
+    this.teamA = new TeamModel( first(model.team_event) );
+    this.teamB = new TeamModel( last(model.team_event) );
+    this.completed = first(model.team_event).completed;
     this.tie = model.tie;
     let timeLeftInterval;
     timeLeftInterval = setInterval( () => {
@@ -96,12 +99,14 @@ export class EventModel {
 export class TeamModel {
   id: number;
   teamEventId: number;
+  teamEvent: TeamEvent;
   name: string;
   flag: string;
   isPicked?: boolean;
   constructor ( model: TeamEvent ) {
     this.id = model.team.id;
     this.teamEventId = model.id;
+    this.teamEvent = model;
     this.name = model.team.name;
     this.flag = model.team.flag;
     this.isPicked = false;
