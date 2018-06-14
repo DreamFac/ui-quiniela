@@ -61,8 +61,6 @@ export class GlobalPredictionComponent implements AfterContentInit {
 
     onDropModel ( args ) {
         console.log( 'drop' )
-        console.log( 'teams list', this.teamsList.length )
-        console.log( 'picked list', this.pickedList.length )
     }
 
     onDragModel ( args ) {
