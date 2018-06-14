@@ -66,6 +66,7 @@ export class EventModel {
   tie: Tie;
   started?: Boolean;
   deltaInDays: number;
+  deltaInHours: number;
   timeLeft: TimeLeft = TimeLeftInitialState;
   wonPrediction?: boolean = false
   rewardPoints?: number = 0
