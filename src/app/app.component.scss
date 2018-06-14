@@ -60,6 +60,13 @@ h4 {
     background: #d6ebd7 !important;
 }
 
+.truncate {
+    width: 125px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 img {
     width: 195px;
 }

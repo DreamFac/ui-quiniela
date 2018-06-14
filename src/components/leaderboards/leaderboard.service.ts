@@ -40,16 +40,15 @@ export class LeaderboardService {
                         const userInfo = this.authService.getUserInfo()
                         if (item.user.id === userInfo.user_id) {
                             const info = {
+                                email: item.user.email.substring(0, item.user.email.indexOf('@')),
                                 points: item.points,
                                 ranking: index + 1
                             }
                             this.authService.setLeaderboardInfo(info)
-                        } else {
-                            this.authService.setLeaderboardInfo()
                         }
                         if (truncateUsername) {
                             item.user.username = truncate(item.user.username, {
-                                'length': 15,
+                                'length': 12,
                                 'separator': '...'
                             });
                         }

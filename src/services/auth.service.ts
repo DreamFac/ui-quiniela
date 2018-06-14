@@ -26,21 +26,30 @@ const {
   }
 } = config(configFile);
 
+const LEADERBOARD_INFO_INITIAL_STATE = {
+  email: '',
+  points: 0,
+  ranking: 0
+};
+
+const USER_INFO_INITIAL_STATE = {
+  exp: 0,
+  jti: '',
+  token_type: '',
+  user_id: 0,
+  leaderboardInfo: LEADERBOARD_INFO_INITIAL_STATE
+}
+
 @Injectable()
 export class AuthService {
-  public user: UserInfo = {
-    leaderboardInfo: {
-      points: 0,
-      ranking: 0
-    }
-  };
-  tempCreds: {username: string, password: string} = {
+  public user: UserInfo = USER_INFO_INITIAL_STATE
+  tempCreds: { username: string, password: string } = {
     username: '',
     password: ''
   }
   @select(["login", "jwtInfo"])
   jwtInfo: Observable<JwtInfo>;
-  constructor(private http: HttpClient, private router: Router, private store: NgRedux<AppState>) {}
+  constructor(private http: HttpClient, private router: Router, private store: NgRedux<AppState>) { }
   login(loginModel: LogInModel): Observable<JwtInfo> {
     const loginUrl = `${protocol}://${baseUrl}/${version}/${loginEndpoint}`;
     return this.http
@@ -57,17 +66,17 @@ export class AuthService {
     localStorage.removeItem('persist:oracleapp-ui')
     //... sometime later
     this.store.dispatch({
-        type: PURGE,
-        payload: rootReducer,
-        result: () => {
-            document.location.reload()
-        }
-      })
+      type: PURGE,
+      payload: rootReducer,
+      result: () => {
+        document.location.reload()
+      }
+    })
     this.store.dispatch({
       type: REHYDRATE,
       payload: rootReducer,
       result: () => {
-          
+
       }
     })
   }
@@ -83,8 +92,8 @@ export class AuthService {
       .subscribe(response => {
         if (response.length) {
           this.router.navigate(['/dashboard']);
-        } else if ( response.status === 401 ) {
-            this.router.navigate([routeFallback])
+        } else if (response.status === 401) {
+          this.router.navigate([routeFallback])
         }
       });
   }
@@ -99,15 +108,14 @@ export class AuthService {
     this.jwtInfo.subscribe(info => {
       userInfo = parseJwt(info.access);
     });
-    this.user = userInfo;
     return userInfo;
   }
 
-  setTempCreds (dto) {
+  setTempCreds(dto) {
     this.tempCreds = dto
   }
 
-  setLeaderboardInfo(info: { points: number; ranking: number } = {points: 0, ranking: 0}) {
+  setLeaderboardInfo(info: { email: string, points: number; ranking: number } = { email: '', points: 0, ranking: 0 }) {
     this.user.leaderboardInfo = info;
   }
 }
