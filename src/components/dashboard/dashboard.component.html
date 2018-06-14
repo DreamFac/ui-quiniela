@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="col-sm valign-ranking">
                                         <div class="">
-                                            <strong># 78</strong>
+                                            <strong># {{authService.user.leaderboardInfo.ranking}}</strong>
                                             &nbsp;
                                             <img class="icon-sm valign" src="../../assets/globe.svg" alt="World" />
                                         </div>
@@ -73,6 +73,37 @@
                 </div>
                 <div class="col center">
                     <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop">
+        </div>
+    </div>
+
+    <!-- TOUR -->
+    <div class="modal-container" *ngIf="tour.isCompleted === 'false'">
+        <div class="content">
+            <div class="flex-grid-row" *ngFor="let section of tour.sections; let i=index">
+                <div *ngIf="section.activeIndex">
+                    <div class="col center">
+                        <div class="title center padded">
+                            <h3>Tour del Juego</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img class="tour-img" [src]="'../../assets/' + section.image" alt="tour" />
+                    </div>
+                    <div class="col center padded">
+                        <div class="tour-desc">
+                            {{section.description}}
+                        </div>
+                    </div>
+                    <div *ngIf="i < 4" class="col center padded">
+                        <input class="oraculapp-btn" type="button" value="Siguiente" (click)="next(i)" />
+                    </div>
+                    <div *ngIf="i > 3" class="col center padded">
+                        <input class="oraculapp-btn" type="button" value="Terminar" (click)="next(i)" />
+                    </div>
                 </div>
             </div>
         </div>
