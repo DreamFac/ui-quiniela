@@ -58,7 +58,7 @@ export class DashboardComponent implements AfterContentInit {
     Observable.of()
       .pipe(
         startWith(null),
-        delay(0),
+        delay(100),
         tap(() => DashboardActions.mergeEventsPredictions())
       )
       .subscribe();

@@ -138,5 +138,5 @@ export interface UserInfo {
     jti?: string
     token_type?: string
     user_id?: number
-    leaderboardInfo: { points: number, ranking: number }
+    leaderboardInfo: { email: string, points: number, ranking: number }
 }

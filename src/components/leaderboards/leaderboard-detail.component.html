@@ -17,29 +17,32 @@
         <div class="col-sm marginTop">
             <strong>Pais</strong>
         </div>
-        <div class="col">
-            &nbsp;
+        <div class="col marginTop">
+            <div class="username truncate">
+                {{authService.user.leaderboardInfo.email}}
+            </div>
         </div>
         <div class="col center marginTop">
             <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
         </div>
     </div>
-    <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
-        <div class="col-sm center">
-            <strong>#{{i+1}}</strong>
-        </div>
-        <div class="col-sm">
-            <span class="icon-xs" 
-                [ngClass]="'flag-icon flag-icon-' + leader.user.user_profile.country.alpha2Code">
-            </span>
-        </div>
-        <div class="col">
-            <div class="username">
-                {{leader.user.email}}
+    <div class="list-container">
+        <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
+            <div class="col-sm left">
+                <strong>#{{i+1}}</strong>
             </div>
-        </div>
-        <div class="col center pts">
-            {{leader.points}}
+            <div class="col-sm left">
+                <span class="icon-xs" [ngClass]="'flag-icon flag-icon-' + leader.user.user_profile.country.alpha2Code">
+                </span>
+            </div>
+            <div class="col">
+                <div class="username truncate">
+                    {{leader.user.email}}
+                </div>
+            </div>
+            <div class="col center pts right">
+                {{leader.points}}
+            </div>
         </div>
     </div>
 </div>
