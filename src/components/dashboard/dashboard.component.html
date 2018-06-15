@@ -21,17 +21,19 @@
                 <div class="title center padded">
                     <h3>Tus Ultimos Resultados</h3>
                 </div>
-                <div class="row" *ngFor="let event of eventResults">
-                    <div class="col">
-                        <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
-                        <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
-                    </div>
-                    <div class="col-sm marginTop">
-                        <img *ngIf="event.wonPrediction" class="icon-md" src="../../assets/check.png" alt="check" />
-                        <img *ngIf="!event.wonPrediction" class="icon-md" src="../../assets/cross.png" alt="cross" />
-                    </div>
-                    <div class="col-sm marginTop">
-                        +{{ event.wonPrediction ? event.rewardPoints : '0' }}
+                <div class="result-container">
+                    <div class="row" *ngFor="let event of eventResults">
+                        <div class="col">
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
+                        </div>
+                        <div class="col-sm marginTop">
+                            <img *ngIf="event.wonPrediction" class="icon-md" src="../../assets/check.png" alt="check" />
+                            <img *ngIf="!event.wonPrediction" class="icon-md" src="../../assets/cross.png" alt="cross" />
+                        </div>
+                        <div class="col-sm marginTop">
+                            +{{ event.wonPrediction ? event.rewardPoints : '0' }}
+                        </div>
                     </div>
                 </div>
                 <div class="row">
