@@ -19,6 +19,6 @@ export const getCountdown = (endDate) => {
       hours: hoursInt,
       mins: minsInt,
       deltaInDays: parseFloat(days.toFixed(2)),
-      deltaInHours: parseFloat(mins.toFixed(2))
+      deltaInHours: parseFloat(hours.toFixed(2))
     };
 }

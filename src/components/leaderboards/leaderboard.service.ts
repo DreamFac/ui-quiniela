@@ -31,10 +31,10 @@ export class LeaderboardService {
         return this.http.get(leaderboardsUrl)
     }
 
-    mapAll(truncateUsername: Boolean = false): Observable<Array<LeaderboardModel>> {
+    mapAll(truncateUsername: Boolean = false): Observable<Array<any>> {
         return this.getAll()
             .catch(err => Observable.of(err))
-            .map((result: Array<LeaderboardDto>) => {
+            .map((result: Array<any>) => {
                 if (result.length) {
                     return orderBy(result.map((item, index) => {
                         const userInfo = this.authService.getUserInfo()
@@ -54,7 +54,7 @@ export class LeaderboardService {
                         }
                         const country: Country = first(
                             this.countryService.getAll()
-                                .filter(x => x.name === item.user.user_profile.country)
+                                .filter(x => x.name === item.user.user_profile)
                             )
                         return {
                             delta_points: item.delta_points,
@@ -62,19 +62,7 @@ export class LeaderboardService {
                             user: {
                                 email: item.user.email.substring(0, item.user.email.indexOf('@')),
                                 id: item.user.id,
-                                is_active: item.user.is_active,
-                                username: item.user.username,
-                                user_profile: {
-                                    id: item.user.user_profile.id,
-                                    first_name: item.user.user_profile.first_name,
-                                    last_name: item.user.user_profile.last_name,
-                                    country: {
-                                        name: country.name,
-                                        alpha2Code: country.alpha2Code.toLowerCase(),
-                                        alpha3Code: country.alpha3Code.toLowerCase()
-                                    },
-                                    user: item.user.user_profile.user
-                                }
+                                user_profile: country.alpha2Code.toLowerCase()
                             }
                         }
                     }), ['points'], ['desc'])
