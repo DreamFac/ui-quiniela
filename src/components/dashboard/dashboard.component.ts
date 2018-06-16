@@ -61,7 +61,9 @@ export class DashboardComponent implements AfterContentInit {
               this.eventResults = result
                 .map(eventPrediction => {
                   return first(
-                    eventPrediction.predictions.map(prediction => {
+                    eventPrediction.predictions
+                      .filter(x => x.prediction === '1')
+                      .map(prediction => {
                       if (prediction.team_event.completed && !prediction.read) {
                         if (prediction.prediction === prediction.team_event.result) {
                           eventPrediction.event.wonPrediction = true;

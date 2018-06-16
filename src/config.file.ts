@@ -4,7 +4,7 @@
  * url configuration json object.
  */
 export default {
-    "protocol": "https",
+    "protocol": "http",
     "scheme": "Bearer",
     "urlConfig": {
         "auth": {

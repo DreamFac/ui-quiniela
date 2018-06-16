@@ -8,6 +8,7 @@ export interface TimeLeft {
   hours: number
   mins: number
   deltaInDays: number
+  deltaInHours: number
 }
 export interface Team {
   id: number;
@@ -55,7 +56,8 @@ export const TimeLeftInitialState: TimeLeft = {
   days: 0,
   hours: 0,
   mins: 0,
-  deltaInDays: 0
+  deltaInDays: 0,
+  deltaInHours: 0
 }
 export class EventModel {
   id?: number;
@@ -85,6 +87,7 @@ export class EventModel {
     timeLeftInterval = setInterval( () => {
       this.timeLeft = this.setTimeLeft( this.date )
       this.deltaInDays = this.timeLeft.deltaInDays
+      this.deltaInHours = this.timeLeft.deltaInHours
       this.started = this.timeLeft.days < 0;
       if (this.timeLeft.days < 0) {
         clearInterval(timeLeftInterval)
