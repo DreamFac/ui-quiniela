@@ -9,7 +9,7 @@ export default {
     "urlConfig": {
         "auth": {
             "version": "v1",
-            "baseUrl": "oraculapp.ngrok.io/api",
+            "baseUrl": "a.oraculapp.com/api",
             "signup": "signup",
             "loginEndpoint": "auth/token",
             "logoutEndpoint": "auth/logout",
