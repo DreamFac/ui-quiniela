@@ -1,15 +1,15 @@
 <app-header></app-header>
 <div class="dashboard-container">
     <div class="flex-grid">
-        <div class="col">
+        <div class="col eventListMargin">
             <app-event-list [eventPredictions]="eventPredictions"></app-event-list>
         </div>
         <div class="col-sm">
             <div class="flex-grid-row">
-                <div class="col center box bordered">
+                <div class="col center box globalPredictionMargin">
                     <app-global-prediction></app-global-prediction>
                 </div>
-                <div class="col center box bordered">
+                <div class="col center box leaderboardnMargin">
                     <app-leaderboards></app-leaderboards>
                 </div>
             </div>
@@ -18,20 +18,22 @@
     <div class="modal-container" *ngIf="eventResults.length">
         <div class="content">
             <div class="flex-grid-row">
-                <div class="title">
+                <div class="title center padded">
                     <h3>Tus Ultimos Resultados</h3>
                 </div>
-                <div class="row" *ngFor="let event of eventResults">
-                    <div class="col">
-                        <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
-                        <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
-                    </div>
-                    <div class="col-sm marginTop">
-                        <img *ngIf="event.wonPrediction" class="icon-md" src="../../assets/check.png" alt="check" />
-                        <img *ngIf="!event.wonPrediction" class="icon-md" src="../../assets/cross.png" alt="cross" />
-                    </div>
-                    <div class="col-sm marginTop">
-                        +{{ event.wonPrediction ? event.rewardPoints : '0' }}
+                <div class="result-container">
+                    <div class="row" *ngFor="let event of eventResults">
+                        <div class="col">
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamA.flag"></span>
+                            <span [ngClass]="'flag-icon flag-icon-' + event.teamB.flag"></span>
+                        </div>
+                        <div class="col-sm marginTop">
+                            <img *ngIf="event.wonPrediction" class="icon-md" src="../../assets/check.png" alt="check" />
+                            <img *ngIf="!event.wonPrediction" class="icon-md" src="../../assets/cross.png" alt="cross" />
+                        </div>
+                        <div class="col-sm marginTop">
+                            +{{ event.wonPrediction ? event.rewardPoints : '0' }}
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -42,7 +44,7 @@
                         &nbsp;
                     </div>
                     <div class="col-sm total-pts">
-                        + 100
+                        + {{ptsCount}}
                     </div>
                 </div>
                 <div class="flex-grid-row separator-light">
@@ -50,28 +52,28 @@
                         <div class="center">
                             <strong>Ahora tienes {{points | async}} puntos.</strong>
                             <div class="ranking-result">
-                                <div class="row">
+                                <div class="row-header">
                                     <div class="col valign-ranking">
                                         <strong>Ranking</strong>
                                     </div>
                                     <div class="col-sm valign-ranking">
                                         <div class="">
-                                            <strong># 78</strong>
+                                            <strong># {{authService.user.leaderboardInfo.ranking}}</strong>
                                             &nbsp;
-                                            <img class="icon-sm valign" src="../../assets/world.png" alt="World" />
+                                            <img class="icon-sm valign" src="../../assets/globe.svg" alt="World" />
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <!-- <div class="col">
                                         <strong># 43</strong>
                                         &nbsp;
                                         <div class="abs" [ngClass]="'flag-icon flag-icon-jp'"></div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col center">
                     <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
                 </div>
             </div>
@@ -79,4 +81,36 @@
         <div class="modal-backdrop">
         </div>
     </div>
+
+    <!-- TOUR -->
+    <div class="modal-container" *ngIf="tour.isCompleted === 'false'">
+        <div class="content">
+            <div class="flex-grid-row" *ngFor="let section of tour.sections; let i=index">
+                <div *ngIf="section.activeIndex">
+                    <div class="col center">
+                        <div class="title center padded">
+                            <h3>Tour del Juego</h3>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img class="tour-img" [src]="'../../assets/' + section.image" alt="tour" />
+                    </div>
+                    <div class="col center padded">
+                        <div class="tour-desc">
+                            {{section.description}}
+                        </div>
+                    </div>
+                    <div *ngIf="i < 4" class="col center padded">
+                        <input class="oraculapp-btn" type="button" value="Siguiente" (click)="next(i)" />
+                    </div>
+                    <div *ngIf="i > 3" class="col center padded">
+                        <input class="oraculapp-btn" type="button" value="Terminar" (click)="next(i)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop">
+        </div>
+    </div>
 </div>
+<app-footer></app-footer>

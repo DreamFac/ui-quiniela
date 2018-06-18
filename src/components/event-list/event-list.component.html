@@ -12,64 +12,80 @@
         </div>
     </div>
     <div class="events" *ngIf="eventPredictionList && eventPredictionList.length">
-        <div class="bordered" *ngFor="let item of eventPredictionList">
-            <div class="flex-grid" [ngClass]="{'disabled': item.event.started}">
-                <div class="col center box pick" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
-                    <div class="flex-grid-row">
+        <div class="" *ngFor="let item of eventPredictionList">
+            <div class="flex-grid" [ngClass]="{'disabled': item.event.started || item.event.completed}">
+                <div class="col-md center box pick bordered" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
+                    <div class="flex-grid-row marginTop">
                         <div class="col">
-                            <span [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
+                            <img *ngIf="item.event.teamA.flag === 'en'" class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                            <span *ngIf="item.event.teamA.flag !== 'en'" 
+                                [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
                         </div>
-                        <div class="col-sm">
-                            <label>{{ item.event.teamA.name }}</label>
+                        <div class="col-sm t-name">
+                            {{ item.event.teamA.name }}
                         </div>
                     </div>
                 </div>
-                <div class="col-xs center">
+                <div class="col-sm center">
                     <div class="flex-grid-row">
-                        <div class="col box pick" [ngClass]="{'isPicked': item.event.tie.isPicked}" (click)="pickTie(item)">
+                        <div class="col box pick bordered" [ngClass]="{'isPicked': item.event.tie.isPicked}" (click)="pickTie(item)">
                             <div class="vs">
                                 <label>vs</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col center box pick" [ngClass]="{'isPicked': item.event.teamB.isPicked}" (click)="pick(item, item.event.teamB)">
-                    <div class="flex-grid-row">
+                <div class="col-md center box pick bordered" [ngClass]="{'isPicked': item.event.teamB.isPicked}" (click)="pick(item, item.event.teamB)">
+                    <div class="flex-grid-row marginTop">
                         <div class="col">
-                            <span [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
+                            <img *ngIf="item.event.teamB.flag === 'en'" class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                            <span *ngIf="item.event.teamB.flag !== 'en'"   
+                                [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
                         </div>
-                        <div class="col-sm">
-                            <label>{{ item.event.teamB.name }}</label>
+                        <div class="col-sm t-name">
+                            {{ item.event.teamB.name }}
                         </div>
                     </div>
                 </div>
-                <div class="col-sm center box padded-sm">
+                <div class="col-sm time-left center box padded-sm bordered">
                     <div class="flex-grid-row" *ngIf="!item.event.started">
-                        <div class="col">
+                        <div class="col mobile-hide">
                             <img class="icon-sm" src="../../assets/clock.png" alt="clock" />
                         </div>
                         <div class="col">
                             <strong>{{item.event.timeLeft.days}}</strong>
-                            <label>&nbsp;dias</label>
+                            <label>&nbsp;dd</label>
                         </div>
                         <div class="col">
                             <strong>{{item.event.timeLeft.hours}}</strong>
-                            <label>&nbsp;horas</label>
+                            <label>&nbsp;hh</label>
                         </div>
                         <div class="col">
                             <strong>{{item.event.timeLeft.mins}}</strong>
-                            <label>&nbsp;mins</label>
+                            <label>&nbsp;mm</label>
                         </div>
                     </div>
-                    <div class="flex-grid-row" *ngIf="item.event.started">
+                    <div class="flex-grid-row" *ngIf="item.event.started && !item.event.completed">
                         <div class="col">
                             &nbsp;
                         </div>
                         <div class="col">
-                            <strong>Evento iniciado.</strong>
+                            <strong>Partido iniciado.</strong>
                         </div>
                         <div class="col">
                             &nbsp;
+                        </div>
+                    </div>
+                    <div class="flex-grid-row" *ngIf="item.event.completed">
+                        <div class="col">
+                            &nbsp;
+                        </div>
+                        <div class="col">
+                            <img *ngIf="item.event.wonPrediction" class="icon-sm" src="../../assets/check.png" alt="clock" />
+                            <img *ngIf="!item.event.wonPrediction" class="icon-sm" src="../../assets/cross.png" alt="clock" />
+                        </div>
+                        <div class="col">
+                            <strong>+{{item.event.rewardPoints}}</strong>
                         </div>
                     </div>
                 </div>

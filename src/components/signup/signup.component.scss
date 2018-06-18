@@ -2,11 +2,15 @@
     margin: 0px !important;
 }
 
-.container {
+.sign-up-bg {
     height: -webkit-fill-available;
     background-size: cover !important;
-    background: url('../../assets/bg-launch.jpg') no-repeat center fixed;
+    background: url('../../assets/bg-launch-min.jpg') no-repeat center fixed;
     background-position: center;
+}
+
+.signup-container {
+    height: 100vh;
 }
 
 .overlay {
@@ -23,9 +27,15 @@
     padding: 20px;
     .number {
         display: inline-block;
-        font-size: 96px;
+        font-size: 76px;
         font-weight: 700;
     }
+}
+
+.tiny {
+    font-size: 14px;
+    text-align: -webkit-center;
+    color: snow;
 }
 
 label {
@@ -41,38 +51,47 @@ label {
     font-size: 22px;
 }
 
-input[type="email"],input[type="password"] {
-    padding: 20px;
-    background: transparent;
-    border: 0;
+select, option {
+    font-size: 14px;
+    color: #424242;
+}
+
+select {
+    padding: 10px;
+    width: 270px;
+    margin: 5px;
+    background: whitesmoke;
+    border: 1px solid #ddd;
     border-bottom: 1px solid #435160;
     outline: none;
-    color: snow !important;
-    font-size: 20px;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #ddd;
-    opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #ddd;
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
-    color: #ddd;
+.countries {
+    max-height: 200px;
+    max-width: 260px;
+    overflow-y: scroll;
 }
 
 @media only screen and (max-width: 400px) {
-    .container {
+    .row-header {
+        flex-direction: row !important;
+    }
+    .sign-up-bg {
         height: auto !important;
+        background-size: auto !important;
+        background: url('../../assets/bg-launch-mb.jpg') no-repeat center fixed !important;
+        background-position: center;
     }
 }
 
-@media only screen and (max-width: 910px) {
-    .container {
-        height: -webkit-fill-available;
-        background: url('../../assets/bg-launch.jpg') no-repeat center !important;
+@media only screen and (min-width: 401px) {
+    .row-header {
+        flex-direction: row !important;
+    }
+    .sign-up-bg {
+        height: auto !important;
+        background-size: auto !important;
+        background: url('../../assets/bg-launch-min.jpg') no-repeat center fixed !important;
+        background-position: center;
     }
 }

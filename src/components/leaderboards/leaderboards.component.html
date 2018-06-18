@@ -1,42 +1,47 @@
-<div class="row-header padded-sm">
-    <div class="col">
-        <div class="title left">
-            <h3>Lideres</h3>
+<div class="ld-container">
+    <div class="row-header padded-xs">
+        <div class="col">
+            <div class="title left marginTop padded-xs">
+                <h3>Líderes</h3>
+            </div>
+        </div>
+        <div class="col-sm right padded-xs" (click)="goTo();">
+            <h4>Ver Más</h4>
         </div>
     </div>
-    <div class="col-sm">
-        <div class="see-more">
-            Ver mas
+    <div class="row-header bg-light">
+        <div class="col-sm center marginTop">
+            <img class="icon-sm" src="../../assets/lider.svg" alt="wc" />
+        </div>
+        <div class="col-sm marginTop">
+            <strong>País</strong>
+        </div>
+        <div class="col marginTop">
+            <div class="username truncate">
+                {{authService.user.leaderboardInfo.email}}
+            </div>
+        </div>
+        <div class="col center marginTop">
+            <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
+        </div>
+    </div>
+    <div class="list-container">
+        <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
+            <div class="col-sm left">
+                <strong>#{{i+1}}</strong>
+            </div>
+            <div class="col-sm left">
+                <span class="icon-xs" [ngClass]="'flag-icon flag-icon-' + leader.user.user_profile">
+                </span>
+            </div>
+            <div class="col left">
+                <div class="username truncate">
+                    {{leader.user.email}}
+                </div>
+            </div>
+            <div class="col center pts right">
+                {{leader.points}}
+            </div>
         </div>
     </div>
 </div>
-<div class="row-header bg-light padded-sm">
-    <div class="col-sm marginTop">
-        <img class="icon-sm" src="../../assets/medal.png" alt="wc" />
-    </div>
-    <div class="col-sm">
-        <strong>Global</strong>
-    </div>
-    <div class="col">
-        &nbsp;
-    </div>
-    <div class="col">
-        <strong>Tu #55</strong>
-    </div>
-</div>
-<div class="row-header padded-sm">
-    <div class="col-sm marginTop">
-        <strong>#01</strong>
-    </div>
-    <div class="col-sm">
-        <span class="icon-xs" [ngClass]="'flag-icon flag-icon-br'"></span>
-    </div>
-    <div class="col">
-        mesipillas09
-    </div>
-    <div class="col">
-        20,500
-    </div>
-</div>
-
-<!-- <img class="icon-md" src="../../assets/medal.png" alt="wc" /> -->

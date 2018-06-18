@@ -23,10 +23,15 @@ import { ReduxAction, JwtInfo } from 'src/store/types';
 import { LogInModel } from 'src/models/login.model';
 import { AuthService } from 'src/services/auth.service';
 import { DashboardActions } from '../../components/dashboard/dashboard.actions';
+import { EventService, channels } from '../../services/emitter.service';
 
 @Injectable()
 export class LoginEpics {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private emitter: EventService
+  ) { }
   createEpics() {
     return [
       createEpicMiddleware(this.login),
@@ -38,8 +43,17 @@ export class LoginEpics {
       .concatMap((result: ReduxAction<LogInModel>) => {
         const { payload } = result
         return this.authService.login(payload)
+          .catch(err => {
+            return Observable.throw(err)
+          })
           .map((response: any) => {
+            console.log('RESPONSE:::', response)
             if (response.error) {
+              const jsonerror = response.error.json()
+                this.emitter.publish(channels.TOASTER_CHANNEL, {
+                    text: Object.keys(jsonerror).map(key => `${key}: ${jsonerror[key]}`).join('  '),
+                    response: {status: 400}
+                });
               return LoginActions.failed(response.error)
             }
             return LoginActions.success(response)

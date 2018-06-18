@@ -1,12 +1,14 @@
 import * as moment from 'moment'
 import { EventType, TeamEvent, ResultType } from "../types";
 import { getCountdown } from 'src/utils/timeUtils';
+import { first, last } from 'lodash';
 
 export interface TimeLeft {
   days: number
   hours: number
   mins: number
   deltaInDays: number
+  deltaInHours: number
 }
 export interface Team {
   id: number;
@@ -19,7 +21,7 @@ export interface Tie {
 }
 export interface Event {
   id?: number;
-  team_event?: any[];
+  team_event?: TeamEvent[];
   date: string;
   place: string;
   event_type: EventType;
@@ -54,7 +56,8 @@ export const TimeLeftInitialState: TimeLeft = {
   days: 0,
   hours: 0,
   mins: 0,
-  deltaInDays: 0
+  deltaInDays: 0,
+  deltaInHours: 0
 }
 export class EventModel {
   id?: number;
@@ -63,9 +66,11 @@ export class EventModel {
   event_type: EventType;
   teamA: TeamModel;
   teamB: TeamModel;
+  completed: Boolean;
   tie: Tie;
   started?: Boolean;
   deltaInDays: number;
+  deltaInHours: number;
   timeLeft: TimeLeft = TimeLeftInitialState;
   wonPrediction?: boolean = false
   rewardPoints?: number = 0
@@ -74,13 +79,15 @@ export class EventModel {
     this.date = model.date;
     this.place = model.place;
     this.event_type = model.event_type;
-    this.teamA = new TeamModel( model.team_event.shift() );
-    this.teamB = new TeamModel( model.team_event.pop() );
+    this.teamA = new TeamModel( first(model.team_event) );
+    this.teamB = new TeamModel( last(model.team_event) );
+    this.completed = first(model.team_event).completed;
     this.tie = model.tie;
     let timeLeftInterval;
     timeLeftInterval = setInterval( () => {
       this.timeLeft = this.setTimeLeft( this.date )
       this.deltaInDays = this.timeLeft.deltaInDays
+      this.deltaInHours = this.timeLeft.deltaInHours
       this.started = this.timeLeft.days < 0;
       if (this.timeLeft.days < 0) {
         clearInterval(timeLeftInterval)
@@ -95,12 +102,14 @@ export class EventModel {
 export class TeamModel {
   id: number;
   teamEventId: number;
+  teamEvent: TeamEvent;
   name: string;
   flag: string;
   isPicked?: boolean;
   constructor ( model: TeamEvent ) {
     this.id = model.team.id;
     this.teamEventId = model.id;
+    this.teamEvent = model;
     this.name = model.team.name;
     this.flag = model.team.flag;
     this.isPicked = false;

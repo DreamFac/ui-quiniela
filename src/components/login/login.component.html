@@ -1,36 +1,30 @@
-<div class="flex-grid">
-    <div class="col-sm">
-    </div>
-    <div class="col">
-        <div class="login-container">
-            <div class="col">
-                <article>
-                    <div class="wpcf7" id="wpcf7-f2943-p13-o1" lang="en-US" dir="ltr">
-                        <div class="screen-reader-response"></div>
-                        <form name="" action="/contact/#wpcf7-f2943-p13-o1" method="post" class="wpcf7-form" novalidate="">
-                            <p>
-                                <label>Username</label>
-                                <span class="your-name">
-                                    <input type="text" name="your-name" value="" size="40" class="name" id="your-name" aria-required="true" aria-invalid="false"
-                                        [(ngModel)]="model.username">
-                                </span>
-                            </p>
-                            <p>
-                                <label>Password</label>
-                                <span class="password">
-                                    <input type="password" name="password" value="" size="40" class="password" id="password" aria-required="true" aria-invalid="false"
-                                        [(ngModel)]="model.password">
-                                </span>
-                            </p>
-                            <p class="btn-container">
-                                <input class="oraculapp-btn" type="button" value="Login" (click)="login()" />
-                            </p>
-                        </form>
-                    </div>
-                </article>
+<div class="login-container">
+    <div class="flex-grid-row padded">
+        <div class="col center padded">
+            <img class="icon-xl" src="../../assets/logo-ver.png" alt="logo-ver" />
+        </div>
+        <div class="col center">
+            <div class="email-field">
+                <div class="center">
+                    <input id="email" [(ngModel)]="model.username" type="email" name="email input" placeholder="correo electronico" required>
+                </div>
+            </div>
+            <div class="password-field">
+                <div class="center">
+                    <input id="pass" [(ngModel)]="model.password" type="password" name="password" placeholder="password" required>
+                </div>
+            </div>
+            <div class="center">
+                <input class="oraculapp-btn sm" type="button" value="Ingresar" (click)="login()" />
+            </div>
+            <div class="col-sm valign-middle">
+                No eres miembro? Registrate
+                <img (click)="redirectToSignup()" 
+                    class="icon-sm circle" 
+                    src="../../assets/register.png" 
+                    alt="signup" />
             </div>
         </div>
     </div>
-    <div class="col-sm">
-    </div>
+    <app-footer></app-footer>
 </div>

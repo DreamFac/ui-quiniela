@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="leaderboard-container">
+    <div class="row-header padded-xs">
+        <div class="col">
+            <div class="title left marginTop padded-xs">
+                <h3>Lideres</h3>
+            </div>
+        </div>
+        <div class="col-sm right padded-xs" (click)="goBack();">
+            <h4>Regresar</h4>
+        </div>
+    </div>
+    <div class="row-header bg-light">
+        <div class="col-sm center marginTop">
+            <img class="icon-sm" src="../../assets/lider.svg" alt="wc" />
+        </div>
+        <div class="col-sm marginTop">
+            <strong>Pais</strong>
+        </div>
+        <div class="col marginTop">
+            <div class="username truncate">
+                {{authService.user.leaderboardInfo.email}}
+            </div>
+        </div>
+        <div class="col center marginTop">
+            <strong>Tu #{{authService.user.leaderboardInfo.ranking}}</strong>
+        </div>
+    </div>
+    <div class="list-container">
+        <div class="row-header padded-sm" *ngFor="let leader of leaderboardList; let i=index">
+            <div class="col-sm left">
+                <strong>#{{i+1}}</strong>
+            </div>
+            <div class="col-sm left">
+                <span class="icon-xs" [ngClass]="'flag-icon flag-icon-' + leader.user.user_profile">
+                </span>
+            </div>
+            <div class="col">
+                <div class="username truncate">
+                    {{leader.user.email}}
+                </div>
+            </div>
+            <div class="col center pts right">
+                {{leader.points}}
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

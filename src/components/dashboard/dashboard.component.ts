@@ -1,22 +1,19 @@
 import {
   Component,
-  AfterContentChecked,
   AfterContentInit,
   Output,
-  AfterViewInit
 } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { startWith, delay, tap } from "rxjs/operators";
-import { forkJoin } from "rxjs";
 import { DashboardActions } from "./dashboard.actions";
-import { EventPrediction, Prediction, EventPredictionDto } from "../../types";
+import { EventPredictionDto } from "../../types";
 import { select, NgRedux } from "@angular-redux/store";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 import { first } from "lodash";
 import { EventModel } from "../../models/event.model";
 import { PredictionService } from "../../services/prediction.service";
 import { AppState } from "../../store/model";
-import { REHYDRATE } from "redux-persist";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-dashboard",
@@ -30,14 +27,26 @@ export class DashboardComponent implements AfterContentInit {
   @Output()
   eventPredictions: Observable<Array<EventPredictionModel>>;
   eventResults: Array<EventModel> = [];
+  ptsCount: number = 0
+  tour: {
+    sections: Array<{
+      image: string,
+      description: string,
+      activeIndex: number
+    }>,
+    isCompleted: string
+  }
   constructor(
-    private store: NgRedux<AppState>,
+    public authService: AuthService,
     private predictionService: PredictionService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    let tourCompleted = localStorage.getItem('tour-completed')
+    if (!tourCompleted) {
+      localStorage.setItem('tour-completed', JSON.stringify(false))
+    }
+    this.tourInit(tourCompleted)
   }
 
   ngAfterContentInit() {
@@ -45,30 +54,33 @@ export class DashboardComponent implements AfterContentInit {
       .pipe(
         startWith(null),
         delay(0),
-        tap(() => DashboardActions.mergeEventsPredictions())
+        tap(() => DashboardActions.mergeEventsPredictions()),
+        tap(() => {
+          this.eventPredictions.subscribe(result => {
+            if (result && result.length) {
+              this.eventResults = result
+                .map(eventPrediction => {
+                  return first(
+                    eventPrediction.predictions
+                      .filter(x => x.prediction === '1')
+                      .map(prediction => {
+                      if (prediction.team_event.completed && !prediction.read) {
+                        if (prediction.prediction === prediction.team_event.result) {
+                          eventPrediction.event.wonPrediction = true;
+                          eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;
+                          this.ptsCount += eventPrediction.event.rewardPoints
+                        }
+                        return eventPrediction.event;
+                      }
+                    })
+                  );
+                })
+                .filter(eventPred => eventPred !== undefined);
+            }
+          });
+        })
       )
-      .subscribe();
-    // Not implemented
-    this.eventPredictions.subscribe(result => {
-      if (result && result.length) {
-        this.eventResults = result
-          .map(eventPrediction => {
-            return first(
-              eventPrediction.predictions.map(prediction => {
-                if (prediction.team_event.completed && !prediction.read) {
-                  if (prediction.prediction === prediction.team_event.result) {
-                    eventPrediction.event.wonPrediction = true;
-                    eventPrediction.event.rewardPoints =
-                      prediction.team_event.result_type.points;
-                  }
-                  return eventPrediction.event;
-                }
-              })
-            );
-          })
-          .filter(eventPred => eventPred !== undefined);
-      }
-    });
+      .subscribe()
   }
 
   markAsRead() {
@@ -93,11 +105,38 @@ export class DashboardComponent implements AfterContentInit {
       this.predictionService
         .updatePrediction(predictionDto)
         .subscribe(result => {
-          if ( subscription ) {
+          if (subscription) {
             subscription.unsubscribe()
           }
           DashboardActions.mergeEventsPredictions()
         });
     });
+  }
+
+  // Tour
+  tourInit(isCompleted: string) {
+    this.tour = {
+      sections: [
+        { image: 'tour1.png', description: 'Es muy fácil jugar. Una vez tengas tu cuenta podrás ver todos los partidos que se jugarán próximamente. Tendrás un pequeno reloj, que te indica cuánto tiempo queda para ingresar tu predicción. ', activeIndex: 1 },
+        { image: 'tour2.png', description: 'Haz click en la bandera del país que crees que va a ganar. Asi de fácil ya has ingresado tu quiniela!', activeIndex: 0 },
+        { image: 'tour3.png', description: 'Si crees que será empate, haz click al centro de las banderas.', activeIndex: 0 },
+        { image: 'tour4.png', description: 'Una vez el tiempo haya terminado, se deshabilitará el poder votar por ese partido. Ve a disfrutar del partido!', activeIndex: 0 },
+        { image: 'tour5.png', description: 'Al terminar el juego aparecerá el marcador final al centro y, en lugar del reloj, un cheque si acertaste y la cantidad de puntos que ganaste. Si no acertaste, aparecerá una equis. Puedes ver tu ranking, en la barra derecha.', activeIndex: 0 }
+      ],
+      isCompleted: isCompleted
+    }
+  }
+  next(index: number) {
+    this.tour.sections = this.tour.sections
+      .map((section) => {
+        section.activeIndex = 0
+        return section
+      })
+    if (index > 3){
+      this.tour.isCompleted = 'true'
+      localStorage.setItem('tour-completed', JSON.stringify(true))
+    } else {
+      this.tour.sections[index + 1].activeIndex = 1
+    }
   }
 }
