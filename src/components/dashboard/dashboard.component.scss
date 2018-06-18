@@ -26,7 +26,6 @@
         left: 0;
         margin: 10%;
         z-index: 1;
-        overflow-y: scroll;
     }
     .last-results {
         margin: 10px;
@@ -35,7 +34,8 @@
         }
     }
     .result-container {
-        overflow-y: scroll;
+        overflow-y: auto;
+        height: 200px;
     }
 }
 
