@@ -68,7 +68,7 @@ h4 {
 }
 
 img {
-    width: 195px;
+    width: 105px;
 }
 
 label,
@@ -339,9 +339,6 @@ span.icon-sm {
     .loader {
         top: 85% !important;
     }
-    img {
-        width: 120px !important;
-    }
     .oraculapp-btn {
         margin: 0px !important;
         width: 100% !important;
@@ -353,12 +350,18 @@ span.icon-sm {
         width: 30px;
         height: 30px;
     }
+    img {
+        width: 40px !important;
+    }
 }
 
 @media only screen and (min-width: 400px) and (max-width: 800px) {
     span.flag-icon {
         width: 100px;
         height: 60px;
+    }
+    img {
+        width: 95px !important;
     }
 }
 

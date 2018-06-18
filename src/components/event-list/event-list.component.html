@@ -17,7 +17,9 @@
                 <div class="col-md center box pick bordered" [ngClass]="{'isPicked': item.event.teamA.isPicked}" (click)="pick(item, item.event.teamA)">
                     <div class="flex-grid-row marginTop">
                         <div class="col">
-                            <span [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
+                            <img *ngIf="item.event.teamA.flag === 'en'" class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                            <span *ngIf="item.event.teamA.flag !== 'en'" 
+                                [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
                         </div>
                         <div class="col-sm t-name">
                             {{ item.event.teamA.name }}
@@ -36,7 +38,9 @@
                 <div class="col-md center box pick bordered" [ngClass]="{'isPicked': item.event.teamB.isPicked}" (click)="pick(item, item.event.teamB)">
                     <div class="flex-grid-row marginTop">
                         <div class="col">
-                            <span [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
+                            <img *ngIf="item.event.teamB.flag === 'en'" class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
+                            <span *ngIf="item.event.teamB.flag !== 'en'"   
+                                [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
                         </div>
                         <div class="col-sm t-name">
                             {{ item.event.teamB.name }}
