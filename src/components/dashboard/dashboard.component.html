@@ -17,7 +17,7 @@
     </div>
     <div class="modal-container" *ngIf="eventResults.length">
         <div class="content">
-            <div class="flex-grid-row">
+            <div class="flex-grid-row" style="max-height: 435px;">
                 <div class="title center padded">
                     <h3>Tus Ultimos Resultados</h3>
                 </div>
@@ -48,7 +48,6 @@
                     </div>
                 </div>
                 <div class="flex-grid-row separator-light">
-                    <div class="padded">
                         <div class="center">
                             <strong>Ahora tienes {{points | async}} puntos.</strong>
                             <div class="ranking-result">
@@ -71,7 +70,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
                 <div class="col center">
                     <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />
