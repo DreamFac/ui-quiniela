@@ -9,7 +9,7 @@ export class EventPredictionModel {
         this.event = event
         this.predictions = predictions
         this.event.wonPrediction = this.predictions.filter( ( prediction ) => {
-            return prediction.prediction === '1'
+            return prediction.prediction === '1' || prediction.prediction === "-1"
         } )
         .filter((validPrediction) => {
             return this.event.teamA.id === validPrediction.team &&
