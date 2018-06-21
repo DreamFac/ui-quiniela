@@ -50,6 +50,7 @@ export class DashboardComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
+    let tieCount = 0
     Observable.of()
       .pipe(
         startWith(null),
@@ -62,13 +63,20 @@ export class DashboardComponent implements AfterContentInit {
                 .map(eventPrediction => {
                   return first(
                     eventPrediction.predictions
-                      .filter(x => x.prediction === '1')
+                      .filter(x => x.prediction === '1' || x.prediction === '-1')
                       .map(prediction => {
                       if (prediction.team_event.completed && !prediction.read) {
                         if (prediction.prediction === prediction.team_event.result) {
                           eventPrediction.event.wonPrediction = true;
                           eventPrediction.event.rewardPoints = prediction.team_event.result_type.points;
-                          this.ptsCount += eventPrediction.event.rewardPoints
+                          if (tieCount < 1) {
+                            this.ptsCount += eventPrediction.event.rewardPoints
+                          } else {
+                            tieCount = 0
+                          }
+                          if (prediction.prediction === "-1") {
+                            tieCount += 1
+                          }
                         }
                         return eventPrediction.event;
                       }
