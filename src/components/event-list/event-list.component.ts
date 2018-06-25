@@ -1,12 +1,10 @@
-import { Component, OnInit, AfterContentInit, Input } from "@angular/core";
+import { Component, AfterContentInit, Input } from "@angular/core";
 import { EventListActions } from "./event-list.actions";
-import { select, NgRedux } from "@angular-redux/store";
-import { Event, Team, Tie, EventModel } from "../../models/event.model";
-import { delay, tap, startWith } from "rxjs/operators";
+import { NgRedux } from "@angular-redux/store";
+import { Team } from "../../models/event.model";
 import { Observable } from "rxjs/Observable";
 import { EventPredictionModel } from "../../models/event-prediction.model";
-import { DashboardActions } from "../dashboard/dashboard.actions";
-import * as moment from 'moment'
+import { first } from "lodash";
 
 @Component({
   selector: "app-event-list",
@@ -14,6 +12,18 @@ import * as moment from 'moment'
   styleUrls: ["./event-list.component.scss"]
 })
 export class EventListComponent implements AfterContentInit {
+  tabs: Array<Tab> = [{
+    id: 1,
+    title: 'Predicciones',
+    iconUrl: '../../assets/next-events.png',
+    isSelected: true
+  }, {
+    id: 2,
+    title: 'Historial',
+    iconUrl: '../../assets/history.png',
+    isSelected: false
+  }]
+  selectedTab: Tab = first(this.tabs)
   title = "Haz click en el Ganador o VS si crees que será empate. El reloj indica el tiempo restante para predecir. Al iniciar el partido, se bloqueará.";
   constructor(private store: NgRedux<any>) { }
 
@@ -21,11 +31,9 @@ export class EventListComponent implements AfterContentInit {
   @Input() eventPredictions: Observable<EventPredictionModel[]>
 
   ngAfterContentInit() {
-    this.eventPredictions
-      .subscribe((result) => {
-        // make sure timeLeft has been calculated.
-        this.eventPredictionList = result
-      })
+    this.eventPredictions.subscribe(result => {
+      this.eventPredictionList = result.filter(x => !x.event.completed)
+    })
   }
 
   pick(eventPredictionModel: EventPredictionModel, team: Team) {
@@ -34,4 +42,28 @@ export class EventListComponent implements AfterContentInit {
   pickTie(eventPrediction: EventPredictionModel) {
     EventListActions.selectTie(eventPrediction);
   }
+  selectTab (tab: Tab) {
+    this.tabs = this.tabs.map((item) => {
+      item.isSelected = false
+      if (tab.id === item.id) {
+        item.isSelected = true
+        this.selectedTab = item
+      }
+      return item
+    })
+    this.eventPredictions.subscribe(items => {
+      if ( tab.id === 1 ) {
+        this.eventPredictionList = items.filter(x => !x.event.completed)
+      } else {
+        this.eventPredictionList = items.filter(x => x.event.completed)
+      }
+    })
+  }
+}
+
+export interface Tab {
+  id: number
+  title: string
+  isSelected: boolean
+  iconUrl: string
 }

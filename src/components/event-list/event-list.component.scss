@@ -1,6 +1,5 @@
 .title {
     color: #424242;
-    background: white;
     font-size: 14px;
 }
 
@@ -51,6 +50,29 @@
 
 .flex-grid {
     flex-direction: row !important;
+}
+
+// TABS
+.tabs-container {
+    background: snow;
+    flex: 1;
+    display: flex;
+    flex-direction: row !important;
+    margin-bottom: 5px;
+}
+.tab {
+    border: 0px gray solid;
+    text-align: center;
+    color: #424242;
+    margin: 20px;
+    div.title{
+        font-size: 18px;
+        color: #424242;
+        text-align: center;
+    }
+}
+.isSelected {
+    background: #ddd;
 }
 
 @media only screen and (max-width: 400px) { 
