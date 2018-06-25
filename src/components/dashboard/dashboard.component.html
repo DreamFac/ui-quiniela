@@ -48,28 +48,28 @@
                     </div>
                 </div>
                 <div class="flex-grid-row separator-light">
-                        <div class="center">
-                            <strong>Ahora tienes {{points | async}} puntos.</strong>
-                            <div class="ranking-result">
-                                <div class="row-header">
-                                    <div class="col valign-ranking">
-                                        <strong>Ranking</strong>
+                    <div class="center">
+                        <strong>Ahora tienes {{points | async}} puntos.</strong>
+                        <div class="ranking-result">
+                            <div class="row-header">
+                                <div class="col valign-ranking">
+                                    <strong>Ranking</strong>
+                                </div>
+                                <div class="col-sm valign-ranking">
+                                    <div class="">
+                                        <strong># {{authService.user.leaderboardInfo.ranking}}</strong>
+                                        &nbsp;
+                                        <img class="icon-sm valign" src="../../assets/globe.svg" alt="World" />
                                     </div>
-                                    <div class="col-sm valign-ranking">
-                                        <div class="">
-                                            <strong># {{authService.user.leaderboardInfo.ranking}}</strong>
-                                            &nbsp;
-                                            <img class="icon-sm valign" src="../../assets/globe.svg" alt="World" />
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col">
+                                </div>
+                                <!-- <div class="col">
                                         <strong># 43</strong>
                                         &nbsp;
                                         <div class="abs" [ngClass]="'flag-icon flag-icon-jp'"></div>
                                     </div> -->
-                                </div>
                             </div>
                         </div>
+                    </div>
                 </div>
                 <div class="col center">
                     <input class="oraculapp-btn" type="button" value="Entendido" (click)="markAsRead()" />

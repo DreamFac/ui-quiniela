@@ -7,12 +7,11 @@ import { Observable } from "rxjs/Observable";
 import { startWith, delay, tap } from "rxjs/operators";
 import { DashboardActions } from "./dashboard.actions";
 import { EventPredictionDto } from "../../types";
-import { select, NgRedux } from "@angular-redux/store";
+import { select } from "@angular-redux/store";
 import { EventPredictionModel } from "../../models/event-prediction.model";
 import { first } from "lodash";
 import { EventModel } from "../../models/event.model";
 import { PredictionService } from "../../services/prediction.service";
-import { AppState } from "../../store/model";
 import { AuthService } from "../../services/auth.service";
 
 @Component({

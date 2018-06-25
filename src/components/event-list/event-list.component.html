@@ -1,5 +1,20 @@
+<!-- TABS START -->
+<div class="col tabs-container">
+    <div class="col" 
+        *ngFor="let tab of tabs" 
+        [ngClass]="{'isSelected': tab.isSelected}"
+        (click)="selectTab(tab)">
+        <div class="tab">
+            <img class="icon-md circle" [src]="tab.iconUrl" alt="check" />
+            <div class="title">
+                {{tab.title}}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TABS END -->
 <div class="container">
-    <div class="box padded-sm bordered">
+    <div class="box padded-sm bordered" *ngIf="selectedTab.id === 1">
         <div class="flex-grid-row">
             <div class="title">
                 <h3>Mis Predicciones</h3>
@@ -18,8 +33,7 @@
                     <div class="flex-grid-row marginTop">
                         <div class="col">
                             <img *ngIf="item.event.teamA.flag === 'en'" class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
-                            <span *ngIf="item.event.teamA.flag !== 'en'" 
-                                [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
+                            <span *ngIf="item.event.teamA.flag !== 'en'" [ngClass]="'flag-icon flag-icon-' + item.event.teamA.flag"></span>
                         </div>
                         <div class="col-sm t-name">
                             {{ item.event.teamA.name }}
@@ -39,8 +53,7 @@
                     <div class="flex-grid-row marginTop">
                         <div class="col">
                             <img *ngIf="item.event.teamB.flag === 'en'" class="icon-xs left flag-eng" src="../../assets/england.png" alt="eng" />
-                            <span *ngIf="item.event.teamB.flag !== 'en'"   
-                                [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
+                            <span *ngIf="item.event.teamB.flag !== 'en'" [ngClass]="'flag-icon flag-icon-' + item.event.teamB.flag"></span>
                         </div>
                         <div class="col-sm t-name">
                             {{ item.event.teamB.name }}
