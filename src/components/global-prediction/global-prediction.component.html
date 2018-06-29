@@ -11,7 +11,7 @@
     </div>
     <div class="col">
         <div class="row-header container1">
-            <div class="col">
+            <div class="col disabled">
                 <div id="drop1" class="team-places container2" 
                     [dragula]='"bag-one"' 
                     [dragulaModel]='teamsList' >
@@ -29,9 +29,7 @@
                 </div>
             </div>
             <div class="col">
-                    <div id="drop2" class="team-places container2 drag-here" 
-                        [dragula]='"bag-one"' 
-                        [dragulaModel]='pickedList' >
+                    <div id="drop2" class="team-places container2 drag-here">
                         <div class="row-header team2" [ngClass]="{'bg-light': i < 4}"
                             *ngFor='let team of pickedList; let i = index'>
                             <div class="col ranking-result2">
@@ -49,7 +47,6 @@
         </div>
     </div>
     <div class="col-sm padded-xs">
-        <input [ngClass]="{'disabled': !pickedList.length || pickedList.length !== 4 }" 
-            class="oraculapp-btn" type="button" value="Guardar" (click)="save()" />
+        <input class="oraculapp-btn disabled" type="button" value="Guardar" (click)="save()" />
     </div>
 </div>

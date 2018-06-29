@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm center">
+                <div class="col-sm center" *ngIf="item.event.event_type === 1">
                     <div class="flex-grid-row">
                         <div class="col box pick bordered" [ngClass]="{'isPicked': item.event.tie.isPicked}" (click)="pickTie(item)">
                             <div class="vs">
